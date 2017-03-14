@@ -1,7 +1,7 @@
 package com.quick.entity;
 
 /**
- * Created by bd2 on 2017/3/14.
+ * Created by wangxc on 2017/3/14.
  */
 public class Address {
     private int addressId;
