@@ -1,4 +1,3 @@
-import com.quick.spark.WordCountTask;
 import org.junit.Test;
 
 import java.net.URISyntaxException;
