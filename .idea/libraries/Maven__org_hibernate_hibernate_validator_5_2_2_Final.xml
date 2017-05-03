@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.hibernate:hibernate-validator:5.2.2.Final">
     <CLASSES>
-      <root url="jar://D:/repo/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/repo/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/repo/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/repository/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
