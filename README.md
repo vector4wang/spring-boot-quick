@@ -11,4 +11,4 @@ master初始是springboot的空架子，之后dao、service、controller、redis
 - mybatis springboot整合mybatis
 - dl4j 深度学习的相关示例
 - spark springboot整合spark示例
-
+- package-assembly maven 打包示例包含jar的启动与停止脚本(简单粗暴，慎重考虑再使用)
