@@ -20,7 +20,7 @@
         </commentGenerator>
         <!-- 自己修改JDBC的路径 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://rm-uf6368hl62p88mhq0o.mysql.rds.aliyuncs.com:3306/testcase" userId="data"
+                        connectionURL="jdbc:mysql://localhost:3306/testcase" userId="data"
                         password="Rxsj234ff">
         </jdbcConnection>
 
