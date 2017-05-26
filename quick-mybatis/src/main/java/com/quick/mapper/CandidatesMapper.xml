@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.quick.mapper.CandidatesMapper" >
+  <resultMap id="BaseResultMap" type="com.quick.entity.Candidates" >
+    <id column="Id" property="id" jdbcType="VARCHAR" />
+    <result column="Company" property="company" jdbcType="VARCHAR" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="School" property="school" jdbcType="VARCHAR" />
+    <result column="Major" property="major" jdbcType="VARCHAR" />
+    <result column="Degree" property="degree" jdbcType="VARCHAR" />
+    <result column="Location" property="location" jdbcType="VARCHAR" />
+    <result column="YearOfExperience" property="yearofexperience" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.quick.entity.Candidates" extends="BaseResultMap" >
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, Company, Title, School, Major, Degree, Location, YearOfExperience
+  </sql>
+  <sql id="Blob_Column_List" >
+    Content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.quick.entity.CandidatesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xxx_candidates
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.quick.entity.CandidatesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xxx_candidates
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xxx_candidates
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xxx_candidates
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.quick.entity.CandidatesExample" >
+    delete from xxx_candidates
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.quick.entity.Candidates" >
+    insert into xxx_candidates (Id, Company, Title, 
+      School, Major, Degree, 
+      Location, YearOfExperience, Content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{yearofexperience,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.quick.entity.Candidates" >
+    insert into xxx_candidates
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="company != null" >
+        Company,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="school != null" >
+        School,
+      </if>
+      <if test="major != null" >
+        Major,
+      </if>
+      <if test="degree != null" >
+        Degree,
+      </if>
+      <if test="location != null" >
+        Location,
+      </if>
+      <if test="yearofexperience != null" >
+        YearOfExperience,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="yearofexperience != null" >
+        #{yearofexperience,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.quick.entity.CandidatesExample" resultType="java.lang.Integer" >
+    select count(*) from xxx_candidates
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update xxx_candidates
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null" >
+        Company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        Title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        School = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null" >
+        Major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.degree != null" >
+        Degree = #{record.degree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        Location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearofexperience != null" >
+        YearOfExperience = #{record.yearofexperience,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        Content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update xxx_candidates
+    set Id = #{record.id,jdbcType=VARCHAR},
+      Company = #{record.company,jdbcType=VARCHAR},
+      Title = #{record.title,jdbcType=VARCHAR},
+      School = #{record.school,jdbcType=VARCHAR},
+      Major = #{record.major,jdbcType=VARCHAR},
+      Degree = #{record.degree,jdbcType=VARCHAR},
+      Location = #{record.location,jdbcType=VARCHAR},
+      YearOfExperience = #{record.yearofexperience,jdbcType=INTEGER},
+      Content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update xxx_candidates
+    set Id = #{record.id,jdbcType=VARCHAR},
+      Company = #{record.company,jdbcType=VARCHAR},
+      Title = #{record.title,jdbcType=VARCHAR},
+      School = #{record.school,jdbcType=VARCHAR},
+      Major = #{record.major,jdbcType=VARCHAR},
+      Degree = #{record.degree,jdbcType=VARCHAR},
+      Location = #{record.location,jdbcType=VARCHAR},
+      YearOfExperience = #{record.yearofexperience,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quick.entity.Candidates" >
+    update xxx_candidates
+    <set >
+      <if test="company != null" >
+        Company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        School = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        Major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        Degree = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        Location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="yearofexperience != null" >
+        YearOfExperience = #{yearofexperience,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.quick.entity.Candidates" >
+    update xxx_candidates
+    set Company = #{company,jdbcType=VARCHAR},
+      Title = #{title,jdbcType=VARCHAR},
+      School = #{school,jdbcType=VARCHAR},
+      Major = #{major,jdbcType=VARCHAR},
+      Degree = #{degree,jdbcType=VARCHAR},
+      Location = #{location,jdbcType=VARCHAR},
+      YearOfExperience = #{yearofexperience,jdbcType=INTEGER},
+      Content = #{content,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quick.entity.Candidates" >
+    update xxx_candidates
+    set Company = #{company,jdbcType=VARCHAR},
+      Title = #{title,jdbcType=VARCHAR},
+      School = #{school,jdbcType=VARCHAR},
+      Major = #{major,jdbcType=VARCHAR},
+      Degree = #{degree,jdbcType=VARCHAR},
+      Location = #{location,jdbcType=VARCHAR},
+      YearOfExperience = #{yearofexperience,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
