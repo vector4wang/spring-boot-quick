@@ -6,7 +6,7 @@
 
 - CSDN http://blog.csdn.net/qqhjqs?viewmode=contents
 - 简书 http://www.jianshu.com/u/223a1314e818
-- 个人BLOG https://vector4wang.github.io/
+- 个人BLOG http://vector4wang.tk
 
 ### spring-boot-quick
 基于springboot的快速学习示例
