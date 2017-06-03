@@ -16,8 +16,10 @@
 ### 所有分支介绍
 
 - quick-crawler 平时的爬虫
+
  - 领英爬虫
  - 百度搜索领英种子url爬虫和"随机应变"的处理方式
+
 - quick-swagger web接口的规范化示例
 - quick-thread java线程池的示例
 - quick-modules  springboot 模块化开发示例
