@@ -278,7 +278,7 @@ public class CrawlLinkedService {
         } catch (FailingHttpStatusCodeException e) {
             logger.error(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 

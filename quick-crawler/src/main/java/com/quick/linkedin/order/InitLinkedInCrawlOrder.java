@@ -24,12 +24,15 @@ public class InitLinkedInCrawlOrder implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        if(strings.length!=3){
-            logger.error("请以此填写用户名、密码和爬取切入url");
-        }
+//        if(strings.length!=3){
+//            logger.error("请以此填写用户名、密码和爬取切入url");
+//
+//        }
 
         System.out.println("用户名、密码和爬取切入url分别为: " + StringUtils.arrayToDelimitedString(strings,","));
-
-        service.crawlLinkedIn(strings[0],strings[1],strings[2]);
+        for(int i=0;i<strings.length;i++){
+            System.out.println(strings[i]);
+        }
+        service.crawlLinkedIn(strings[0],strings[1],null);
     }
 }
