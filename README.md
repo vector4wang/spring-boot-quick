@@ -6,11 +6,10 @@
 
 - CSDN http://blog.csdn.net/qqhjqs?viewmode=contents
 - 简书 http://www.jianshu.com/u/223a1314e818
-- 个人BLOG http://vector4wang.tk
+- BLOG http://vector4wang.tk
 
 ### spring-boot-quick
 基于springboot的快速学习示例
-
 
 
 ### 所有分支介绍
@@ -27,9 +26,11 @@
 #### quick-spark springboot整合spark示例
 #### quick-package-assembly maven打包示例包含jar的启动与停止脚本(简单粗暴，慎重考虑再使用)
 #### quick-tika apache的文本抽取开源框架，整合到springboot中
+#### quick-ElasticSearch 关于es搜索的相关内容
+     现在在学习Elasticsearch+Logstash+Kibana 后续会有相关博文、和代码示例~
 (后面会持续更新)
 
 
 
 ### 温馨提示
-　　如果您自己想尝试着运行，可以将其clone到本地，直接`mvn clean install` 就行了，如果有疑问请发邮件到**vector4wang@qq.com**
+　　如果您自己想尝试着运行，可以将其clone到本地，直接`mvn clean install` 就行了，如果有对爬虫有相关业务上的需求或其他疑问请发邮件到**vector4wang@qq.com**
