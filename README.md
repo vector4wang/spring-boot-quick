@@ -28,6 +28,11 @@
 #### quick-tika apache的文本抽取开源框架，整合到springboot中
 #### quick-ElasticSearch 关于es搜索的相关内容
      现在在学习Elasticsearch+Logstash+Kibana 后续会有相关博文、和代码示例~
+#### quick-img2txt 图片与文字转换的程序示例
+- 文字转换成图片
+- 图片转换为txt，可作为一些程序启动的注释，如佛祖注释，spring启动注释，等等，可以根据你输入的图片制作(背景一定要为白色)，如
+![转换前](https://ooo.0o0.ooo/2017/06/11/593c2a4b6be24.jpg)
+![转换后](hhttps://ooo.0o0.ooo/2017/06/11/593c2a4b4980f.jpg)
 (后面会持续更新)
 
 
