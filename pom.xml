@@ -18,6 +18,7 @@
         <module>quick-package-assembly</module>
         <module>quick-tika</module>
         <module>quick-ElasticSearch</module>
+        <module>quick-img2txt</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
