@@ -13,7 +13,6 @@
         <module>quick-crawler</module>
         <module>quick-modules</module>
         <module>quick-mybatis</module>
-        <module>quick-dl4j</module>
         <module>quick-spark</module>
         <module>quick-package-assembly</module>
         <module>quick-tika</module>
