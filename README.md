@@ -62,7 +62,8 @@ apache的文本抽取开源框架，整合到springboot中
 ![转换后](https://ooo.0o0.ooo/2017/06/11/593c2a4b4980f.jpg)
 -  **验证码识别** 使用easyocr(项目地址)提供的api接口，可以识别验证码，这简直是小虫子的福利，就问你怕不怕!
 
-
+### quick-batch 
+spring下的批量处理大数据模块，这里是从mysql里读取然后再写入mysql中，可以借鉴下，来源https://github.com/geekyjaat/spring-batch
 
 
 ---

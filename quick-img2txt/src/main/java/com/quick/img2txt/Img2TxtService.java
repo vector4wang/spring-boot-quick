@@ -13,11 +13,12 @@ import java.io.IOException;
 public class Img2TxtService {
 
         public static String toChar = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:, ^`'. ";
-        public static int width = 50, height = 50; // 大小自己可设置
+        public static int width = 150, height = 50; // 大小自己可设置
 
         public static void main(String[] args) throws IOException {
             File file = ResourceUtils.getFile("classpath:spider.jpg");
-            img2txt(file);
+            File temfile = new File("C:\\Users\\bd2\\Desktop\\sb.png");
+            img2txt(temfile);
         }
 
     private static void img2txt(File file) throws IOException {

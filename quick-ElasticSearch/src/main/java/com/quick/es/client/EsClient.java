@@ -35,23 +35,24 @@ public class EsClient {
             // TODO
 //            createMapping();
 //            createIndex();
-//            search();
-            ESClientConfig.getClient();
-            for(int i=0; i<10000; i++){
+            search();
 
-                System.out.println("==================================================================================================");
-                List<IndustryPosition> industryPositions = new ArrayList<>();
-                industryPositions.add(new IndustryPosition("","java"));
-                industryPositions.add(new IndustryPosition("","android"));
-                industryPositions.add(new IndustryPosition("","ios"));
-                industryPositions.add(new IndustryPosition("","c++"));
-                industryPositions.add(new IndustryPosition("","javascript"));
-                industryPositions.add(new IndustryPosition("","产品"));
-                long start = System.currentTimeMillis();
-                qualityResume(industryPositions, "中软", null).forEach(item-> System.out.println(item.toString()));
-                long end = System.currentTimeMillis();
-                System.out.println("耗时" + (double) (end - start) / 1000 + "s。");
-            }
+//            ESClientConfig.getClient();
+//            for(int i=0; i<10000; i++){
+//
+//                System.out.println("==================================================================================================");
+//                List<IndustryPosition> industryPositions = new ArrayList<>();
+//                industryPositions.add(new IndustryPosition("","java"));
+//                industryPositions.add(new IndustryPosition("","android"));
+//                industryPositions.add(new IndustryPosition("","ios"));
+//                industryPositions.add(new IndustryPosition("","c++"));
+//                industryPositions.add(new IndustryPosition("","javascript"));
+//                industryPositions.add(new IndustryPosition("","产品"));
+//                long start = System.currentTimeMillis();
+//                qualityResume(industryPositions, "中软", null).forEach(item-> System.out.println(item.toString()));
+//                long end = System.currentTimeMillis();
+//                System.out.println("耗时" + (double) (end - start) / 1000 + "s。");
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +92,7 @@ public class EsClient {
 
     }
 
-    public static List<String> qualityResume(List<IndustryPosition> industryPositions, String company, String address) throws UnknownHostException {
+    public static List<String> qualityResume(List<IndustryPosition> industryPositions, String company, int address) throws UnknownHostException {
 
         List<String> result = new ArrayList<>();
         int size = industryPositions.size();
@@ -159,16 +160,14 @@ public class EsClient {
         return result;
     }
 
-    public static List<String> getSearchResult(String title,String company,String address,int length) throws UnknownHostException {
+    public static List<String> getSearchResult(String title,String company,int location_id,int length) throws UnknownHostException {
         List<String> result = new ArrayList<>();
         SearchResponse scrollResp = ESClientConfig.getClient()
                 .prepareSearch("data_quality_resume")
                 .setTypes("resume") //
                 .setQuery(QueryBuilders.boolQuery()
                         .must(QueryBuilders.matchQuery("title", title))
-//                        .must(QueryBuilders.matchQuery("degree", "本科"))
-                        .mustNot(QueryBuilders.matchQuery("company", company)))
-//                        .must(QueryBuilders.rangeQuery("year_of_experience").gte(2).lte(11)))
+                        .must(QueryBuilders.termQuery("location_id", 432)))
                 .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
                 .setSize(length).get();
         SearchHits searchHits = scrollResp.getHits();
@@ -225,29 +224,14 @@ public class EsClient {
                 .setQuery(QueryBuilders.boolQuery()
                         .must(QueryBuilders.matchQuery("title", "java"))
 //                        .must(QueryBuilders.rangeQuery("year_of_experience").gte(2).lte(11))
-                        .mustNot(QueryBuilders.matchQuery("company", "秦皇岛易达软件有限公司")))
-                .setSize(2)
-                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
+                        .must(QueryBuilders.matchQuery("location_id", 432)))
+                .setSize(20)
+//                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
                 .get();
-        SearchResponse scrollResp2 = client
-                .prepareSearch("data_quality_resume")
-                .setTypes("resume") //
-                .setQuery(QueryBuilders.boolQuery()
-                        .must(QueryBuilders.matchQuery("title", "ios")))
-                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
-                .setSize(2).get();
-        SearchResponse scrollResp3 = client
-                .prepareSearch("data_quality_resume")
-                .setTypes("resume") //
-                .setQuery(QueryBuilders.boolQuery()
-                        .must(QueryBuilders.matchQuery("title", "android")))
-                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
-                .setSize(2).get();
+
 
 
         SearchHits searchHits1 = scrollResp1.getHits();
-        SearchHits searchHits2 = scrollResp2.getHits();
-        SearchHits searchHits3 = scrollResp3.getHits();
         long end = System.currentTimeMillis();
         //共搜到:" + searchHits.getTotalHits() + "条结果!共
         System.out.println("耗时" + (double) (end - start) / 1000 + "s。");
@@ -255,17 +239,6 @@ public class EsClient {
         for (SearchHit hit : searchHits1) {
             System.out.println(hit.getSourceAsString());
         }
-        System.out.println("++++++++++++++++++++++++++");
-        for (SearchHit hit : searchHits2) {
-            System.out.println(hit.getSourceAsString());
-        }
-        System.out.println("++++++++++++++++++++++++++");
-        for (SearchHit hit : searchHits3) {
-            System.out.println(hit.getSourceAsString());
-        }
-//        System.out.println(searchHits1.toString());
-//        System.out.println(searchHits2.toString());
-//        System.out.println(searchHits3.toString());
 
     }
 

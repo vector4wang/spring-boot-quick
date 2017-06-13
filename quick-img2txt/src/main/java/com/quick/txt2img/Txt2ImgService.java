@@ -16,7 +16,7 @@ public class Txt2ImgService {
 
     public static void main(String[] args) {
         try {
-            txt2img("试试看",new File("D:\\test.png"));
+            txt2img("SpringBoot-ES",new File("D:\\test.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
