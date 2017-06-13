@@ -15,16 +15,16 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
-import org.springframework.batch.item.database.ItemPreparedStatementSetter;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
-import org.springframework.batch.item.database.JdbcCursorItemReader;
+import org.springframework.batch.item.database.*;
+import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableBatchProcessing
@@ -34,6 +34,21 @@ public class BatchConfiguration {
 
     @Bean
     public ItemReader<RecordSO> reader(DataSource dataSource) {
+
+        /**
+         *  mysql 分页查询
+         *  JdbcPagingItemReader<DataQualityResume> reader = new JdbcPagingItemReader<>();
+         *  MySqlPagingQueryProvider queryProvider = new MySqlPagingQueryProvider();
+         *  queryProvider.setSelectClause("select *");
+         *  queryProvider.setFromClause("from data_quality_resume");
+         *  Map<String,Order> keys = new HashMap<>();
+         *  keys.put("created",Order.DESCENDING);
+         *  queryProvider.setSortKeys(keys);
+         *  reader.setQueryProvider(queryProvider);
+         *  reader.setPageSize(10000);
+         *  reader.setDataSource(dataSource);
+         */
+
         JdbcCursorItemReader<RecordSO> reader = new JdbcCursorItemReader<>();
         reader.setSql("select id, firstName, lastname, random_num from reader");
         reader.setDataSource(dataSource);
