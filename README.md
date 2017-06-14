@@ -65,6 +65,8 @@ apache的文本抽取开源框架，整合到springboot中
 ### quick-batch 
 spring下的批量处理大数据模块，这里是从mysql里读取然后再写入mysql中，可以借鉴下，来源https://github.com/geekyjaat/spring-batch
 
+### quick-rabbit
+rabbit模块
 
 ---
 
