@@ -20,7 +20,9 @@
 - 百度搜索领英种子url爬虫和"随机应变"的处理方式
 
 #### quick-swagger 
-web接口的规范化示例
+
+ - web接口的规范化示例
+ - 添加了当传递参数为对象时，如何使用swagger注解
 
 
 #### quick-thread 

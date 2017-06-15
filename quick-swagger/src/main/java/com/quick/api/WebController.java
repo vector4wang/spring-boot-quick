@@ -2,14 +2,12 @@ package com.quick.api;
 
 
 import com.quick.po.Address;
+import com.quick.po.ParaModel;
 import com.quick.utils.BaseResp;
 import com.quick.utils.ResultStatus;
 import io.swagger.annotations.*;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +84,15 @@ public class WebController {
         lists.add(address);
         return new BaseResp(ResultStatus.SUCCESS,lists);
 
+    }
+
+    @ApiOperation("获取地址信息(参数体)")
+    @ApiResponses({
+            @ApiResponse(code=400,message="请求参数没填好"),
+            @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
+    })
+    @RequestMapping(value = "/address/area/list",method = RequestMethod.POST)
+    public BaseResp<String> getAddressList(@RequestBody ParaModel paraModel){
+        return new BaseResp(ResultStatus.SUCCESS,paraModel.toString());
     }
 }
