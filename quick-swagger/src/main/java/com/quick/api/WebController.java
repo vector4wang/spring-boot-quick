@@ -95,4 +95,23 @@ public class WebController {
     public BaseResp<String> getAddressList(@RequestBody ParaModel paraModel){
         return new BaseResp(ResultStatus.SUCCESS,paraModel.toString());
     }
+
+    @ApiOperation("获取地址信息(路径传参)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType="path",name="area",dataType="String",required=true,value="区域",defaultValue="南山区"),
+            @ApiImplicitParam(paramType="path",name="number",dataType="String",required=true,value="门牌号",defaultValue="9527")
+    })
+    @ApiResponses({
+            @ApiResponse(code=400,message="请求参数没填好"),
+            @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
+    })
+    @RequestMapping(value = "/address/{area}/{number}",method = RequestMethod.GET)
+    public BaseResp<String> getAddress(@PathVariable("area")String area,@PathVariable("number")String number){
+        Address address = new Address();
+        address.setProvince("广东省");
+        address.setArea(area);
+        address.setStreet("桃园街道");
+        address.setNum(number);
+        return new BaseResp(ResultStatus.SUCCESS,address.toString());
+    }
 }

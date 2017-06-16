@@ -19,7 +19,6 @@
         <module>quick-ElasticSearch</module>
         <module>quick-img2txt</module>
         <module>quick-batch</module>
-        <module>rabbitmq</module>
         <module>quick-rabbitmq</module>
     </modules>
     <packaging>pom</packaging>

@@ -35,6 +35,8 @@ public class CrawlLinkedService {
 
 
     public void crawlLinkedIn(String name, String password, String pointUrl) {
+
+        
         String url = "https://www.linkedin.com/uas/login";
         String perUrl = "http://www.linkedin.com/in";
 
