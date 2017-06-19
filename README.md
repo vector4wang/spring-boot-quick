@@ -42,8 +42,10 @@ springboot整合spark示例
 
 
 ## quick-package-assembly 
-maven打包示例包含jar的启动与停止脚本(简单粗暴，慎重考虑再使用)
 
+- maven打包示例包含jar的启动与停止脚本(简单粗暴，慎重考虑再使用)
+- 使用assembly打包mybatis产生的xml时，可将对应mapperxml文件放在resources文件，然后再application.properties里配置对应路径，如
+ `mybatis.mapperLocations=classpath:mapper/*.xml` 这里需要注意一下
 
 ## quick-tika 
 apache的文本抽取开源框架，整合到springboot中

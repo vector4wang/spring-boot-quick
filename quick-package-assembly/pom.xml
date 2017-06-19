@@ -16,6 +16,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <properties>
+        <mysql.version>5.1.30</mysql.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,7 +44,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
         <dependency>
@@ -52,7 +65,30 @@
 
     </dependencies>
     <build>
+
+
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -69,7 +105,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.com.quick.Application</mainClass>
+                            <mainClass>com.quick.Application</mainClass>
                             <!-- to create a class path to your dependecies you have to fill true in this field -->
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>

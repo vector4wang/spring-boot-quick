@@ -4,11 +4,16 @@ package com.quick.es.client;
 import com.quick.es.config.ESClientConfig;
 import com.quick.es.entity.IndustryPosition;
 import com.quick.es.util.DataFactory;
+import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Requests;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -21,161 +26,125 @@ import org.elasticsearch.search.sort.SortBuilders;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+
 public class EsClient {
 
-    public final static String INDEX = "testcase2";
-    public final static String TYPE = "candidates";
+    public final static String INDEX = "world";
+    public final static String TYPE = "city";
 
     public static void main(String[] args) {
         try {
-//            createCluterName(INDEX);
-            // TODO
-//            createMapping();
-//            createIndex();
-            search();
+            // 连接ES
+            //connectionES();
 
-//            ESClientConfig.getClient();
-//            for(int i=0; i<10000; i++){
-//
-//                System.out.println("==================================================================================================");
-//                List<IndustryPosition> industryPositions = new ArrayList<>();
-//                industryPositions.add(new IndustryPosition("","java"));
-//                industryPositions.add(new IndustryPosition("","android"));
-//                industryPositions.add(new IndustryPosition("","ios"));
-//                industryPositions.add(new IndustryPosition("","c++"));
-//                industryPositions.add(new IndustryPosition("","javascript"));
-//                industryPositions.add(new IndustryPosition("","产品"));
-//                long start = System.currentTimeMillis();
-//                qualityResume(industryPositions, "中软", null).forEach(item-> System.out.println(item.toString()));
-//                long end = System.currentTimeMillis();
-//                System.out.println("耗时" + (double) (end - start) / 1000 + "s。");
-//            }
+            // 创建索引 curl -XPUT 'localhost:9200/customer?pretty'
+            // createIndex();
+
+            // 创建mapping
+//             createMapping();
+
+            // 插入数据
+//             putDocument();
+
+            // 查询
+//            search();
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void createMapping() {
-        XContentBuilder mapping = null;
-        try {
-            mapping = XContentFactory.jsonBuilder()
-                    .startObject()
-                    .field("properties")
-                    .startObject()
-                    .field("resume_id").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .field("address").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .field("created").startObject().field("index", "not_analyzed").field("type", "date").endObject()
-                    .field("mobile").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .field("real_name").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .field("type").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .field("year_of_experience").startObject().field("index", "not_analyzed").field("type", "integer").endObject()
-                    .field("content").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .field("company").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .field("updated").startObject().field("index", "not_analyzed").field("type", "date").endObject()
-                    .field("title").startObject().field("index", "not_analyzed").field("type", "string").endObject()
-                    .endObject()
-                    .endObject();
+    private static void putDocument() throws IOException {
 
-            PutMappingRequest source = Requests.putMappingRequest(INDEX).type(TYPE).source(mapping);
-            TransportClient client = ESClientConfig.getClient();
-            client.admin().indices().putMapping(source).actionGet();
-            client.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        TransportClient client = ESClientConfig.getClient();
+        BulkRequestBuilder bulkRequest = client.prepareBulk();
+        bulkRequest.add(client.prepareIndex(INDEX, TYPE, "1")
+                .setSource(jsonBuilder()
+                        .startObject()
+                            .field("id", "1")
+                            .field("name", "Kabul")
+                            .field("countryCode", "AFG")
+                            .field("district", "Kabol")
+                            .field("population", "1780000")
+                            .field("insertDate", new Date())
+                        .endObject())
+                );
+        BulkResponse bulkResponse = bulkRequest.get();
+        if (bulkResponse.hasFailures()) {
+            // process failures by iterating through each bulk response item
+            System.out.println("插入失败");
         }
 
+    }
+
+    private static void connectionES() throws UnknownHostException {
+        TransportClient client = ESClientConfig.getClient();
+        System.out.println(client.connectedNodes().size());
+    }
+
+    private static void createMapping() throws IOException {
+        TransportClient client = ESClientConfig.getClient();
+        XContentBuilder xContentBuilder = jsonBuilder()
+                .startObject()
+                .field("properties")
+                .startObject()
+                .field("id").startObject().field("type", "integer").endObject()
+                .field("name").startObject().field("type", "text").endObject()
+                .field("countryCode").startObject().field("type", "text").endObject()
+                .field("district").startObject().field("type", "text").endObject()
+                .field("population").startObject().field("type", "integer").endObject()
+                .field("insertDate").startObject().field("type", "date").endObject()
+
+                .endObject()
+                .endObject();
+        PutMappingResponse putMappingResponse = client.admin().indices()
+                .preparePutMapping(INDEX)
+                .setType("city2")
+                .setSource(xContentBuilder)
+                .get();
+
+//        .setSource("{\n" +
+//                "    \"city\": {\n" +
+//                "      \"_all\": {\n" +
+//                "        \"enabled\": false\n" +
+//                "      },\n" +
+//                "      \"properties\": {\n" +
+//                "        \"id\": {\n" +
+//                "          \"type\": \"integer\"\n" +
+//                "        },\n" +
+//                "        \"name\": {\n" +
+//                "          \"type\": \"text\"\n" +
+//                "        },\n" +
+//                "        \"countryCode\": {\n" +
+//                "          \"type\": \"text\"\n" +
+//                "        },\n" +
+//                "        \"district\": {\n" +
+//                "          \"type\": \"text\"\n" +
+//                "        },\n" +
+//                "        \"population\": {\n" +
+//                "          \"type\": \"integer\"\n" +
+//                "        },\n" +
+//                "        \"insertDate\": {\n" +
+//                "          \"type\": \"date\"\n" +
+//                "        }\n" +
+//                "      }\n" +
+//                "    }\n" +
+//                "  }")
+
+
+        System.out.println(xContentBuilder.string());
+
 
     }
 
-    public static List<String> qualityResume(List<IndustryPosition> industryPositions, String company, int address) throws UnknownHostException {
 
-        List<String> result = new ArrayList<>();
-        int size = industryPositions.size();
-        if(size==1){
-            IndustryPosition industryPosition = industryPositions.get(0);
-            result = getSearchResult(industryPosition.getPosition(), company, address, 5);
-        }else if(size==2){
-            IndustryPosition industryPosition = industryPositions.get(0);
-            List<String> searchResult = getSearchResult(industryPosition.getPosition(), company, address, 3);
-            IndustryPosition industryPosition1 = industryPositions.get(1);
-            List<String> searchResult1 = getSearchResult(industryPosition1.getPosition(), company, address, 2);
-            result.addAll(searchResult);
-            result.addAll(searchResult1);
-        }else if(size==3){
-            IndustryPosition industryPosition = industryPositions.get(0);
-            List<String> searchResult = getSearchResult(industryPosition.getPosition(), company, address, 3);
-            IndustryPosition industryPosition1 = industryPositions.get(1);
-            List<String> searchResult1 = getSearchResult(industryPosition1.getPosition(), company, address, 1);
-            IndustryPosition industryPosition2 = industryPositions.get(2);
-            List<String> searchResult2 = getSearchResult(industryPosition2.getPosition(), company, address, 1);
-            result.addAll(searchResult);
-            result.addAll(searchResult1);
-            result.addAll(searchResult2);
-        }else if(size==4){
-            IndustryPosition industryPosition = industryPositions.get(0);
-            List<String> searchResult = getSearchResult(industryPosition.getPosition(), company, address, 2);
-            IndustryPosition industryPosition1 = industryPositions.get(1);
-            List<String> searchResult1 = getSearchResult(industryPosition1.getPosition(), company, address, 1);
-            IndustryPosition industryPosition2 = industryPositions.get(2);
-            List<String> searchResult2 = getSearchResult(industryPosition2.getPosition(), company, address, 1);
-            IndustryPosition industryPosition3 = industryPositions.get(3);
-            List<String> searchResult3 = getSearchResult(industryPosition3.getPosition(), company, address, 1);
-            result.addAll(searchResult);
-            result.addAll(searchResult1);
-            result.addAll(searchResult2);
-            result.addAll(searchResult3);
-        }else if (size>=5){
-            IndustryPosition industryPosition = industryPositions.get(0);
-            List<String> searchResult = getSearchResult(industryPosition.getPosition(), company, address, 1);
-            IndustryPosition industryPosition1 = industryPositions.get(1);
-            List<String> searchResult1 = getSearchResult(industryPosition1.getPosition(), company, address, 1);
-            IndustryPosition industryPosition2 = industryPositions.get(2);
-            List<String> searchResult2 = getSearchResult(industryPosition2.getPosition(), company, address, 1);
-
-            List<Integer> temp = new ArrayList<>();
-            for(int i=0;i<1000;i++){
-                int i1 = new Random().nextInt(size);
-                if(i1>2){
-                    temp.add(i1);
-                    if(temp.size()>=2)break;
-                }
-            }
-
-            IndustryPosition industryPosition11 = industryPositions.get(temp.get(0));
-            List<String> searchResult11 = getSearchResult(industryPosition11.getPosition(), company, address, 1);
-            IndustryPosition industryPosition22 = industryPositions.get(temp.get(1));
-            List<String> searchResult22 = getSearchResult(industryPosition22.getPosition(), company, address, 1);
-            result.addAll(searchResult);
-            result.addAll(searchResult1);
-            result.addAll(searchResult2);
-            result.addAll(searchResult11);
-            result.addAll(searchResult22);
-        }else{}
-
-        return result;
-    }
-
-    public static List<String> getSearchResult(String title,String company,int location_id,int length) throws UnknownHostException {
-        List<String> result = new ArrayList<>();
-        SearchResponse scrollResp = ESClientConfig.getClient()
-                .prepareSearch("data_quality_resume")
-                .setTypes("resume") //
-                .setQuery(QueryBuilders.boolQuery()
-                        .must(QueryBuilders.matchQuery("title", title))
-                        .must(QueryBuilders.termQuery("location_id", 432)))
-                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
-                .setSize(length).get();
-        SearchHits searchHits = scrollResp.getHits();
-        for(SearchHit item:searchHits){
-            result.add(item.getSourceAsString());
-        }
-        return result;
-    }
 
     public static void createCluterName(String indices) {
         TransportClient client = null;
@@ -219,16 +188,13 @@ public class EsClient {
 
 
         SearchResponse scrollResp1 = client
-                .prepareSearch("data_quality_resume")
-                .setTypes("resume") //
+                .prepareSearch(INDEX)
+                .setTypes(TYPE) //
                 .setQuery(QueryBuilders.boolQuery()
-                        .must(QueryBuilders.matchQuery("title", "java"))
-//                        .must(QueryBuilders.rangeQuery("year_of_experience").gte(2).lte(11))
-                        .must(QueryBuilders.matchQuery("location_id", 432)))
-                .setSize(20)
-//                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
+                        .must(QueryBuilders.termQuery("name", "Kabul")))
+//                        .must(QueryBuilders.matchQuery("location_id", 432)))
+                .setSize(1)
                 .get();
-
 
 
         SearchHits searchHits1 = scrollResp1.getHits();
@@ -244,15 +210,8 @@ public class EsClient {
 
     private static void createIndex() throws UnknownHostException {
         TransportClient client = ESClientConfig.getClient();
-
-        // 创建索引和文档
-        List<String> jsonData = DataFactory.getInitJsonData();
-        for (int i = 0; i < jsonData.size(); i++) {
-            IndexResponse indexResponse = client.prepareIndex("world", "city").setSource(jsonData.get(i)).get();
-            System.out.println(indexResponse.status().name());
-        }
-//            GetResponse response = client.prepareGet("testcase", "candidates", "00176455-5a00-48b0-9e8d-a6a3011d470d").execute().actionGet();
-//            System.out.println(response.getSourceAsString());
+        CreateIndexResponse createIndexResponse = client.admin().indices().prepareCreate("world").execute().actionGet();
+        System.out.println(createIndexResponse.isShardsAcked());
         client.close();
     }
 
