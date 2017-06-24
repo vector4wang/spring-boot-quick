@@ -14,6 +14,11 @@
 
 ## 所有分支介绍
 
+## quick-idea
+
+- 自己用idea的配置
+- ignore的模板
+
 ## quick-crawler 平时的爬虫
 
 - 领英爬虫
@@ -46,6 +51,9 @@ springboot整合spark示例
 - maven打包示例包含jar的启动与停止脚本(简单粗暴，慎重考虑再使用)
 - 使用assembly打包mybatis产生的xml时，可将对应mapperxml文件放在resources文件，然后再application.properties里配置对应路径，如
  `mybatis.mapperLocations=classpath:mapper/*.xml` 这里需要注意一下
+
+## quick-package-assembly-multi-env
+程序 依赖包 分开化的多环境部署
 
 ## quick-tika 
 apache的文本抽取开源框架，整合到springboot中
@@ -85,3 +93,5 @@ rabbit模块
 
 ### 温馨提示
 　　如果您自己想在本地跑一跑，可以将其checkout到本地，直接`mvn clean install -U` 就ok了，如果您只想运行某个模块，直接复制配置文件和代码就ok了，如果有对爬虫有相关业务上的需求或其他疑问请发邮件到**vector4wang@qq.com**
+
+欢迎star和fork
