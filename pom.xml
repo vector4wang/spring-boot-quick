@@ -22,6 +22,7 @@
         <module>quick-rabbitmq</module>
         <module>quick-multi-data</module>
         <module>quick-package-assembly-multi-env</module>
+        <module>quick-exception</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>

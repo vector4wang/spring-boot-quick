@@ -8,6 +8,30 @@
 - 简书 http://www.jianshu.com/u/223a1314e818
 - BLOG http://vector4wang.tk
 
+```bash
+.
+├── pom.xml
+├── quick-batch
+├── quick-crawler
+├── quick-ElasticSearch
+├── quick-exception
+├── quick-idea
+├── quick-img2txt
+├── quick-modules
+├── quick-multi-data
+├── quick-mybatis
+├── quick-package-assembly
+├── quick-package-assembly-multi-env
+├── quick-rabbitmq
+├── quick-spark
+├── quick-swagger
+├── quick-thread
+├── quick-tika
+├── README.md
+└── spring-boot-quick.iml
+
+```
+
 ## spring-boot-quick
 基于springboot的快速学习示例
 
@@ -84,6 +108,10 @@ spring下的批量处理大数据模块，这里是从mysql里读取然后再写
 ## quick-rabbit
 
 rabbit模块
+
+## quick-exception
+
+springboot下统一处理异常方法，即，在请求没到达对应controller报错之后的处理方法，比如404,400和500错误，此处返回的是json字符串，页面的暂时没有
 
 ---
 
