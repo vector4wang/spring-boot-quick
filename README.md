@@ -17,6 +17,7 @@
 ├── quick-exception
 ├── quick-idea
 ├── quick-img2txt
+├── quick-log
 ├── quick-modules
 ├── quick-multi-data
 ├── quick-mybatis
@@ -29,6 +30,7 @@
 ├── quick-tika
 ├── README.md
 └── spring-boot-quick.iml
+
 
 ```
 
@@ -114,8 +116,10 @@ rabbit模块
 springboot下统一处理异常方法，即，在请求没到达对应controller报错之后的处理方法，比如404,400和500错误，此处返回的是json字符串，页面的暂时没有
 
 ## quick-log
+
 使用log4j2作为日志体系。主要实现的功能
 控制台输出的是error日志，但是日志文件里存的是info和error日志，并且按年月日生成对应日志文件
+
 ---
 
 (后面会持续更新)
