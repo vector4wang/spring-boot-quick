@@ -20,10 +20,12 @@ public class LoggerService {
 
     @PostConstruct
     public void showLog() {
-        for (int i = 0; i < 10000; i++) {
-            logger.info("我是INFO日志");
+        for (int i = 0; i < 10; i++) {
             logger.debug("我是DEBUG日志");
+            logger.info("我是INFO日志");
+            logger.warn("我是WARN日志");
             logger.error("我是ERROR日志");
+            logger.fatal("我是FATAL日志");
         }
     }
 
