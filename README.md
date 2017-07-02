@@ -119,6 +119,7 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 
 使用log4j2作为日志体系。主要实现的功能
 控制台输出的是error日志，但是日志文件里存的是info和error日志，并且按年月日生成对应日志文件
+控制台颜色输出插件:Grep console
 
 ---
 
