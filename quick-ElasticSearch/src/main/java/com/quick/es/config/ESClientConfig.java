@@ -24,7 +24,7 @@ public class ESClientConfig {
             Settings settings = Settings.builder()
                     .put("cluster.name", "data_es").build();
             transportClient = new PreBuiltTransportClient(settings)
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("106.15.45.31"), 9300));
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("120.55.168.18"), 8830));
 
         }
         return transportClient;
