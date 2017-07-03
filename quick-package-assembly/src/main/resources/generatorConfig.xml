@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 自己修改jar的路径 -->
+    <!--<classPathEntry location="mysql-connector-java-5.1.20.jar" />-->
+
+    <context id="MySqlTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 分页插件 -->
+<!--
+        <plugin type="MysqlPaginationPlugin"/>
+-->
+
+        <!-- 关闭注解信息 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 自己修改JDBC的路径 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/world" userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- model的配置 -->
+        <javaModelGenerator targetPackage="com.quick.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- mybatis的xml的配置 -->
+        <sqlMapGenerator targetPackage="com.quick.mapper"
+                         targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- mapper的配置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.quick.mapper" targetProject="src/main/java/">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!--<table tableName="dict_company" domainObjectName="CompanyInnoTree" >-->
+            <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="dict_school" domainObjectName="School" >-->
+            <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+        <!--</table>-->
+        <table tableName="city" domainObjectName="City" >
+            <generatedKey column="actor_id" sqlStatement="JDBC" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

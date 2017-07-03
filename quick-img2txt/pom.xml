@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j</artifactId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,27 +38,22 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
 
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/net.sf.json-lib/json-lib &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>net.sf.json-lib</groupId>-->
-            <!--<artifactId>json-lib</artifactId>-->
-            <!--<version>2.4</version>-->
-            <!--<classifier>jdk15</classifier>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-swagger2</artifactId>-->
-            <!--<version>${swagger.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-swagger-ui</artifactId>-->
-            <!--<version>${swagger.version}</version>-->
-        <!--</dependency>-->
-
-        <!---->
 
         <!-- https://mvnrepository.com/artifact/cn.easyproject/easyocr -->
         <dependency>
