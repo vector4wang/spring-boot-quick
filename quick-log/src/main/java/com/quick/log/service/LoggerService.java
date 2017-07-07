@@ -20,7 +20,7 @@ public class LoggerService {
 
     private Logger logger = LogManager.getLogger(LoggerService.class);
 
-    @PostConstruct
+//    @PostConstruct
     public void showLog() {
 //        for (int i = 0; i < 10; i++) {
             logger.debug("我是DEBUG日志");
