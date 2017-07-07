@@ -2,6 +2,7 @@ package com.quick;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @Author: wangxc
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @wxid: BMHJQS
  */
 @SpringBootApplication
+//@EnableWebMvc
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);

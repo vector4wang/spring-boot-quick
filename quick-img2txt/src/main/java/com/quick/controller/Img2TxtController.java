@@ -40,7 +40,7 @@ public class Img2TxtController {
     @Resource
     private Img2TxtService img2TxtService;
 
-    @RequestMapping(value = "/2txt",method = RequestMethod.GET)
+    @RequestMapping(value = "/txt",method = RequestMethod.GET)
     public String toPage(){
         return "img2txt";
     }
@@ -53,7 +53,6 @@ public class Img2TxtController {
             // 支持jpg、png
             if(originalFilename.endsWith("jpg")||originalFilename.endsWith("png")){
                 File outFile = img2TxtService.save(file.getBytes(), originalFilename);
-
                 HttpHeaders headers = new HttpHeaders();
                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
                 headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", outFile.getName()));
@@ -72,5 +71,4 @@ public class Img2TxtController {
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
-
 }
