@@ -21,7 +21,7 @@ public class SimulationClient {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setUsername("guest");
             factory.setPassword("guest");
-            factory.setHost("localhost");
+            factory.setHost("60.205.191.82");
             factory.setPort(5672);
             Connection conn = factory.newConnection();
             Channel channel = conn.createChannel();

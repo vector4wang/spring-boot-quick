@@ -1,4 +1,4 @@
-package com.quick.mq.recive;
+package com.quick.mq.scenes.single;
 
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -7,16 +7,17 @@ import org.springframework.stereotype.Component;
 /**
  * Created with IDEA
  * User: vector
- * Data: 2017/6/14
- * Time: 19:39
+ * Data: 2017/7/7
+ * Time: 16:42
  * Description:
  */
 @Component
-@RabbitListener(queues = "update")
-public class UpdateReceiver {
+@RabbitListener(queues = "helloQueue")
+public class HelloReceiver1 {
 
     @RabbitHandler
-    public void process(String msg) {
-        System.out.println("更新接受者 : " + msg);
+    public void process(String hello) {
+        System.out.println("Receiver1  : " + hello);
     }
+
 }
