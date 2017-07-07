@@ -55,6 +55,11 @@
             <artifactId>jstl</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/cn.easyproject/easyocr -->
         <dependency>

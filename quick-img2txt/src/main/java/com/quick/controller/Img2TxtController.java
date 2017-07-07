@@ -1,9 +1,6 @@
 package com.quick.controller;
 
 import com.quick.img2txt.Img2TxtService;
-import com.quick.util.BaseResp;
-import com.quick.util.ResultStatus;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.InputStreamResource;
@@ -40,9 +37,14 @@ public class Img2TxtController {
     @Resource
     private Img2TxtService img2TxtService;
 
+<<<<<<< HEAD
     @RequestMapping(value = "/txt",method = RequestMethod.GET)
+=======
+    @RequestMapping(value = "/hello",method = RequestMethod.GET)
+>>>>>>> fa1270b11b3afb114b5a3d432dbb340fde8d7c55
     public String toPage(){
-        return "img2txt";
+
+        return "index";
     }
 
     @RequestMapping(value = "/img2txt",method = RequestMethod.POST)

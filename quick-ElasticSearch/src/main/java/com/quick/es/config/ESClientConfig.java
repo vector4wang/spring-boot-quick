@@ -22,9 +22,9 @@ public class ESClientConfig {
     public static TransportClient getClient() throws UnknownHostException {
         if(transportClient==null){
             Settings settings = Settings.builder()
-                    .put("cluster.name", "elasticsearch").build();
+                    .put("cluster.name", "data_es").build();
             transportClient = new PreBuiltTransportClient(settings)
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.174.128"), 9300));
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("120.55.168.18"), 8830));
 
         }
         return transportClient;
