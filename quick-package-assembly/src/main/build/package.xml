@@ -15,15 +15,6 @@
         <fileSet>
             <directory>src/main/resources</directory>
             <outputDirectory>/</outputDirectory>
-            <!--需要多环境配置的文件-->
-            <excludes>
-                <exclude>application.properties</exclude>
-            </excludes>
-        </fileSet>
-        <!--多环境配置-->
-        <fileSet>
-            <directory>src/main/resources/env/${env}/</directory>
-            <outputDirectory>/</outputDirectory>
         </fileSet>
 
         <fileSet>

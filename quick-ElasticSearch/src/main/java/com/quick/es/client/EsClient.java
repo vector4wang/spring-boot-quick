@@ -193,21 +193,21 @@ public class EsClient {
 //        List<String> strings = Arrays.asList(fid);
 //        strings.forEach(t->queryBuilder.mustNot(QueryBuilders.matchQuery("talent_id",t)));
 
-//        QueryBuilders.boolQuery().should(QueryBuilders.matchQuery("title", "java"))
+//        QueryBuilders.boolQuery().should(QueryBuilders.matchPhraseQuery("title", "产品经理").slop(2))
 //                .should(QueryBuilders.matchQuery("title", "java"))
-//                .should(QueryBuilders.matchQuery("title", "android"))
+//                .should(QueryBuilders.matchQuery("title", "android"));
 
-//        QueryBuilders.boolQuery().must(QueryBuilders.termQuery("mobile", "13072130095")
+//        BoolQueryBuilder mobile = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("mobile", "13072130095");
+
+        // QueryBuilders.matchPhraseQuery("title","产品经理").slop(5)
+
+//        MatchPhraseQueryBuilder slop = QueryBuilders.matchPhraseQuery("title", "技术总监").slop(2);
 
         SearchResponse scrollResp1 = client
-                .prepareSearch(INDEX_TEST)
-                .setTypes(TYPE_TEST) //
-                .setQuery(QueryBuilders.boolQuery().should(QueryBuilders.matchQuery("title", "java"))
-                        .should(QueryBuilders.matchQuery("title", "java"))
-                        .should(QueryBuilders.matchQuery("title", "android")))
-//                        .mustNot(QueryBuilders.matchQuery("company", "金蝶"))
-
-                .setSize(200)
+                .prepareSearch(INDEX)
+                .setTypes(TYPE) //
+                .setQuery(QueryBuilders.boolQuery().must(QueryBuilders.matchPhraseQuery("title", "产品设计").slop(2)))
+                .setSize(100)
                 .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
                 .get();
 
