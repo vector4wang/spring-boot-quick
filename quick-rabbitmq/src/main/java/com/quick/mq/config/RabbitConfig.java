@@ -1,8 +1,13 @@
 package com.quick.mq.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class RabbitConfig {
@@ -12,8 +17,8 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Queue userQueue() {
-        return new Queue("user");
+    public Queue msgQueue() {
+        return new Queue("msgQueue");
     }
     //===============以下是验证topic Exchange的队列==========
     @Bean
@@ -92,5 +97,23 @@ public class RabbitConfig {
         return BindingBuilder.bind(CMessage).to(fanoutExchange);
     }
 
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+        connectionFactory.setAddresses("60.205.191.82:5672");
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
+        connectionFactory.setVirtualHost("/");
+        connectionFactory.setPublisherConfirms(true); //必须要设置
+        return connectionFactory;
+    }
+
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    //必须是prototype类型
+    public RabbitTemplate rabbitTemplate() {
+        RabbitTemplate template = new RabbitTemplate(connectionFactory());
+        return template;
+    }
 
 }

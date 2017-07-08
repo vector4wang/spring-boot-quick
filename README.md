@@ -110,6 +110,9 @@ spring下的批量处理大数据模块，这里是从mysql里读取然后再写
 ## quick-rabbit
 
 rabbit模块
+做了个接口服务
+![ui](http://upload-images.jianshu.io/upload_images/3167229-945c72c2569f754a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 ## quick-exception
 
