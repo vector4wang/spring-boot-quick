@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -27,7 +28,6 @@ import java.io.IOException;
  * @wxid: BMHJQS
  */
 @Controller
-@RequestMapping("/img")
 public class Img2TxtController {
 
 
@@ -37,25 +37,21 @@ public class Img2TxtController {
     @Resource
     private Img2TxtService img2TxtService;
 
-<<<<<<< HEAD
-    @RequestMapping(value = "/txt",method = RequestMethod.GET)
-=======
-    @RequestMapping(value = "/hello",method = RequestMethod.GET)
->>>>>>> fa1270b11b3afb114b5a3d432dbb340fde8d7c55
+    @RequestMapping(value = "/img2txt",method = RequestMethod.GET)
     public String toPage(){
-
-        return "index";
+        return "/imgUpload";
     }
 
-    @RequestMapping(value = "/img2txt",method = RequestMethod.POST)
+    @RequestMapping(value = "/transfer",method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<InputStreamResource> imt2txt(@RequestParam("file") MultipartFile file){
         try {
             String originalFilename = file.getOriginalFilename();
+            HttpHeaders headers = new HttpHeaders();
+
             // 支持jpg、png
             if(originalFilename.endsWith("jpg")||originalFilename.endsWith("png")){
                 File outFile = img2TxtService.save(file.getBytes(), originalFilename);
-                HttpHeaders headers = new HttpHeaders();
                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
                 headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", outFile.getName()));
                 headers.add("Pragma", "no-cache");
@@ -65,12 +61,24 @@ public class Img2TxtController {
                         .headers(headers)
                         .contentLength(outFile.length())
                         .contentType(MediaType.parseMediaType("application/octet-stream"))
-                        .body(new InputStreamResource(file.getInputStream()));
+                        .body(new InputStreamResource(new FileInputStream(outFile)));
+            }else{
+                File error = new File("D:\\data\\error.txt");
+                headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+                headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", error.getName()));
+                headers.add("Pragma", "no-cache");
+                headers.add("Expires", "0");
+                return ResponseEntity
+                        .ok()
+                        .headers(headers)
+                        .contentLength(error.length())
+                        .contentType(MediaType.parseMediaType("application/octet-stream"))
+                        .body(new InputStreamResource(new FileInputStream(error)));
             }
         } catch (IOException e) {
             logger.error(e);
             return new ResponseEntity("暂不支持的文件格式",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }
