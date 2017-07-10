@@ -24,6 +24,13 @@ public class Img2TxtService {
     @Value("${upload.file.path}")
     private String filePath;
 
+    @Value("${error.file.path}")
+    private String errPath;
+
+    public String getErrorPath(){
+        return errPath;
+    }
+
 //    public static void main(String[] args) throws IOException {
 //        File file = ResourceUtils.getFile("classpath:spider.jpg");
 //        File temfile = new File("C:\\Users\\bd2\\Desktop\\sb.png");

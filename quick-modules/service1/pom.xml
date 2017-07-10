@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>quick-modules</artifactId>
-        <groupId>spring.com.quick</groupId>
+        <groupId>com.quick</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -15,7 +15,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>spring.com.quick</groupId>
+            <groupId>com.quick</groupId>
             <artifactId>quick-modules-dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

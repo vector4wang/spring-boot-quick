@@ -63,7 +63,7 @@ public class Img2TxtController {
                         .contentType(MediaType.parseMediaType("application/octet-stream"))
                         .body(new InputStreamResource(new FileInputStream(outFile)));
             }else{
-                File error = new File("D:\\data\\error.txt");
+                File error = new File(img2TxtService.getErrorPath());
                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
                 headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", error.getName()));
                 headers.add("Pragma", "no-cache");
