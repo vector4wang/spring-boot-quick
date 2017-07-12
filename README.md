@@ -24,13 +24,13 @@
 ├── quick-package-assembly
 ├── quick-package-assembly-multi-env
 ├── quick-rabbitmq
+├── quick-simhash
 ├── quick-spark
 ├── quick-swagger
 ├── quick-thread
 ├── quick-tika
-├── README.md
-└── spring-boot-quick.iml
-
+├── quick-wx-api
+└── README.md
 
 ```
 
@@ -124,6 +124,9 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 - 控制台输出的是error日志，但是日志文件里存的是info和error日志，并且按年月日生成对应日志文件
 - 控制台颜色输出插件:Grep console
 - 使用AOP输出每个请求的详细日志
+
+## quick-wx-api
+自己开发的小程序(哇哦窝)使用到的api，非常简单，里面集成了阿里封装的httpclient工具包，挺好用的。
 
 ---
 
