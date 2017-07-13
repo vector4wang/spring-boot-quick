@@ -1,4 +1,4 @@
-package quick.thread;
+package quick.executeservice;
 
 class MyThread extends Thread {
 
