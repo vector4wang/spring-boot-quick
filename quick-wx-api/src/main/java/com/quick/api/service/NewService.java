@@ -39,6 +39,8 @@ public class NewService {
 //
 //    }
 
+
+
     public static JSONArray getNews() {
         JSONArray jsonArray = new JSONArray();
         Map<String, String> headers = new HashMap<String, String>();
