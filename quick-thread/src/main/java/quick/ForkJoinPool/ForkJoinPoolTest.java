@@ -10,6 +10,8 @@ import java.util.concurrent.TimeUnit;
  * Data: 2017/7/13
  * Time: 17:13
  * Description:
+ * http://www.infoq.com/cn/articles/fork-join-introduction/
+ * https://www.ibm.com/developerworks/cn/java/j-lo-forkjoin/
  */
 public class ForkJoinPoolTest {
     /**
