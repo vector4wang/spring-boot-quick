@@ -23,148 +23,61 @@ public class HTML2Md {
 
     public static void main(String[] args) throws IOException {
         String html = "<div id=\"article_content\" class=\"article_content tracking-ad\" data-mod=\"popu_307\" data-dsm=\"post\">\n" +
-                "        <div class=\"markdown_views\"><h2 id=\"前言\"><a name=\"t0\" target=\"_blank\"></a>前言</h2>\n" +
                 "\n" +
-                "<ul>\n" +
-                "<li><a href=\"http://blog.csdn.net/qqhjqs/article/details/46963495\" target=\"_blank\">Maven系列（一）Maven的简介与使用</a></li>\n" +
-                "<li><a href=\"http://blog.csdn.net/qqhjqs/article/details/47045585\" target=\"_blank\">Maven系列（二）无Maven不项目—使用Eclipse快速搭建Maven项目 </a></li>\n" +
-                "<li><a href=\"http://blog.csdn.net/qqhjqs/article/details/53495535\" target=\"_blank\">Maven系列（三）Maven给不同的环境打包 </a></li>\n" +
-                "<li><a href=\"http://blog.csdn.net/qqhjqs/article/details/51594583\" target=\"_blank\">Maven系列（四）Maven热部署 </a></li>\n" +
-                "<li><a href=\"http://blog.csdn.net/qqHJQS/article/details/52950147\" target=\"_blank\">Maven系列（五）CentOS7搭建最新GitLab </a></li>\n" +
-                "<li><a href=\"http://blog.csdn.net/qqHJQS/article/details/53561541\" target=\"_blank\">Maven系列（六）配合GitLab持续集成（CI）</a></li>\n" +
-                "<li><a href=\"http://blog.csdn.net/qqhjqs/article/details/72722156\" target=\"_blank\">Maven系列(七)assembly打包-程序和依赖jar包分开化</a></li>\n" +
-                "</ul>\n" +
-                "\n" +
-                "<p>上一篇介绍的是“assembly打包-程序和依赖jar包分开化”的配置方法， 这一篇就来介绍下如何多环境的配置，这里请看清楚，是“程序和依赖jar包分开化+多环境”跟之前的不太一样哦。</p>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "<h2 id=\"需要修改的配置\"><a name=\"t1\" target=\"_blank\"></a>需要修改的配置</h2>\n" +
-                "\n" +
-                "<p>项目的目录结构 <br>\n" +
-                "<img src=\"http://upload-images.jianshu.io/upload_images/3167229-b9316fad6897592f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240\" alt=\"工程结构.png\" title=\"\"></p>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "<h3 id=\"pom\"><a name=\"t2\" target=\"_blank\"></a>pom</h3>\n" +
-                "\n" +
-                "<p>添加<code>profile</code>配置，我这里同样配置了三种环境</p>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "<pre class=\"prettyprint\" name=\"code\"><code class=\"language-xml hljs  has-numbering\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">profiles</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">profile</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">id</span>&gt;</span>local<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">id</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">properties</span>&gt;</span>\n" +
-                "                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">env</span>&gt;</span>local<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">env</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">properties</span>&gt;</span>\n" +
-                "            <span class=\"hljs-comment\">&lt;!-- 如果不指定ID，默认是本地环境--&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">activation</span>&gt;</span>\n" +
-                "                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">activeByDefault</span>&gt;</span>true<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">activeByDefault</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">activation</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">profile</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">profile</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">id</span>&gt;</span>test<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">id</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">properties</span>&gt;</span>\n" +
-                "                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">env</span>&gt;</span>test<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">env</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">properties</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">profile</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">profile</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">id</span>&gt;</span>product<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">id</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">properties</span>&gt;</span>\n" +
-                "                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">env</span>&gt;</span>product<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">env</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">properties</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">profile</span>&gt;</span>\n" +
-                "    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">profiles</span>&gt;</span></code><ul class=\"pre-numbering\" style=\"opacity: 0;\"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li></ul><div class=\"save_code tracking-ad\" data-mod=\"popu_249\"><a href=\"javascript:;\" target=\"_blank\"><img src=\"http://static.blog.csdn.net/images/save_snippets.png\"></a></div><ul class=\"pre-numbering\"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li></ul></pre>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "<h3 id=\"packagexml\"><a name=\"t3\" target=\"_blank\"></a>package.xml</h3>\n" +
-                "\n" +
-                "<p>新增了两处</p>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "<pre class=\"prettyprint\" name=\"code\"><code class=\"language-xml hljs  has-numbering\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">fileSets</span>&gt;</span>\n" +
-                "        <span class=\"hljs-comment\">&lt;!--需要包含的文件与输出的路径--&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">directory</span>&gt;</span>src/main/bin<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">directory</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">outputDirectory</span>&gt;</span>bin/<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">outputDirectory</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">directory</span>&gt;</span>src/main/resources<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">directory</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">outputDirectory</span>&gt;</span>/<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">outputDirectory</span>&gt;</span>\n" +
-                "            <span class=\"hljs-comment\">&lt;!-- 去除需要多环境配置的文件--&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">excludes</span>&gt;</span>\n" +
-                "                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">exclude</span>&gt;</span>application.properties<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">exclude</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">excludes</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "        <span class=\"hljs-comment\">&lt;!--多环境配置--&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "            <span class=\"hljs-comment\">&lt;!--${env} 可以获取打包命令里的参数--&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">directory</span>&gt;</span>src/main/resources/env/${env}/<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">directory</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">outputDirectory</span>&gt;</span>/<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">outputDirectory</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">directory</span>&gt;</span>${project.build.directory}<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">directory</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">outputDirectory</span>&gt;</span>/<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">outputDirectory</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">includes</span>&gt;</span>\n" +
-                "                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">include</span>&gt;</span>*.jar<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">include</span>&gt;</span>\n" +
-                "            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">includes</span>&gt;</span>\n" +
-                "        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">fileSet</span>&gt;</span>\n" +
-                "    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">fileSets</span>&gt;</span></code><ul class=\"pre-numbering\" style=\"opacity: 0;\"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li></ul><div class=\"save_code tracking-ad\" data-mod=\"popu_249\"><a href=\"javascript:;\" target=\"_blank\"><img src=\"http://static.blog.csdn.net/images/save_snippets.png\"></a></div><ul class=\"pre-numbering\"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li></ul></pre>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "<h2 id=\"多环境打包测试\"><a name=\"t4\" target=\"_blank\"></a>多环境打包测试</h2>\n" +
-                "\n" +
-                "<table>\n" +
-                "<thead>\n" +
-                "<tr>\n" +
-                "  <th>环境</th>\n" +
-                "  <th>命令</th>\n" +
-                "</tr>\n" +
-                "</thead>\n" +
-                "<tbody><tr>\n" +
-                "  <td>本地</td>\n" +
-                "  <td><code>mvn clean package -P local</code></td>\n" +
-                "</tr>\n" +
-                "<tr>\n" +
-                "  <td>测试</td>\n" +
-                "  <td><code>mvn clean package -P test</code></td>\n" +
-                "</tr>\n" +
-                "<tr>\n" +
-                "  <td>生产</td>\n" +
-                "  <td><code>mvn clean package -P product</code></td>\n" +
-                "</tr>\n" +
-                "</tbody></table>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "<h2 id=\"后记\"><a name=\"t5\" target=\"_blank\"></a>后记</h2>\n" +
-                "\n" +
-                "<ul>\n" +
-                "<li>关于assembly打包，mybatis的xml访问不了的问题已经解决了，注意配置<code>mybatis.mapperLocations=classpath:mapper/*.xml</code></li>\n" +
-                "<li>maven的功能之强大到你无法想象，我之前的一系列文章对我所接触到的maven所有用法都有较详细的配置说明</li>\n" +
-                "<li>以后有可能会开始尝试使用gradle打包</li>\n" +
-                "</ul>\n" +
-                "\n" +
-                "<p>欢迎浏览<a href=\"http://vector4wang.tk/2017/06/24/Maven%E7%B3%BB%E5%88%97-%E5%85%AB-assembly%E6%89%93%E5%8C%85-%E7%A8%8B%E5%BA%8F%E5%92%8C%E4%BE%9D%E8%B5%96jar%E5%8C%85%E5%88%86%E5%BC%80%E5%8C%96-%E5%A4%9A%E7%8E%AF%E5%A2%83/\" target=\"_blank\">我的博客</a> <br>\n" +
-                "代码在<a href=\"https://github.com/vector4wang/spring-boot-quick\" target=\"_blank\">Github</a></p></div>\n" +
-                "        <script type=\"text/javascript\">\n" +
-                "            $(function () {\n" +
-                "                $('pre.prettyprint code').each(function () {\n" +
-                "                    var lines = $(this).text().split('\\n').length;\n" +
-                "                    var $numbering = $('<ul></ul>').addClass('pre-numbering').hide();\n" +
-                "                    $(this).addClass('has-numbering').parent().append($numbering);\n" +
-                "                    for (i = 1; i <= lines; i++) {\n" +
-                "                        $numbering.append($('<li></li>').text(i));\n" +
-                "                    };\n" +
-                "                    $numbering.fadeIn(1700);\n" +
-                "                });\n" +
-                "            });\n" +
-                "        </script>\n" +
+                "<p><span style=\"font-size:14px\">前段时间接触了websocket，具体的就不介绍了，他就是与后台建立长连接，完成信息的发送与接受，有兴趣看我之前的blog或者google一下！之前完成了单聊与多聊的功能，分别实用tomcat7和tomcat8实现！那时候再想做个你画我猜的小游戏，但没有时间！现在终于抽出时间做了一个，有点简陋，看效果（代码是在在tomcat8的单聊与群聊基础上添加的）</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><img src=\"http://img.blog.csdn.net/20151104235956446?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast\" alt=\"\" align=\"left\" height=\"427\" width=\"680\"></span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\"><br>\n" +
+                "</span></p>\n" +
+                "<p><span style=\"font-size:14px\">要选择对放姓名，才可以绘制，对方实时显示，但是有个问题，对方的画板，不连续，因为不是以直线的方式绘制，而是已点的方式绘制（其实就是（x-1,y-1）lineTo(x,y)），传过去的是个坐标，现在就只想到这个方法</span></p>\n" +
+                "<p></p>\n" +
+                "<div class=\"dp-highlighter bg_javascript\"><div class=\"bar\"><div class=\"tools\"><b>[javascript]</b> <a href=\"#\" class=\"ViewSource\" title=\"view plain\" onclick=\"dp.sh.Toolbar.Command('ViewSource',this);return false;\" target=\"_blank\">view plain</a><span data-mod=\"popu_168\"> <a href=\"#\" class=\"CopyToClipboard\" title=\"copy\" onclick=\"dp.sh.Toolbar.Command('CopyToClipboard',this);return false;\" target=\"_blank\">copy</a><div style=\"position: absolute; left: 758px; top: 954px; width: 18px; height: 18px; z-index: 99;\"><embed id=\"ZeroClipboardMovie_1\" src=\"http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf\" loop=\"false\" menu=\"false\" quality=\"best\" bgcolor=\"#ffffff\" width=\"18\" height=\"18\" name=\"ZeroClipboardMovie_1\" align=\"middle\" allowscriptaccess=\"always\" allowfullscreen=\"false\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" flashvars=\"id=1&amp;width=18&amp;height=18\" wmode=\"transparent\"></div></span><span data-mod=\"popu_169\"> <a href=\"#\" class=\"PrintSource\" title=\"print\" onclick=\"dp.sh.Toolbar.Command('PrintSource',this);return false;\" target=\"_blank\">print</a></span><a href=\"#\" class=\"About\" title=\"?\" onclick=\"dp.sh.Toolbar.Command('About',this);return false;\" target=\"_blank\">?</a></div></div><ol start=\"1\" class=\"dp-c\"><li class=\"alt\"><span><span>&lt;span&nbsp;style=</span><span class=\"string\">\"font-size:14px;\"</span><span>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=\"keyword\">var</span><span>&nbsp;coordArry&nbsp;=&nbsp;o.data.split(</span><span class=\"string\">\"_\"</span><span>);&nbsp;&nbsp;</span></span></li><li class=\"\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"keyword\">var</span><span>&nbsp;x&nbsp;=&nbsp;coordArry[0];&nbsp;&nbsp;</span></span></li><li class=\"alt\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"keyword\">var</span><span>&nbsp;y&nbsp;=&nbsp;coordArry[1];&nbsp;&nbsp;</span></span></li><li class=\"\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oGC.lineWidth&nbsp;=&nbsp;1;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=\"alt\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oGC.moveTo(x-1,y-1);&nbsp;&nbsp;</span></li><li class=\"\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oGC.lineTo(x,y);&nbsp;&nbsp;</span></li><li class=\"alt\"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oGC.stroke();&lt;/span&gt;&nbsp;&nbsp;</span></li></ol></div><pre name=\"code\" class=\"javascript\" style=\"display: none;\">&lt;span style=\"font-size:14px;\"&gt;                                var coordArry = o.data.split(\"_\");\n" +
+                "\t\t\t\tvar x = coordArry[0];\n" +
+                "\t\t\t\tvar y = coordArry[1];\n" +
+                "\t\t\t\toGC.lineWidth = 1;\t\n" +
+                "\t\t\t\toGC.moveTo(x-1,y-1);\n" +
+                "\t\t\t\toGC.lineTo(x,y);\n" +
+                "\t\t\t\toGC.stroke();&lt;/span&gt;</pre><span style=\"font-size:14px\">使用的是HTML5 的canvas，绘制直线的代码如下：</span>\n" +
+                "<p></p>\n" +
+                "<p></p>\n" +
+                "<div class=\"dp-highlighter bg_javascript\"><div class=\"bar\"><div class=\"tools\"><b>[javascript]</b> <a href=\"#\" class=\"ViewSource\" title=\"view plain\" onclick=\"dp.sh.Toolbar.Command('ViewSource',this);return false;\" target=\"_blank\">view plain</a><span data-mod=\"popu_168\"> <a href=\"#\" class=\"CopyToClipboard\" title=\"copy\" onclick=\"dp.sh.Toolbar.Command('CopyToClipboard',this);return false;\" target=\"_blank\">copy</a><div style=\"position: absolute; left: 758px; top: 1175px; width: 18px; height: 18px; z-index: 99;\"><embed id=\"ZeroClipboardMovie_2\" src=\"http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf\" loop=\"false\" menu=\"false\" quality=\"best\" bgcolor=\"#ffffff\" width=\"18\" height=\"18\" name=\"ZeroClipboardMovie_2\" align=\"middle\" allowscriptaccess=\"always\" allowfullscreen=\"false\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" flashvars=\"id=2&amp;width=18&amp;height=18\" wmode=\"transparent\"></div></span><span data-mod=\"popu_169\"> <a href=\"#\" class=\"PrintSource\" title=\"print\" onclick=\"dp.sh.Toolbar.Command('PrintSource',this);return false;\" target=\"_blank\">print</a></span><a href=\"#\" class=\"About\" title=\"?\" onclick=\"dp.sh.Toolbar.Command('About',this);return false;\" target=\"_blank\">?</a></div></div><ol start=\"1\" class=\"dp-c\"><li class=\"alt\"><span><span>&lt;span&nbsp;style=</span><span class=\"string\">\"font-size:14px;\"</span><span>&gt;</span><span class=\"keyword\">var</span><span>&nbsp;c=document.getElementById(</span><span class=\"string\">\"myCanvas\"</span><span>);&nbsp;&nbsp;</span></span></li><li class=\"\"><span><span class=\"keyword\">var</span><span>&nbsp;cxt=c.getContext(</span><span class=\"string\">\"2d\"</span><span>);&nbsp;&nbsp;</span></span></li><li class=\"alt\"><span>cxt.moveTo(10,10);&nbsp;&nbsp;</span></li><li class=\"\"><span>cxt.lineTo(150,50);&nbsp;&nbsp;</span></li><li class=\"alt\"><span>cxt.lineTo(10,50);&nbsp;&nbsp;</span></li><li class=\"\"><span>cxt.stroke();&lt;/span&gt;&nbsp;&nbsp;</span></li></ol></div><pre name=\"code\" class=\"javascript\" style=\"display: none;\">&lt;span style=\"font-size:14px;\"&gt;var c=document.getElementById(\"myCanvas\");\n" +
+                "var cxt=c.getContext(\"2d\");\n" +
+                "cxt.moveTo(10,10);\n" +
+                "cxt.lineTo(150,50);\n" +
+                "cxt.lineTo(10,50);\n" +
+                "cxt.stroke();&lt;/span&gt;</pre><span style=\"font-size:14px\">关于这个可以去W3C去学，那里看起来简单，但是非常的基础，非常的重要</span>\n" +
+                "<p></p>\n" +
+                "<p><span style=\"font-size:14px\">你画我猜就是把本地画笔的<span style=\"font-size:14px\">实时</span>坐标发送给对方，然后根据坐标再绘制出来，思路很简单，就是如何处理这些坐标</span></p>\n" +
+                "<p><span style=\"font-size:14px\">代码没有什么改变，就是后台加了个类型，前台加个判断，就ok了，代码不要钱了这次，上传到<a target=\"_blank\" href=\"https://github.com/VBMHJQS/tomcat8-websocket\">GITHUB</a>了！</span></p>\n" +
+                "<p><span style=\"font-size:14px\">对于以上提到的问题，以后有时间再改，马上双十一了，天天加班啊。，。。。。<br>\n" +
+                "</span></p>\n" +
                 "   \n" +
                 "</div>";
 
@@ -554,10 +467,12 @@ public class HTML2Md {
         Elements code = element.select("pre");
         for (Element item : code) {
             item.select(".pre-numbering").remove();
+            item.select("span").remove();
             String s = "```\n\t" + item.text() + "\n```";
             MDLine line = new MDLine(MDLine.MDLineType.None, 0, "");
             line.append(s);
             lines.add(line);
+            lines.add(new MDLine(MDLine.MDLineType.None, 0, "\n\t"));
         }
 
 //    System.out.println(element);
