@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class CSDN2mdService {
 
-    public final static String username = "u010850027";
+    public final static String username = "qqhjqs";
     public final static String HOST_URL = "http://blog.csdn.net/";
     public final static String TOP_XPATH = "#article_toplist .list_item,.article_item";
     public final static String NOMAIL_QUERY = "#article_list .list_item,.article_item";
@@ -78,7 +78,7 @@ public class CSDN2mdService {
             }
             bm.setTags(tags);
             doc.getElementsByTag("script").remove();
-            bm.setContent(doc.select("#article_content").html());
+            bm.setContent(doc.select("#article_content").toString());
             try{
                 buildHexo(bm);
             }catch (Exception e){
@@ -117,7 +117,7 @@ public class CSDN2mdService {
         sb.append("<!--more-->");
         sb.append("\r\n");
         sb.append("\r\n");
-        sb.append(HTML2Md.convert(bm.getContent(),"UTF-8"));
+        sb.append(HTML2Md.convertHtml4csdn(bm.getContent(),"UTF-8"));
         IOUtils.write(sb.toString(),new FileOutputStream(new File(TARGET_DIR + File.separator + bm.getTitle() + ".md")));
     }
 

@@ -23,9 +23,9 @@ public class ExecutorServiceDemo {
 
 
         long stat = System.currentTimeMillis();
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
         List<TaskSleep> callList = new ArrayList<TaskSleep>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<10000;i++){
             callList.add(new TaskSleep(i));
         }
         List<Future<Integer>> futures = executorService.invokeAll(callList);

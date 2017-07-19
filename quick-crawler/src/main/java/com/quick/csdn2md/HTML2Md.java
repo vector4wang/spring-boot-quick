@@ -85,7 +85,7 @@ public class HTML2Md {
         System.out.println(s);
     }
 
-    private static String convertHtml4csdn(String html, String charset) {
+    public static String convertHtml4csdn(String html, String charset) {
         Document doc = Jsoup.parse(html, charset);
         Element content = doc.select("#article_content").get(0);
         content.select(".dp-highlighter").remove();

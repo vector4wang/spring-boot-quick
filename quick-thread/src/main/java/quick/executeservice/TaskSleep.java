@@ -15,7 +15,7 @@ public class TaskSleep implements Callable<Integer> {
 
     public Integer call() throws Exception {
 //        System.out.println(num + "--->" +i);
-        Thread.sleep(1000);
+        Thread.sleep(10);
         return  num;
     }
 }
