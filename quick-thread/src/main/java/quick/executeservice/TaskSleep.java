@@ -1,5 +1,6 @@
 package quick.executeservice;
 
+import java.util.Random;
 import java.util.concurrent.Callable;
 
 /**
@@ -15,7 +16,9 @@ public class TaskSleep implements Callable<Integer> {
 
     public Integer call() throws Exception {
 //        System.out.println(num + "--->" +i);
-        Thread.sleep(1000);
-        return  num;
+//        Thread.sleep(1000);
+        System.out.println(Thread.currentThread().getName() + "执行中--->");
+        int temp = new Random().nextInt(100);
+        return  temp;
     }
 }

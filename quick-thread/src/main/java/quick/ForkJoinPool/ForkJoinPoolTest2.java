@@ -18,22 +18,29 @@ public class ForkJoinPoolTest2 {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        int arr[] = new int[100];
+        int arr[] = new int[10000000];
         Random random = new Random();
         int total = 0;
         // 初始化100个数字元素
+        long s1 = System.currentTimeMillis();
         for (int i = 0; i < arr.length; i++) {
             int temp = random.nextInt(100);
             // 对数组元素赋值,并将数组元素的值添加到total总和中
             total += (arr[i] = temp);
         }
-        System.out.println("初始化时的总和=" + total);
+
+        long e1 = System.currentTimeMillis();
+
+        System.out.println("初始化时的总和=" + total +" 耗时: " + (double)(e1-s1)/1000 + "s");
+        System.out.println();
         // 创建包含Runtime.getRuntime().availableProcessors()返回值作为个数的并行线程的ForkJoinPool
+        long s2 = System.currentTimeMillis();
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         // 提交可分解的PrintTask任务
         Future<Integer> future = forkJoinPool.submit(new SumTask(arr, 0,
                 arr.length));
-        System.out.println("计算出来的总和=" + future.get());
+        long e2 = System.currentTimeMillis();
+        System.out.println("计算出来的总和=" + future.get() + "耗时: " + (double)(e1-s1)/1000 + "s");
         // 关闭线程池
         forkJoinPool.shutdown();
     }
@@ -42,7 +49,7 @@ public class ForkJoinPoolTest2 {
 
 class SumTask extends RecursiveTask<Integer> {
     // 每个"小任务"最多只打印50个数
-    private static final int MAX = 20;
+    private static final int MAX = 1000;
     private int arr[];
     private int start;
     private int end;
@@ -63,7 +70,6 @@ class SumTask extends RecursiveTask<Integer> {
             }
             return sum;
         } else {
-            System.err.println("=====任务分解======");
             // 将大任务分解成两个小任务
             int middle = (start + end) / 2;
             SumTask left = new SumTask(arr, start, middle);

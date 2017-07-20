@@ -23,9 +23,9 @@ public class ExecutorServiceDemo {
 
 
         long stat = System.currentTimeMillis();
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
         List<TaskSleep> callList = new ArrayList<TaskSleep>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<10000;i++){
             callList.add(new TaskSleep(i));
         }
         List<Future<Integer>> futures = executorService.invokeAll(callList);
@@ -36,6 +36,6 @@ public class ExecutorServiceDemo {
         }
         System.out.println("结果"+sum);
         long end = System.currentTimeMillis();
-        System.out.println((double)(end-stat)/1000);
+        System.out.println((double)(end-stat)/1000 + "s");
     }
 }
