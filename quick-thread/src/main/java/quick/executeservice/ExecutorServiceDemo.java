@@ -23,7 +23,7 @@ public class ExecutorServiceDemo {
 
 
         long stat = System.currentTimeMillis();
-        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
         List<TaskSleep> callList = new ArrayList<TaskSleep>();
         for(int i=0;i<10000;i++){
             callList.add(new TaskSleep(i));
@@ -36,6 +36,6 @@ public class ExecutorServiceDemo {
         }
         System.out.println("结果"+sum);
         long end = System.currentTimeMillis();
-        System.out.println((double)(end-stat)/1000 + "s");
+        System.out.println((double)(end-stat)/1000);
     }
 }
