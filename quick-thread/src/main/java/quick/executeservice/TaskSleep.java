@@ -15,6 +15,7 @@ public class TaskSleep implements Callable<Integer> {
 
     public Integer call() throws Exception {
 //        System.out.println(num + "--->" +i);
+        System.out.println(Thread.currentThread().getName()+"--->执行中");
         Thread.sleep(10);
         return  num;
     }

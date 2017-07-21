@@ -23,7 +23,7 @@ public class ExecutorServiceDemo {
 
 
         long stat = System.currentTimeMillis();
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newCachedThreadPool();
         List<TaskSleep> callList = new ArrayList<TaskSleep>();
         for(int i=0;i<10000;i++){
             callList.add(new TaskSleep(i));
