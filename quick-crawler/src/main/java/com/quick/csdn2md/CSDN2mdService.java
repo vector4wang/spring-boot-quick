@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,15 +21,45 @@ import java.util.*;
  * @BLOG: http://vector4wang.tk
  * @wxid: BMHJQS
  */
+@Service
 public class CSDN2mdService {
 
-    public final static String username = "qqhjqs";
+//    public final static String username = "qqhjqs";
     public final static String HOST_URL = "http://blog.csdn.net/";
     public final static String TOP_XPATH = "#article_toplist .list_item,.article_item";
     public final static String NOMAIL_QUERY = "#article_list .list_item,.article_item";
     public final static String TARGET_DIR = "D:\\data\\csdn_blogs";
 
     public static void main(String[] args) throws IOException, XpathSyntaxErrorException {
+//        String convert = convert(new URL("http://blog.csdn.net/qqhjqs/article/details/66474364"));
+//        System.out.println(convert);
+    }
+
+    public String convert(URL url) throws IOException {
+        Document doc = Jsoup.parse(url,5000);
+        doc.getElementsByTag("script").remove();
+        String content = doc.select("#article_content").toString();
+        String result = HTML2Md.convertHtml4csdn(content, "utf-8");
+        return result;
+    }
+
+    public String convert(String html){
+        Document doc = Jsoup.parse(html,"utf-8");
+        doc.getElementsByTag("script").remove();
+        Elements select = doc.select("#article_content");
+        if(select.isEmpty()){
+            String convert = HTML2Md.convert(html, "utf-8");
+            return convert;
+        }else{
+            String content = select.toString();
+            String result = HTML2Md.convertHtml4csdn(content, "utf-8");
+            return result;
+        }
+
+    }
+
+    private static void convertAllBlogByUserName(String username) throws IOException {
+        String mdString = "";
         String url = HOST_URL + username + "/article/list/" + 1;
         Document parse = Jsoup.parse(new URL(url), 5000);
         Element element = parse.select("div#papelist span").get(0);
@@ -67,7 +98,6 @@ public class CSDN2mdService {
                 }else{
                     cat.add(text);
                 }
-                ;
             }
             bm.setCategories(cat);
             Elements tagEles = doc.select("#article_details > div.article_manage.clearfix > div.article_l > span > a");

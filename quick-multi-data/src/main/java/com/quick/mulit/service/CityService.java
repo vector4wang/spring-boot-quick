@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,23 +64,23 @@ public class CityService {
         });
     }
 
-
-    @TargetDataSource(name="ds2")
-    public List<City> getListByDs2(){
-        String sql = "SELECT ID,NAME,SCORE_SUM,SCORE_AVG, AGE   FROM STUDENT";
-        return (List<City>) jdbcTemplate.query(sql, new RowMapper<City>(){
-
-            @Override
-            public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Student stu = new Student();
-                stu.setId(rs.getInt("ID"));
-                stu.setAge(rs.getInt("AGE"));
-                stu.setName(rs.getString("NAME"));
-                stu.setSumScore(rs.getString("SCORE_SUM"));
-                stu.setAvgScore(rs.getString("SCORE_AVG"));
-                return stu;
-            }
-
-        });
+//
+//    @TargetDataSource(name="ds2")
+//    public List<City> getListByDs2(){
+//        String sql = "SELECT ID,NAME,SCORE_SUM,SCORE_AVG, AGE   FROM STUDENT";
+//        return (List<City>) jdbcTemplate.query(sql, new RowMapper<City>(){
+//
+//            @Override
+//            public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+//                Student stu = new Student();
+//                stu.setId(rs.getInt("ID"));
+//                stu.setAge(rs.getInt("AGE"));
+//                stu.setName(rs.getString("NAME"));
+//                stu.setSumScore(rs.getString("SCORE_SUM"));
+//                stu.setAvgScore(rs.getString("SCORE_AVG"));
+//                return stu;
+//            }
+//
+//        });
 
 }
