@@ -5,13 +5,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.quick.api.utils.HttpUtils;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,10 +65,17 @@ public class NewService {
     }
 
     public static String getContent(String url) throws IOException {
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpGet request = new HttpGet(url);
-        HttpResponse execute = httpClient.execute(request);
-        String result = EntityUtils.toString(execute.getEntity());
-        return result;
+        Document parse = Jsoup.parse(new URL(url), 5000);
+        Elements select = parse.select("div#content");
+        String content = select.get(0).html();
+        return content;
+    }
+
+    public static void main(String[] args) throws IOException {
+        Document parse = Jsoup.parse(new URL("http://mini.eastday.com/mobile/170725205647104.html"), 5000);
+        Elements select = parse.select("div#content");
+        String content = select.get(0).html();
+
+        System.out.println(content);
     }
 }
