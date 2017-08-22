@@ -27,6 +27,7 @@
         <module>quick-log</module>
         <module>quick-wx-api</module>
         <module>quick-druid</module>
+        <module>quick-oss</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
