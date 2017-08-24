@@ -4,10 +4,10 @@
 
 |原符号  |     <    |    <=  |    >   |    >=   |    &    |    '   |     "|
 |---|---|---|---|---|---|---|---|
-|替换符号   | \&lt;   | &lt;=  | &gt;   | &gt;=  | &amp;  | &apos;|  &quot;|
+|替换符号   | \&lt;   | \&lt;=  | \&gt;   | \&gt;=  | \&amp;  | \&apos;|  \&quot;|
 
 例如：sql如下：
-create_date_time &gt;= #{startTime} and  create_date_time &lt;= #{endTime}
+create_date_time \&gt;= #{startTime} and  create_date_time \&lt;= #{endTime}
 
 ##### 第二种写法（2）：
 大于等于
