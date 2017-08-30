@@ -68,6 +68,8 @@ springboot 模块化开发示例
 ## quick-mybatis-druid
 springboot整合mybatis和阿里云的druid监控功能
 
+## quick-multi-data
+ springboot mybatis 多数据源配置，别忘了为多数据源的连接池配置
 
 ## quick-spark 
 springboot整合spark示例
