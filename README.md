@@ -13,14 +13,17 @@
 ├── pom.xml
 ├── quick-batch
 ├── quick-crawler
+├── quick-druid
 ├── quick-ElasticSearch
 ├── quick-exception
 ├── quick-idea
 ├── quick-img2txt
+├── quick-jsp
 ├── quick-log
 ├── quick-modules
 ├── quick-multi-data
 ├── quick-mybatis
+├── quick-oss
 ├── quick-package-assembly
 ├── quick-package-assembly-multi-env
 ├── quick-rabbitmq
@@ -30,7 +33,8 @@
 ├── quick-thread
 ├── quick-tika
 ├── quick-wx-api
-└── README.md
+├── README.md
+
 
 ```
 
@@ -130,6 +134,54 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 
 ## quick-wx-api
 自己开发的小程序(哇哦窝)使用到的api，非常简单，里面集成了阿里封装的httpclient工具包，挺好用的。
+
+## quick-jsp
+前段时间一直没有搞定在springboot中使用jsp，今天抽了点时间搞定了，有几点需要注意的地方
+
+- 创建项目的时候这样选择"spring initializr-->web",ok之后的项目的resource下会有tamplates包，可以删掉
+- 创建webapp/WEB-INF目录(具体根据自己喜好，只要在配置文件写对路径就可以了)
+- 然后在pom文件中添加一下配置，目的是为了让webapp下的jsp文件留在META-INF中，让boot访问到
+```xml
+<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<!-- 打包时将jsp文件拷贝到META-INF目录下-->
+			<resource>
+				<!-- 指定resources插件处理哪个目录下的资源文件 -->
+				<directory>src/main/webapp</directory>
+				<!--注意此次必须要放在此目录下才能被访问到-->
+				<targetPath>META-INF/resources</targetPath>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/**</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+```
 
 ---
 
