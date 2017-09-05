@@ -13,7 +13,6 @@
 ├── pom.xml
 ├── quick-batch
 ├── quick-crawler
-├── quick-druid
 ├── quick-ElasticSearch
 ├── quick-exception
 ├── quick-idea
@@ -22,7 +21,7 @@
 ├── quick-log
 ├── quick-modules
 ├── quick-multi-data
-├── quick-mybatis
+├── quick-mybatis-druid
 ├── quick-oss
 ├── quick-package-assembly
 ├── quick-package-assembly-multi-env
@@ -34,7 +33,7 @@
 ├── quick-tika
 ├── quick-wx-api
 ├── README.md
-
+└── spring-boot-quick.iml
 
 ```
 
@@ -70,7 +69,7 @@ springboot 模块化开发示例
 
 
 ## quick-mybatis-druid
-springboot整合mybatis和阿里云的druid监控功能
+springboot整合mybatis和阿里云的druid监控功能，日志可以控制sql的输出
 
 ## quick-multi-data
  springboot mybatis 多数据源配置，别忘了为多数据源的连接池配置
