@@ -1,7 +1,7 @@
-package com.quick.okhttp;
+package com.quick.test;
 
 import com.alibaba.fastjson.JSONObject;
-import okhttp3.*;
+import com.squareup.okhttp.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,9 +23,8 @@ public class PostExample {
                 .url(url)
                 .post(body)
                 .build();
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
+        Response response = client.newCall(request).execute();
+        response.body().string();
     }
 
     String bowlingJson(String player1, String player2) {
@@ -50,6 +49,7 @@ public class PostExample {
         }
     }
 }
+
 class MyThread extends Thread {
 
     private String value;
