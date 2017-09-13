@@ -3,6 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>quick-okhttp</artifactId>
+
+
+    <groupId>com.quick</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <modelVersion>4.0.0</modelVersion>
+
     <build>
         <plugins>
             <plugin>
@@ -15,15 +21,17 @@
             </plugin>
         </plugins>
     </build>
-    <groupId>com.quick</groupId>
-    <version>1.0-SNAPSHOT</version>
-    <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
         <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
+            <groupId>com.squareup.okhttp</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.9.0</version>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0-rc2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
