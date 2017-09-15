@@ -13,7 +13,7 @@ public class SyncGet {
         client.interceptors().add(new LoggingInterceptor());
 
         Request request = new Request.Builder()
-                .url("http://www.baidu.com")
+                .url("http://school.bazhua.me:8841/school/normalize")
                 .build();
 
         Response response = client.newCall(request).execute();
