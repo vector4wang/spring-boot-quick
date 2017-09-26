@@ -14,18 +14,5 @@ public interface CompanyService {
      * 获取公司值
      *
      */
-    Company getCompanyByName(String companyName);
-
-    /**
-     * 新增公司信息
-     *
-     */
-    void saveCompany(Company city);
-
-    /**
-     * 更新公司信息
-     *
-     */
-    void updateCompany(String companyName, Integer label);
-
+    Integer isCompany(String companyName);
 }

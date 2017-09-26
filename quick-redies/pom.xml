@@ -30,18 +30,23 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
 
-
-        <!-- Spring Boot Data Cache 依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+            <!--<version>${spring-boot-starter-redis-version}</version>-->
         </dependency>
 
-        <!-- Spring Boot Data Redis 依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+        <!--&lt;!&ndash; Spring Boot Data Cache 依赖 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-cache</artifactId>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Spring Boot Data Redis 依赖 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
