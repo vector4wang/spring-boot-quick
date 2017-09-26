@@ -45,5 +45,4 @@ public class GlobalExceptionHandler {
         baseResp.setData("");
         return baseResp;
     }
-
 }

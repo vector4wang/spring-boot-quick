@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PostExample {
     public static final MediaType JSON
@@ -55,27 +57,40 @@ public class PostExample {
         return response.body().string();
     }
 
+
     public static void main(String[] args) throws IOException {
 
-//        ExecutorService executorService = Executors.newFixedThreadPool(10);
-//        String path = "D:\\school.txt";
-//        List<String> list = IOUtils.readLines(new FileInputStream(new File(path)));
-//        for (String item : list) {
-//            executorService.execute(new MyThread2(item));
-//        }
+//        ybSchool();
+        company();
+    }
 
-        ybSchool();
+    private static void company() throws IOException {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        String path = "D:\\datafilter\\total_title.txt";
+        List<String> list = IOUtils.readLines(new FileInputStream(new File(path)));
+        for (String item : list) {
+            executorService.execute(new MyThread(replaceBlank(item)));
+//            System.out.println(dataObj.get("talentId") + "--->" + dataObj.get("school"));
+        }
     }
 
     private static void ybSchool() throws IOException {
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        String path = "D:\\ybschool.txt";
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        String path = "D:\\datafilter\\total_school.txt";
         List<String> list = IOUtils.readLines(new FileInputStream(new File(path)));
         for (String item : list) {
-            JSONObject dataObj = JSONObject.parseObject(item);
-            executorService.execute(new MyThread3(dataObj.getString("talentId"),dataObj.getString("school")));
+            executorService.execute(new MyThread3(replaceBlank(item)));
 //            System.out.println(dataObj.get("talentId") + "--->" + dataObj.get("school"));
         }
+    }
+    public static String replaceBlank(String str) {
+        String dest = "";
+        if (str!=null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
     }
 
 }
@@ -90,64 +105,30 @@ class MyThread extends Thread {
 
     @Override
     public void run() {
+
         JSONObject json = new JSONObject();
         json.put("value", value);
-        json.put("label", 0);
+        json.put("label", 1);
         PostExample example = new PostExample();
         String response = null;
+        double processTime = 0;
+
         try {
-            response = example.post("http://106.15.45.31:8002/value_check", json.toString());
+            long start = System.currentTimeMillis();
+            response = example.post("http://192.168.80.10:8002/value_check", json.toString());
+            long end = System.currentTimeMillis();
+            processTime  = (double)(end-start)/1000;
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println();
-        String result = StringUtils.removePattern(response, "\n") + "--->" + value;
+
+
+        JSONObject resJson = JSONObject.parseObject(response);
+        String result =  "[" + value + "--->" + resJson.getInteger("data") + " 耗时: " + processTime + "]";
+
+
         try {
-            File file = new File("D:\\companyResult.txt");
-            OutputStream os = new FileOutputStream(file, true);
-            List<String> lines = new ArrayList<>();
-            lines.add(result);
-            System.out.println(result);
-            IOUtils.writeLines(lines, null, os, "utf-8");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-}
-
-class MyThread2 extends Thread {
-
-    private String value;
-
-    public MyThread2(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public void run() {
-        PostExample example = new PostExample();
-        String response = null;
-        String name = "";
-        try {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("text", value);
-            response = example.get("http://school.bazhua.me:8841/school/normalize", map);
-            JSONObject json = JSONObject.parseObject(response);
-            if(json.containsKey("data")){
-                String data = json.getString("data");
-                if (!StringUtils.isEmpty(data)) {
-                    JSONObject dataObj = JSONObject.parseObject(json.getString("data"));
-                    name = dataObj.getString("name");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        System.out.println();
-        String result = value + "--->" + name;
-        try {
-            File file = new File("D:\\SchoolResult.txt");
+            File file = new File("D:\\datafilter\\total_title_result.txt");
             OutputStream os = new FileOutputStream(file, true);
             List<String> lines = new ArrayList<>();
             lines.add(result);
@@ -162,13 +143,11 @@ class MyThread2 extends Thread {
 
 class MyThread3 extends Thread {
 
-    private String talentId;
     private String value;
 
 
-    public MyThread3(String talentId,String value) {
+    public MyThread3(String value) {
 
-        this.talentId = talentId;
         this.value = value;
     }
 
@@ -177,10 +156,14 @@ class MyThread3 extends Thread {
         PostExample example = new PostExample();
         String response = null;
         String name = "";
+        double processTime = 0;
         try {
             HashMap<String, String> map = new HashMap<>();
             map.put("text", value);
-            response = example.get("http://school.bazhua.me:8841/school/normalize", map);
+            long start = System.currentTimeMillis();
+            response = example.get("http://192.168.1.31:9991/school/normalize", map);
+            long end = System.currentTimeMillis();
+            processTime  = (double)(end-start)/1000;
             JSONObject json = JSONObject.parseObject(response);
             if(json.containsKey("data")){
                 String data = json.getString("data");
@@ -193,9 +176,9 @@ class MyThread3 extends Thread {
             e.printStackTrace();
         }
 //        System.out.println();
-        String result = talentId + "--->" + value + "--->" + name;
+        String result = "[" + value + "--->" + name + " 耗时: " + processTime + "]";
         try {
-            File file = new File("D:\\SchoolResult.txt");
+            File file = new File("D:\\datafilter\\total_school_result.txt");
             OutputStream os = new FileOutputStream(file, true);
             List<String> lines = new ArrayList<>();
             lines.add(result);
