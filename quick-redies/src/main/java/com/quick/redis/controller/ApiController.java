@@ -25,4 +25,10 @@ public class ApiController {
     public Integer isCompamy(@PathVariable("company") String company) {
         return companyService.isCompany(company);
     }
+
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public Integer isCompamy() {
+        return companyService.add();
+    }
 }

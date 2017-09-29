@@ -1,7 +1,5 @@
 package com.quick.redis.service;
 
-import com.quick.redis.entity.Company;
-
 /**
  * Created with IDEA
  * User: vector
@@ -15,4 +13,6 @@ public interface CompanyService {
      *
      */
     Integer isCompany(String companyName);
+
+    Integer add();
 }

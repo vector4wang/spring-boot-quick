@@ -65,7 +65,7 @@ public class PostExample {
     }
 
     private static void company() throws IOException {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(50);
         String path = "D:\\datafilter\\total_title.txt";
         List<String> list = IOUtils.readLines(new FileInputStream(new File(path)));
         for (String item : list) {
@@ -115,7 +115,7 @@ class MyThread extends Thread {
 
         try {
             long start = System.currentTimeMillis();
-            response = example.post("http://192.168.80.10:8002/value_check", json.toString());
+            response = example.post("http://192.168.80.10:8001/value_check", json.toString());
             long end = System.currentTimeMillis();
             processTime  = (double)(end-start)/1000;
         } catch (IOException e) {
