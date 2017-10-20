@@ -12,4 +12,6 @@ import com.quick.druid.entity.City;
 public interface CityService {
 
     City getCityById(int id);
+
+    void saveTransaction();
 }

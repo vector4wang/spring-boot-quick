@@ -29,4 +29,10 @@ public class ApiController {
         return cityService.getCityById(id);
     }
 
+    @RequestMapping("/transaction/save")
+    public String saveTransaction() {
+        cityService.saveTransaction();
+        return "saveTransaction";
+    }
+
 }

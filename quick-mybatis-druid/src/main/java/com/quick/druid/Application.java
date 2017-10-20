@@ -3,6 +3,7 @@ package com.quick.druid;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @Author: wangxc
@@ -13,6 +14,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  */
 @SpringBootApplication
 @ServletComponentScan
+@EnableTransactionManagement // 开始事务支持
 public class Application {
 
     public static void main(String[] args) {

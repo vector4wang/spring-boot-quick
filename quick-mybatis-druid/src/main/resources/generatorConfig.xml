@@ -21,7 +21,7 @@
         <!-- 自己修改JDBC的路径 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/world" userId="root"
-                        password="root">
+                        password="root123">
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -46,7 +46,7 @@
                              targetPackage="com.quick.druid.mapper" targetProject="src/main/java/">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-        <table tableName="city" domainObjectName="City"
+        <table tableName="country" domainObjectName="Country"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
