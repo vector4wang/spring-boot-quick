@@ -15,4 +15,10 @@ public interface CompanyService {
     Integer isCompany(String companyName);
 
     Integer add();
+
+    Integer del();
+
+    void set(String key, String value);
+
+    String get(String key);
 }
