@@ -67,7 +67,7 @@ public class PostExample {
 
     private static void company() throws IOException {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        String path = "D:\\datafilter\\v0.2\\total_company.txt";
+        String path = "D:\\datafilter\\v0.2\\temp.txt";
         List<String> list = IOUtils.readLines(new FileInputStream(new File(path)));
         for (String item : list) {
             executorService.execute(new MyThread(replaceBlank(item)));
@@ -137,10 +137,10 @@ class MyThread extends Thread {
          */
         JSONObject resJson = JSONObject.parseObject(response);
         JSONObject data = resJson.getJSONObject("data");
-        if (data.getInteger("isLabel") == 1) {
+//        if (data.getInteger("isLabel") == 1) {
             String result =  "[" + value + "--->" + data.getInteger("isLabel") + "--->{" + data.getString("clean_value") + "} 耗时: " + processTime + "]";
             try {
-                File file = new File("D:\\datafilter\\v0.2\\total_company_result.txt");
+                File file = new File("D:\\datafilter\\v0.2\\temp_result.txt");
                 OutputStream os = new FileOutputStream(file, true);
                 List<String> lines = new ArrayList<>();
                 lines.add(result);
@@ -148,7 +148,7 @@ class MyThread extends Thread {
                 IOUtils.writeLines(lines, null, os, "utf-8");
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+//            }
         }
     }
 }

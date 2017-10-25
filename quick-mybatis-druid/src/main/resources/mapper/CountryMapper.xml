@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.quick.druid.mapper.CountryMapper" >
+  <resultMap id="BaseResultMap" type="com.quick.druid.entity.Country" >
+    <id column="Code" property="code" jdbcType="CHAR" />
+    <result column="Name" property="name" jdbcType="CHAR" />
+    <result column="Continent" property="continent" jdbcType="CHAR" />
+    <result column="Region" property="region" jdbcType="CHAR" />
+    <result column="SurfaceArea" property="surfacearea" jdbcType="REAL" />
+    <result column="IndepYear" property="indepyear" jdbcType="SMALLINT" />
+    <result column="Population" property="population" jdbcType="INTEGER" />
+    <result column="LifeExpectancy" property="lifeexpectancy" jdbcType="REAL" />
+    <result column="GNP" property="gnp" jdbcType="REAL" />
+    <result column="GNPOld" property="gnpold" jdbcType="REAL" />
+    <result column="LocalName" property="localname" jdbcType="CHAR" />
+    <result column="GovernmentForm" property="governmentform" jdbcType="CHAR" />
+    <result column="HeadOfState" property="headofstate" jdbcType="CHAR" />
+    <result column="Capital" property="capital" jdbcType="INTEGER" />
+    <result column="Code2" property="code2" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, 
+    GNP, GNPOld, LocalName, GovernmentForm, HeadOfState, Capital, Code2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from country
+    where Code = #{code,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from country
+    where Code = #{code,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.quick.druid.entity.Country" >
+    insert into country (Code, Name, Continent, 
+      Region, SurfaceArea, IndepYear, 
+      Population, LifeExpectancy, GNP, 
+      GNPOld, LocalName, GovernmentForm, 
+      HeadOfState, Capital, Code2
+      )
+    values (#{code,jdbcType=CHAR}, #{name,jdbcType=CHAR}, #{continent,jdbcType=CHAR}, 
+      #{region,jdbcType=CHAR}, #{surfacearea,jdbcType=REAL}, #{indepyear,jdbcType=SMALLINT}, 
+      #{population,jdbcType=INTEGER}, #{lifeexpectancy,jdbcType=REAL}, #{gnp,jdbcType=REAL}, 
+      #{gnpold,jdbcType=REAL}, #{localname,jdbcType=CHAR}, #{governmentform,jdbcType=CHAR}, 
+      #{headofstate,jdbcType=CHAR}, #{capital,jdbcType=INTEGER}, #{code2,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.quick.druid.entity.Country" >
+    insert into country
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        Code,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="continent != null" >
+        Continent,
+      </if>
+      <if test="region != null" >
+        Region,
+      </if>
+      <if test="surfacearea != null" >
+        SurfaceArea,
+      </if>
+      <if test="indepyear != null" >
+        IndepYear,
+      </if>
+      <if test="population != null" >
+        Population,
+      </if>
+      <if test="lifeexpectancy != null" >
+        LifeExpectancy,
+      </if>
+      <if test="gnp != null" >
+        GNP,
+      </if>
+      <if test="gnpold != null" >
+        GNPOld,
+      </if>
+      <if test="localname != null" >
+        LocalName,
+      </if>
+      <if test="governmentform != null" >
+        GovernmentForm,
+      </if>
+      <if test="headofstate != null" >
+        HeadOfState,
+      </if>
+      <if test="capital != null" >
+        Capital,
+      </if>
+      <if test="code2 != null" >
+        Code2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="continent != null" >
+        #{continent,jdbcType=CHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=CHAR},
+      </if>
+      <if test="surfacearea != null" >
+        #{surfacearea,jdbcType=REAL},
+      </if>
+      <if test="indepyear != null" >
+        #{indepyear,jdbcType=SMALLINT},
+      </if>
+      <if test="population != null" >
+        #{population,jdbcType=INTEGER},
+      </if>
+      <if test="lifeexpectancy != null" >
+        #{lifeexpectancy,jdbcType=REAL},
+      </if>
+      <if test="gnp != null" >
+        #{gnp,jdbcType=REAL},
+      </if>
+      <if test="gnpold != null" >
+        #{gnpold,jdbcType=REAL},
+      </if>
+      <if test="localname != null" >
+        #{localname,jdbcType=CHAR},
+      </if>
+      <if test="governmentform != null" >
+        #{governmentform,jdbcType=CHAR},
+      </if>
+      <if test="headofstate != null" >
+        #{headofstate,jdbcType=CHAR},
+      </if>
+      <if test="capital != null" >
+        #{capital,jdbcType=INTEGER},
+      </if>
+      <if test="code2 != null" >
+        #{code2,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.quick.druid.entity.Country" >
+    update country
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="continent != null" >
+        Continent = #{continent,jdbcType=CHAR},
+      </if>
+      <if test="region != null" >
+        Region = #{region,jdbcType=CHAR},
+      </if>
+      <if test="surfacearea != null" >
+        SurfaceArea = #{surfacearea,jdbcType=REAL},
+      </if>
+      <if test="indepyear != null" >
+        IndepYear = #{indepyear,jdbcType=SMALLINT},
+      </if>
+      <if test="population != null" >
+        Population = #{population,jdbcType=INTEGER},
+      </if>
+      <if test="lifeexpectancy != null" >
+        LifeExpectancy = #{lifeexpectancy,jdbcType=REAL},
+      </if>
+      <if test="gnp != null" >
+        GNP = #{gnp,jdbcType=REAL},
+      </if>
+      <if test="gnpold != null" >
+        GNPOld = #{gnpold,jdbcType=REAL},
+      </if>
+      <if test="localname != null" >
+        LocalName = #{localname,jdbcType=CHAR},
+      </if>
+      <if test="governmentform != null" >
+        GovernmentForm = #{governmentform,jdbcType=CHAR},
+      </if>
+      <if test="headofstate != null" >
+        HeadOfState = #{headofstate,jdbcType=CHAR},
+      </if>
+      <if test="capital != null" >
+        Capital = #{capital,jdbcType=INTEGER},
+      </if>
+      <if test="code2 != null" >
+        Code2 = #{code2,jdbcType=CHAR},
+      </if>
+    </set>
+    where Code = #{code,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.quick.druid.entity.Country" >
+    update country
+    set Name = #{name,jdbcType=CHAR},
+      Continent = #{continent,jdbcType=CHAR},
+      Region = #{region,jdbcType=CHAR},
+      SurfaceArea = #{surfacearea,jdbcType=REAL},
+      IndepYear = #{indepyear,jdbcType=SMALLINT},
+      Population = #{population,jdbcType=INTEGER},
+      LifeExpectancy = #{lifeexpectancy,jdbcType=REAL},
+      GNP = #{gnp,jdbcType=REAL},
+      GNPOld = #{gnpold,jdbcType=REAL},
+      LocalName = #{localname,jdbcType=CHAR},
+      GovernmentForm = #{governmentform,jdbcType=CHAR},
+      HeadOfState = #{headofstate,jdbcType=CHAR},
+      Capital = #{capital,jdbcType=INTEGER},
+      Code2 = #{code2,jdbcType=CHAR}
+    where Code = #{code,jdbcType=CHAR}
+  </update>
+</mapper>
