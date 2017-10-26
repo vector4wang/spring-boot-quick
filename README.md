@@ -68,7 +68,7 @@
  注意:*如果接受参数是已@RequestBody方式并且参数中包含日期类型的参数，可在对应模型的日期属性上面添加`@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")`注解*
  如
 ```java
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh" , timezone="GMT+8") // 注意时区的设置
     private Date birthday; // 出生日期
 ```
 
