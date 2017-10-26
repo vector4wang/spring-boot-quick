@@ -26,9 +26,10 @@ public class WordCountService implements Serializable {
 
     public Map<String, Integer> run() throws FileNotFoundException {
         Map<String, Integer> result = new HashMap<>();
-        JavaRDD<String> lines = sc.textFile("D:\\blsmy.txt");
+        File file = ResourceUtils.getFile("classpath:blsmy.txt");
+        JavaRDD<String> lines = sc.textFile(file.getAbsolutePath());
         JavaRDD<String> words = lines.flatMap(word-> Arrays.asList(SPACE.split(word)));
-        JavaPairRDD<String, Integer> ones = words.mapToPair(s->new Tuple2<String, Integer>(s, 1));
+        JavaPairRDD<String, Integer> ones = words.mapToPair(s->new Tuple2<>(s, 1));
         JavaPairRDD<String, Integer> counts = ones.reduceByKey((Integer i1, Integer i2)->(i1 + i2));
         List<Tuple2<String, Integer>> output = counts.collect();
         output.forEach(item->result.put(item._1(),item._2()));

@@ -64,6 +64,14 @@
 
  - web接口的规范化示例
  - 添加了当传递参数为对象时，如何使用swagger注解
+ 
+ 注意:*如果接受参数是已@RequestBody方式并且参数中包含日期类型的参数，可在对应模型的日期属性上面添加`@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")`注解*
+ 如
+```java
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date birthday; // 出生日期
+```
+
 
 
 ## quick-thread 
@@ -117,6 +125,8 @@ apache的文本抽取开源框架，整合到springboot中
 ## quick-ElasticSearch 
 关于es搜索的相关内容
      现在在学习Elasticsearch+Logstash+Kibana 后续会有相关博文、和代码示例~
+
+注意：想要用好es，搜索是关键
  
  
 ## quick-img2txt 图片与文字转换的程序示例

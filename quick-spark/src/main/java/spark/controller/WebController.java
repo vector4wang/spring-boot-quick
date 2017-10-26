@@ -20,7 +20,7 @@ import java.util.Map;
  * Description:
  */
 @RestController
-@RequestMapping("/spark")
+    @RequestMapping("/spark")
 public class WebController {
     private Logger logger = Logger.getLogger(WebController.class);
 
