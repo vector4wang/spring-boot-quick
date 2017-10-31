@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.support.collections.RedisStore;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -17,6 +19,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,52 +31,60 @@ import java.util.Map;
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-	@Value("${resource.id:spring-boot-application}") // 默认值spring-boot-application
-	private String resourceId;
+    @Value("${resource.id:spring-boot-application}") // 默认值spring-boot-application
+    private String resourceId;
 
-	@Value("${access_token.validity_period:3600}") // 默认值3600
-			int accessTokenValiditySeconds = 3600;
+    @Value("${access_token.validity_period:3600}") // 默认值3600
+            int accessTokenValiditySeconds = 3600;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authenticationManager(this.authenticationManager);
+    @Autowired
+    private RedisConnectionFactory connectionFactory;
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.authenticationManager(this.authenticationManager);
 		endpoints.accessTokenConverter(accessTokenConverter());
-		endpoints.tokenStore(tokenStore());
-	}
+        endpoints.tokenStore(tokenStore());
+    }
 
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-		oauthServer.tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_TRUSTED_CLIENT')");
-		oauthServer.checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')");
-	}
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_TRUSTED_CLIENT')");
+        oauthServer.checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')");
+    }
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
-				.withClient("normal-app")
-				.authorizedGrantTypes("authorization_code", "implicit")
-				.authorities("ROLE_CLIENT")
-				.scopes("read", "write")
-				.resourceIds(resourceId)
-				.accessTokenValiditySeconds(accessTokenValiditySeconds)
-				.and()
-				.withClient("trusted-app")
-				.authorizedGrantTypes("client_credentials", "password")
-				.authorities("ROLE_TRUSTED_CLIENT")
-				.scopes("read", "write")
-				.resourceIds(resourceId)
-				.accessTokenValiditySeconds(accessTokenValiditySeconds)
-				.secret("secret");
-	}
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory()
+                .withClient("normal-app")
+                .authorizedGrantTypes("authorization_code", "implicit")
+                .authorities("ROLE_CLIENT")
+                .scopes("read", "write")
+                .resourceIds(resourceId)
+                .accessTokenValiditySeconds(accessTokenValiditySeconds)
+                .and()
+                .withClient("trusted-app")
+                .authorizedGrantTypes("client_credentials", "password")
+                .authorities("ROLE_TRUSTED_CLIENT")
+                .scopes("read", "write")
+                .resourceIds(resourceId)
+                .accessTokenValiditySeconds(accessTokenValiditySeconds)
+                .secret("secret");
+    }
 
-	/**
-	 * token converter
-	 *
-	 * @return
-	 */
+//    @Bean
+//    public RedisTokenStore tokenStore() {
+//        return new RedisTokenStore(connectionFactory);
+//    }
+
+    /**
+     * token converter
+     *
+     * @return
+     */
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter() {
