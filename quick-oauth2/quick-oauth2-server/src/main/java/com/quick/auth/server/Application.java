@@ -31,8 +31,8 @@ public class Application {
     public void init(){
         try {
             Account account=new Account();
-            account.setName("leftso");
-            account.setPassword("111aaa");
+            account.setName("vector");
+            account.setPassword("23333");
             account.setRoles(new String []{"ROLE_USER"});
             accountRepository.deleteAll();
             accountRepository.save(account);

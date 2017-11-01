@@ -60,6 +60,8 @@
 - 百度搜索领英种子url爬虫和"随机应变"的处理方式 （没想到现在对领英爬虫的需求这么大，最近给一个客户开了自动抓取领英数据的系统，处于安全，就把代码删掉了）
 - 一键导出CSDN某用户的所有博客内容并转换为MD格式到本地
 
+已经将爬虫模块迁移到[crawlers](https://github.com/vector4wang/Crawlers)
+
 ## quick-swagger 
 
  - web接口的规范化示例
