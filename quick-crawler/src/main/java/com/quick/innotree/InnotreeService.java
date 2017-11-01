@@ -1,20 +1,15 @@
 package com.quick.innotree;
 
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.NameValuePair;
-import net.sf.json.JSONObject;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URISyntaxException;
 
 /**
  * @Author: wangxc
@@ -24,71 +19,59 @@ import java.util.Map;
  * @wxid: BMHJQS
  */
 public class InnotreeService {
-    public static void main(String[] args) throws IOException {
-        final WebClient webClient = new WebClient();// 创建WebClient
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        // 创建WebClient
+        final WebClient webClient = new WebClient(BrowserVersion.CHROME);
 
-        webClient.getOptions().setJavaScriptEnabled(false);
-        webClient.getOptions().setCssEnabled(false);
-        webClient.getOptions().setRedirectEnabled(true);
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-//        webClient.getOptions().set
-            webClient.getOptions().setTimeout(5000);
+//        webClient.getOptions().setJavaScriptEnabled(false);
+//        webClient.getOptions().setCssEnabled(false);
+//        webClient.getOptions().setRedirectEnabled(true);
+//        webClient.getOptions().setThrowExceptionOnScriptError(false);
+
+
+//        webClient.addRequestHeader("Accept","application/json,text/javascript,*/*;q=0.01");
+//        webClient.addRequestHeader("Accept-Encoding","gzip,deflate,br");
+//        webClient.addRequestHeader("Accept-Language","zh-CN,zh;q=0.8");
+//        webClient.addRequestHeader("Connection","keep-alive");
+//        webClient.addRequestHeader("Host","www.innotree.cn");
+//        webClient.addRequestHeader("Referer","https//www.innotree.cn/inno/database/totalDatabase");
+//        webClient.addRequestHeader("User-Agent","Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/60.0.3112.90Safari/537.36");
+//        webClient.addRequestHeader("X-Requested-With","XMLHttpRequest");
 //
-//        // 获取页面
-//        HtmlPage page = webClient.getPage("http://www.innotree.cn/indexprocoo/search.html?keyword=%E5%85%AB%E7%88%AA");
-//        webClient.waitForBackgroundJavaScript(10000);
-//        // 获得name为"session_key"的html元素
-////        HtmlElement usernameEle = page.getElementByName("session_key");
-////        // 获得id为"session_password"的html元素
-////        HtmlElement passwordEle = (HtmlElement) page.getElementById("session_password-login");
-////        usernameEle.focus(); // 设置输入焦点
-////        usernameEle.type(name);
-////        passwordEle.focus(); // 设置输入焦点
-////
-////        passwordEle.type(password);
+//        webClient.getCookieManager().setCookiesEnabled(true);//开启cookie管理
+//
+//        webClient.getCookieManager().addCookie(new Cookie("www.innotree.cn","Cookie","_user_identify_=bcc1c471-b2d8-3a36-bfa8-fb20b06f68e2; uID=450394; sID=2a48b3d753f6d08a1a4bf456440cc1f3; JSESSIONID=aaaMaWLicGHPz6AA-OX9v; Hm_lvt_37854ae85b75cf05012d4d71db2a355a=1509366682,1509440093; Hm_lpvt_37854ae85b75cf05012d4d71db2a355a=1509440146"));
+//
+//        Page page = webClient.getPage("https://www.innotree.cn/inno/search/ajax/getAllSearchResult?query=&st=1&ps=10&fchain=0");
+//
 //        System.out.println(page.getWebResponse().getContentAsString());
 
-        String keyEncode = URLEncoder.encode("八爪","UTF-8");
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+//        URI uri = new URIBuilder()
+//                .setScheme("https")
+//                .setHost("www.innotree.cn")
+//                .setPath("inno/search/ajax/getAllSearchResult")
+//                .setParameter("query", "")
+//                .setParameter("st", "1")
+//                .setParameter("ps", "10")
+//                .setParameter("fchain","0")
+//                .build();
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet("https://www.innotree.cn/inno/search/ajax/getAllSearchResult?query=&st=1&ps=10&fchain=0");
+        httpGet.setHeader("Accept","application/json,text/javascript,*/*;q=0.01");
+        httpGet.setHeader("Accept-Encoding","gzip,deflate,br");
+        httpGet.setHeader("Accept-Language","zh-CN,zh;q=0.8");
+        httpGet.setHeader("Connection","keep-alive");
+        httpGet.setHeader("Cookie","_user_identify_=bcc1c471-b2d8-3a36-bfa8-fb20b06f68e2;uID=450394;sID=2a48b3d753f6d08a1a4bf456440cc1f3;JSESSIONID=aaaMaWLicGHPz6AA-OX9v;Hm_lvt_37854ae85b75cf05012d4d71db2a355a=1509366682,1509440093;Hm_lpvt_37854ae85b75cf05012d4d71db2a355a=1509440135");
+        httpGet.setHeader("Host","www.innotree.cn");
+        httpGet.setHeader("Referer","https//www.innotree.cn/inno/database/totalDatabase");
+        httpGet.setHeader("User-Agent","Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/60.0.3112.90Safari/537.36");
+        httpGet.setHeader("X-Requested-With","XMLHttpRequest");
+
+        CloseableHttpResponse execute = httpclient.execute(httpGet);
+        System.out.println(IOUtils.toString(execute.getEntity().getContent()));
 
 
-
-        WebRequest webRequest = new WebRequest(new URL("http://www.innotree.cn/collectlog/info.ajax"));
-        webRequest.setHttpMethod(HttpMethod.POST);
-        JSONObject params = new JSONObject();
-        params.put("source_type","pc");
-        params.put("collect_type","click");
-        params.put("collect_key","search");
-        params.put("collect_type","八爪");
-        params.put("collect_id","");
-        params.put("u_request_url","http://www.innotree.cn/indexprocoo/search.html?keyword="+ keyEncode);
-        params.put("u_referer_url","http://www.innotree.cn/indexprocoo/search.html?keyword="+ keyEncode);
-        params.put("u_agent","Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36");
-        params.put("gen_time",format.format(new Date()));
-        params.put("collect_page","SearchList");
-
-        JSONObject nj = new JSONObject();
-        nj.put("json",params);
-
-        webRequest.setAdditionalHeader("Accept","application/json, text/javascript, */*; q=0.01");
-        webRequest.setAdditionalHeader("Accept-Encoding","gzip, deflate");
-        webRequest.setAdditionalHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-        webRequest.setAdditionalHeader("Connection","keep-alive");
-        webRequest.setAdditionalHeader("Host","www.innotree.cn");
-        webRequest.setAdditionalHeader("Cookie","_user_identify_=38e78465-ca98-39a1-a411-d22034ad31af; JSESSIONID=aaaJR4Oz2351xh_LAPKZv; Hm_lvt_37854ae85b75cf05012d4d71db2a355a=1498484735,1498485012; Hm_lpvt_37854ae85b75cf05012d4d71db2a355a=1498486706");
-        webRequest.setAdditionalHeader("Origin","http://www.innotree.cn");
-        webRequest.setAdditionalHeader("Referer","http://www.innotree.cn/indexprocoo/search.html?keyword="+keyEncode);
-        webRequest.setAdditionalHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36");
-        webRequest.setAdditionalHeader("X-Requested-With","XMLHttpRequest");
-//        webRequest.setAdditionalHeader("Content-Length",""+params.toString().length());
-        System.out.println(nj.toString());
-//        webRequest.setRequestBody("REQUESTBODY");
-        webRequest.setRequestParameters(new ArrayList());
-        webRequest.getRequestParameters().add(new NameValuePair("json", params.toString()));
-        Page page = webClient.getPage(webRequest);
-//        webRequest.getre
-        page = webClient.getPage("http://www.innotree.cn/indexprocoo/search.html?keyword=" + keyEncode);
-        System.out.println(page.getWebResponse().getContentAsString());
     }
 }

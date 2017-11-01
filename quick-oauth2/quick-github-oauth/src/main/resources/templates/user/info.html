@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index::head"></head>
+<body>
+<nav th:replace="index::header"></nav>
+<div class="container">
+    Welcome,
+    <span th:text="${name}"></span>
+</div>
+</body>
+</html>
