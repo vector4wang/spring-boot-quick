@@ -1,15 +1,13 @@
-package com.quick.druid;
+package com.quick.jpa;
 
-import com.quick.druid.entity.Customers;
-import com.quick.druid.mapper.CustormersMapper;
+import com.quick.jpa.entity.JpaTest;
+import com.quick.jpa.repository.JpaTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
+import java.util.Date;
 
 /**
  * @Author: wangxc
@@ -19,22 +17,20 @@ import java.util.List;
  * @wxid: BMHJQS
  */
 @SpringBootApplication
-@ServletComponentScan
-@EnableTransactionManagement // 开始事务支持
 public class Application {
 
     @Autowired
-    private CustormersMapper mapper;
+    private JpaTestRepository jpaTestRepository;
 
     @PostConstruct
     public void test() {
-        List<Customers> customers = mapper.selectList();
-        System.out.println(customers);
+        JpaTest jpaTest = new JpaTest();
+        jpaTest.setName("test");
+        jpaTest.setAddTime(new Date());
+        jpaTestRepository.save(jpaTest);
     }
 
-
-
     public static void main(String[] args) {
-        SpringApplication.run(Application.class,args);
+        SpringApplication.run(Application.class, args);
     }
 }
