@@ -105,7 +105,9 @@ springboot整合mybatis和阿里云的druid监控功能，日志可以控制sql�
 | GET | /trace | 查看基本追踪信息 | true |
 
 ## quick-multi-data
- springboot mybatis 多数据源配置，别忘了为多数据源的连接池配置
+- springboot mybatis 多数据源配置，别忘了为多数据源的连接池配置
+- 改为druid多数据源，方便监控数据库查询和性能
+ 
 
 ## quick-spark 
 springboot整合spark示例
