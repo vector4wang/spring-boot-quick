@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback</contextName>
+    <property name="log.path" value="log/logback.log"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%date{yyyy-MM-dd HH:mm:ss} | %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/>
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--<appender name="error" class="ch.qos.logback.core.FileAppender">-->
+        <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+        <!--<level>ERROR</level>-->
+        <!--</filter>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-mm-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %logger{26} - %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+    <!--输出到文件-->
+    <appender name="app-log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/app-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+            <!--<timeBasedFileNamingAndTriggeringPolicy-->
+                    <!--class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+                <!--文件达到 最大128MB时会被压缩和切割-->
+                <!--<maxFileSize>1 MB</maxFileSize>-->
+            <!--</timeBasedFileNamingAndTriggeringPolicy>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-mm-dd HH:mm:ss.SSS} [%thread] %-5level %logger{16} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="error-log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>logs/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-mm-dd HH:mm:ss.SSS} [%thread] %-5level %logger{16} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="app-log"/>
+        <appender-ref ref="error-log"/>
+    </root>
+
+    <!-- logback为java中的包 -->
+    <!--<logger name="com.dudu.controller"/>-->
+    <!--logback.LogbackDemo：类的全路径 -->
+    <!--<logger name="com.dudu.controller.LearnController" level="WARN" additivity="true">-->
+    <!--<appender-ref ref="console"/>-->
+    <!--</logger>-->
+
+    <!--&lt;!&ndash; 测试环境+开发环境. 多个使用逗号隔开. &ndash;&gt;-->
+    <!--<springProfile name="test,dev">-->
+    <!--<logger name="com.dudu.controller" level="info" />-->
+    <!--</springProfile>-->
+    <!--&lt;!&ndash; 生产环境. &ndash;&gt;-->
+    <!--<springProfile name="prod">-->
+    <!--<logger name="com.dudu.controller" level="ERROR" />-->
+    <!--</springProfile>-->
+
+</configuration>
