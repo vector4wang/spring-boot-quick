@@ -20,7 +20,7 @@ public class AliyunMessageListener implements MessageListener {
     public Action consume(Message message, ConsumeContext consumeContext) {
         String body = new String(message.getBody());
         JSONObject jsonObject = JSON.parseObject(body);
-        System.out.println(jsonObject.getString("name"));
+        System.out.println(jsonObject.getString("name") + "->" +System.currentTimeMillis());
         return Action.CommitMessage;
     }
 }

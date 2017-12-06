@@ -2,10 +2,8 @@ package com.rocketmq.service;
 
 import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.ons.api.SendResult;
-import com.rocketmq.config.AliyunAccessKeyBean;
 import com.rocketmq.util.AliyunMessageConsumer;
 import com.rocketmq.util.AliyunMessageProducer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -21,20 +19,17 @@ import java.util.UUID;
 @Service
 public class MQService {
 
-    @Autowired
-    private AliyunAccessKeyBean aliyunAccessKeyBean;
-
     @PostConstruct
     public void initMQListener() {
         AliyunMessageConsumer.subscribe();
     }
 
     public void sendMsg(String msg) {
-        for(int i=0;i<1000;i++) {
-            Message message = new Message("resume_update_rzero","TALENTID", UUID.randomUUID().toString(),msg.getBytes());
-            SendResult sendResult = AliyunMessageProducer.sendMsg("PID-Resume", message);
-            System.out.println(sendResult.getMessageId());
-        }
 
+        for(int i=0;i<1000;i++) {
+            String tmp = "{\"name\":\"msg"+i+"\",\"v1.0\":\"2014-07-02 22:05 工具上线\",\"v2.0\":\"2016-11-16 14:13 增加php, go类生成\",\"v2.1\":\"2016-11-19 01:17 增加java类生成\"}";
+            Message message = new Message("resume_update_rzero","TALENTID", UUID.randomUUID().toString(),tmp.getBytes());
+            SendResult sendResult = AliyunMessageProducer.sendMsg("PID-Resume", message);
+        }
     }
 }

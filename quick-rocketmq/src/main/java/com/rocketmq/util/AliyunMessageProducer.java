@@ -13,27 +13,33 @@ import java.util.Properties;
  */
 public class AliyunMessageProducer {
 
-    private static final String ACCESS_KEY = "LTAIcV7Ho2KS9a64";
-    private static final String SECRET_KEY = "3FWmAyWC99S3D8a3iVYzBZ0qiD4fOJ";
+    private static final String ACCESS_KEY = "XXXXXXXXXXXX";
+    private static final String SECRET_KEY = "XXXXXXXXXXXX";
+    private static final String ONSAddr = "XXXXXXXXXXXX";
+
+    public static Producer producer;
+
+
 
 
     /**
      * 获取消息的 Producer
-     *
+     * 设置为单例
      * @param producerId producerId
      * @return Producer
      */
     public static Producer getProducer(String producerId) {
-        Properties properties = new Properties();
-        properties.put(PropertyKeyConst.ProducerId, producerId);
-        properties.put(PropertyKeyConst.AccessKey, ACCESS_KEY);
-        properties.put(PropertyKeyConst.SecretKey, SECRET_KEY);
-        properties.setProperty(PropertyKeyConst.SendMsgTimeoutMillis, "3000");
-        properties.put(PropertyKeyConst.ONSAddr,
-                "http://onsaddr-internet.aliyun.com/rocketmq/nsaddr4client-internet");
-        Producer producer = ONSFactory.createProducer(properties);
-        // 在发送消息前，必须调用start方法来启动Producer，只需调用一次即可。
-        producer.start();
+        if (producer == null) {
+            Properties properties = new Properties();
+            properties.put(PropertyKeyConst.ProducerId, producerId);
+            properties.put(PropertyKeyConst.AccessKey, ACCESS_KEY);
+            properties.put(PropertyKeyConst.SecretKey, SECRET_KEY);
+            properties.setProperty(PropertyKeyConst.SendMsgTimeoutMillis, "3000");
+            properties.put(PropertyKeyConst.ONSAddr,ONSAddr);
+            producer = ONSFactory.createProducer(properties);
+            // 在发送消息前，必须调用start方法来启动Producer，只需调用一次即可。
+            producer.start();
+        }
         return producer;
     }
 
