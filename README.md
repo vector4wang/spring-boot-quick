@@ -10,37 +10,34 @@
 
 ```bash
 .
-├── log
-├── logs
 ├── pom.xml
 ├── quick-batch
-├── quick-crawler
 ├── quick-ElasticSearch
 ├── quick-exception
 ├── quick-idea
 ├── quick-img2txt
 ├── quick-jdbc
+├── quick-jpa
 ├── quick-jsp
 ├── quick-log
 ├── quick-modules
 ├── quick-multi-data
 ├── quick-mybatis-druid
+├── quick-oauth2
 ├── quick-okhttp
 ├── quick-oss
 ├── quick-package-assembly
 ├── quick-package-assembly-multi-env
 ├── quick-rabbitmq
 ├── quick-redies
+├── quick-rocketmq
 ├── quick-simhash
 ├── quick-spark
 ├── quick-swagger
 ├── quick-thread
 ├── quick-tika
 ├── quick-wx-api
-├── README.md
-└── spring-boot-quick.iml
-
-
+└── README.md
 ```
 
 ## spring-boot-quick
@@ -221,6 +218,9 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 
 ## quick-redis
 工作上用到了redis，就添加了redis模块，很简单有key就获取，没有就插入
+
+## quick-rocketmq
+此处的不是Apache 的Rocketmq，是阿里云服务上的一个消息队列
 
 ---
 
