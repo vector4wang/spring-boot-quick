@@ -2,10 +2,10 @@ package com.rocketmq.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.aliyun.openservices.ons.api.Action;
-import com.aliyun.openservices.ons.api.ConsumeContext;
 import com.aliyun.openservices.ons.api.Message;
-import com.aliyun.openservices.ons.api.MessageListener;
+import com.aliyun.openservices.ons.api.order.ConsumeOrderContext;
+import com.aliyun.openservices.ons.api.order.MessageOrderListener;
+import com.aliyun.openservices.ons.api.order.OrderAction;
 
 /**
  * Created with IDEA
@@ -14,13 +14,22 @@ import com.aliyun.openservices.ons.api.MessageListener;
  * Time: 19:38
  * Description:
  */
-public class AliyunMessageListener implements MessageListener {
+public class AliyunMessageListener implements MessageOrderListener {
+
 
     @Override
-    public Action consume(Message message, ConsumeContext consumeContext) {
+    public OrderAction consume(Message message, ConsumeOrderContext consumeOrderContext) {
         String body = new String(message.getBody());
         JSONObject jsonObject = JSON.parseObject(body);
         System.out.println(jsonObject.getString("name") + "->" +System.currentTimeMillis());
-        return Action.CommitMessage;
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        /**
+         * 消息消费处理失败或者处理出现异常，返回OrderAction.Suspend<br>
+         */
+        return OrderAction.Success;
     }
 }

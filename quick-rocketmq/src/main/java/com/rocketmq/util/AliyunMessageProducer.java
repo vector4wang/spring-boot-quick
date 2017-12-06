@@ -13,9 +13,9 @@ import java.util.Properties;
  */
 public class AliyunMessageProducer {
 
-    private static final String ACCESS_KEY = "XXXXXXXXXXXX";
-    private static final String SECRET_KEY = "XXXXXXXXXXXX";
-    private static final String ONSAddr = "XXXXXXXXXXXX";
+    private static final String ACCESS_KEY = "xxxxx";
+    private static final String SECRET_KEY = "xxxxx";
+    private static final String ONSAddr = "xxxxx";
 
     public static Producer producer;
 
