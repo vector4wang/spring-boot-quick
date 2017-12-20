@@ -34,6 +34,7 @@
         <module>quick-jpa</module>
         <module>quick-rocketmq</module>
         <module>quick-logback</module>
+        <module>qucik-activemq</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>

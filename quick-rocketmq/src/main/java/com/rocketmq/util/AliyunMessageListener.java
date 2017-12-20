@@ -21,12 +21,7 @@ public class AliyunMessageListener implements MessageOrderListener {
     public OrderAction consume(Message message, ConsumeOrderContext consumeOrderContext) {
         String body = new String(message.getBody());
         JSONObject jsonObject = JSON.parseObject(body);
-        System.out.println(jsonObject.getString("name") + "->" +System.currentTimeMillis());
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        System.out.println(message.getShardingKey() + "分区 " + jsonObject.getString("talentId") + "->" +System.currentTimeMillis());
         /**
          * 消息消费处理失败或者处理出现异常，返回OrderAction.Suspend<br>
          */
