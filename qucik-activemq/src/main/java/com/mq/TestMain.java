@@ -1,9 +1,12 @@
 package com.mq;
 
+import com.alibaba.fastjson.JSON;
+import com.mq.model.TalentMQMessage;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.util.UUID;
 
 /**
  * Created with IDEA
@@ -31,12 +34,17 @@ public class TestMain {
             //DUPS_OK_ACKNOWLEDGE允许副本的确认模式。一旦接收方应用程序的方法调用从处理消息处返回，会话对象就会确认消息的接收；而且允许重复确认。在需要考虑资源使用时，这种模式非常有效。
             //待测试
             session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
-            destination = session.createQueue("mytest.queue");
+            destination = session.createQueue("localhost_queue");
             producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
             //优先级不能影响先进先出。。。那这个用处究竟是什么呢呢呢呢
+
             for(int i=0;i<100;i++){
-                producer.send(session.createObjectMessage(i + "-myname is chhliu!!!"));
+                TalentMQMessage mqMessage = new TalentMQMessage();
+                mqMessage.setTalentId(UUID.randomUUID().toString());
+                mqMessage.setCallbackData("haha");
+                mqMessage.setCallbackQueue(i+"");
+                producer.send(session.createObjectMessage(JSON.toJSONString(mqMessage)));
             }
             producer.close();
             System.out.println("呵呵");
