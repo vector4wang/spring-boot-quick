@@ -11,6 +11,7 @@
 ```bash
 .
 ├── pom.xml
+├── qucik-activemq
 ├── quick-batch
 ├── quick-ElasticSearch
 ├── quick-exception
@@ -20,6 +21,7 @@
 ├── quick-jpa
 ├── quick-jsp
 ├── quick-log
+├── quick-logback
 ├── quick-modules
 ├── quick-multi-data
 ├── quick-mybatis-druid
@@ -221,6 +223,13 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 
 ## quick-rocketmq
 此处的不是Apache 的Rocketmq，是阿里云服务上的一个消息队列
+
+## quick-logback
+springboot內置的日志管理模块，使用slf4j
+
+## qucik-activemq
+springboot 整合activemq 服务 非常简单，更负责的配置可以自定义containerFactory
+
 
 ---
 
