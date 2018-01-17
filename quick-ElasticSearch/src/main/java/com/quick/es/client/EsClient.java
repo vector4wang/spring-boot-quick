@@ -1,6 +1,8 @@
 package com.quick.es.client;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.quick.es.config.ESClientConfig;
 import com.quick.es.util.DataFactory;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -16,6 +18,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.ScriptSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -207,10 +210,13 @@ public class EsClient {
                 .prepareSearch(INDEX)
                 .setTypes(TYPE) //
                 .setQuery(QueryBuilders.boolQuery().must(QueryBuilders.matchPhraseQuery("title", "产品设计").slop(2)))
-                .setSize(100)
-                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
+//                .setFrom(10)
+                .setSize(1000)
+//                .addSort(SortBuilders.scriptSort(new Script("Math.random()"), ScriptSortBuilder.ScriptSortType.NUMBER))
+                .addSort(SortBuilders.fieldSort("year_of_experience").order(SortOrder.DESC))
                 .get();
 
+        System.out.println(scrollResp1.getHits().totalHits);
 
 
         SearchHits searchHits1 = scrollResp1.getHits();
@@ -219,7 +225,9 @@ public class EsClient {
         System.out.println("耗时" + (double) (end - start) / 1000 + "s。");
         //遍历结果
         for (SearchHit hit : searchHits1) {
-            System.out.println(hit.getSourceAsString());
+            JSONObject jsonObject = JSON.parseObject(hit.getSourceAsString());
+
+//            System.out.println(jsonObject.getInteger("year_of_experience"));
         }
 
     }
