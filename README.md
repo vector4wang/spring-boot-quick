@@ -4,15 +4,18 @@
 的方式去整理，感觉不直观，一咬牙就花了点时间将所有的分支整合在一起（之前使用branch方式的兄dei，这里对不住了，你们可以将之前的干掉，重新克隆总的），方便自己也方便大家参考，以下是我的相关博客，有兴趣的
 可以去浏览浏览，觉得对自己有点启发或者解决了一些问题，可以点个赞~
 
-- CSDN http://blog.csdn.net/qqhjqs?viewmode=contents
-- 简书 http://www.jianshu.com/u/223a1314e818
-- BLOG http://vector4wang.tk
+- CSDN：http://blog.csdn.net/qqhjqs?viewmode=list
+- 博客：http://vector4wang.tk/
+- 简书：https://www.jianshu.com/u/223a1314e818
+- Github:https://github.com/vector4wang
+- Gitee:https://gitee.com/backwxc
 
 ```bash
 .
 ├── pom.xml
 ├── qucik-activemq
 ├── quick-batch
+├── quick-docker
 ├── quick-ElasticSearch
 ├── quick-exception
 ├── quick-idea
@@ -39,7 +42,8 @@
 ├── quick-thread
 ├── quick-tika
 ├── quick-wx-api
-└── README.md
+├── README.md
+
 ```
 
 ## spring-boot-quick
@@ -227,10 +231,11 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 ## quick-logback
 springboot內置的日志管理模块，使用slf4j
 
-## qucik-activemq
+## quick-activemq
 springboot 整合activemq 服务 非常简单，更负责的配置可以自定义containerFactory
 
-
+## quick-docker
+使用docker部署springboot的失利demo，更多内容请见blog
 ---
 
 (后面会持续更新)
