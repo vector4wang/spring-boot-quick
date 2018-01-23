@@ -61,8 +61,8 @@ public class PostExample {
 
     public static void main(String[] args) throws IOException {
 
-//        ybSchool();
-        company();
+        ybSchool();
+//        company();
     }
 
     private static void company() throws IOException {
@@ -77,7 +77,7 @@ public class PostExample {
 
     private static void ybSchool() throws IOException {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
-        String path = "D:\\datafilter\\v0.2\\total_school.txt";
+        String path = "D:\\datafilter\\v0.3\\total_school.txt";
         List<String> list = IOUtils.readLines(new FileInputStream(new File(path)));
         for (String item : list) {
             executorService.execute(new MyThread3(replaceBlank(item)));
@@ -175,20 +175,25 @@ class MyThread3 extends Thread {
             jo.put("school", value);
             jsonArray.add(jo);
             long start = System.currentTimeMillis();
+            System.out.println(jsonArray.toString());
             response = example.post("http://192.168.1.31:9992/school/batch_normalize_v2", jsonArray.toString());
             long end = System.currentTimeMillis();
             processTime  = (double)(end-start)/1000;
             JSONObject json = JSONObject.parseObject(response);
             if(json.containsKey("data")){
                 JSONObject data = json.getJSONArray("data").getJSONObject(0);
-                String enName = data.getString("en_name");
-                String oldName = data.getString("old_name");
-                String zhName = data.getString("zh_name");
-
-                if (StringUtils.isEmpty(enName) && StringUtils.isEmpty(zhName)) {
+                System.out.println(data.getBoolean("is_standard"));
+                if (data.getBoolean("is_standard")) {
+                    String enName = data.getString("en_name");
+                    String oldName = data.getString("old_name");
+                    String zhName = data.getString("zh_name");
+                    if (!StringUtils.isEmpty(zhName)) {
+                        name = zhName;
+                    }
+                    if (!StringUtils.isEmpty(enName)) {
+                        name = enName;
+                    }
                     name = oldName;
-                }else {
-                    name = StringUtils.isEmpty(zhName) ? enName : zhName;
                 }
 
             }
@@ -197,7 +202,7 @@ class MyThread3 extends Thread {
         }
         String result = "[" + value + "--->{" + name + "} 耗时: " + processTime + "]";
         try {
-            File file = new File("D:\\datafilter\\v0.2\\total_school_result.txt");
+            File file = new File("D:\\datafilter\\v0.3\\total_school_result.txt");
             OutputStream os = new FileOutputStream(file, true);
             List<String> lines = new ArrayList<>();
             lines.add(result);
