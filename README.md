@@ -235,7 +235,9 @@ springboot內置的日志管理模块，使用slf4j
 springboot 整合activemq 服务 非常简单，更负责的配置可以自定义containerFactory
 
 ## quick-docker
-使用docker部署springboot的失利demo，更多内容请见blog
+
+使用docker部署springboot的示例demo，更多内容请见blog
+
 ---
 
 (后面会持续更新)
