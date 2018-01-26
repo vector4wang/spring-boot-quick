@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index::head"></head>
+<body>
+<!--<nav th:replace="index::header"></nav>-->
+<div class="container login">
+    <div>
+        <form action="/login.do" method="post">
+            <input type="hidden" th:value="${_csrf.token}" name="_csrf"/>
+            <div class="form-group">
+                <label for="usernameInput">Username</label>
+                <input type="text" id="usernameInput" class="form-control" name="username" placeholder="enter your username"/>
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">Password</label>
+                <input type="password" id="passwordInput" class="form-control" name="password" placeholder="enter your password"/>
+            </div>
+            <div class="form-group" th:if="${err}">
+                <div class="text-danger ">
+                    用户名或密码错误
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+            </div>
+            <hr/>
+            <div class="form-group text-center">
+                <a href="/login/github">
+                    <img src="/images/GitHub_Logo.png" alt="GitHub Login" height="45"/>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

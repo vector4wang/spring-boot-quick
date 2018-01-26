@@ -14,7 +14,7 @@ public class VerificationCodeService {
 
     public static void main(String[] args) {
         try {
-            File file = ResourceUtils.getFile("classpath:code.jpg");
+            File file = ResourceUtils.getFile("classpath:code2.png");
             code2txt(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

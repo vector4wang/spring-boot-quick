@@ -5,7 +5,7 @@
     <artifactId>quick-oauth2</artifactId>
     <modules>
         <module>quick-oauth2-server</module>
-        <module>quick-oauth2-baiidu</module>
+        <module>quick-github-oauth</module>
     </modules>
     <groupId>com.quick</groupId>
     <version>1.0-SNAPSHOT</version>

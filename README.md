@@ -4,33 +4,38 @@
 的方式去整理，感觉不直观，一咬牙就花了点时间将所有的分支整合在一起（之前使用branch方式的兄dei，这里对不住了，你们可以将之前的干掉，重新克隆总的），方便自己也方便大家参考，以下是我的相关博客，有兴趣的
 可以去浏览浏览，觉得对自己有点启发或者解决了一些问题，可以点个赞~
 
-- CSDN http://blog.csdn.net/qqhjqs?viewmode=contents
-- 简书 http://www.jianshu.com/u/223a1314e818
-- BLOG http://vector4wang.tk
+- CSDN：http://blog.csdn.net/qqhjqs?viewmode=list
+- 博客：http://vector4wang.tk/
+- 简书：https://www.jianshu.com/u/223a1314e818
+- Github:https://github.com/vector4wang
+- Gitee:https://gitee.com/backwxc
 
 ```bash
 .
-├── log
-├── logs
 ├── pom.xml
+├── qucik-activemq
 ├── quick-batch
-├── quick-crawler
+├── quick-docker
 ├── quick-ElasticSearch
 ├── quick-exception
 ├── quick-idea
 ├── quick-img2txt
 ├── quick-jdbc
+├── quick-jpa
 ├── quick-jsp
 ├── quick-log
+├── quick-logback
 ├── quick-modules
 ├── quick-multi-data
 ├── quick-mybatis-druid
+├── quick-oauth2
 ├── quick-okhttp
 ├── quick-oss
 ├── quick-package-assembly
 ├── quick-package-assembly-multi-env
 ├── quick-rabbitmq
 ├── quick-redies
+├── quick-rocketmq
 ├── quick-simhash
 ├── quick-spark
 ├── quick-swagger
@@ -38,8 +43,6 @@
 ├── quick-tika
 ├── quick-wx-api
 ├── README.md
-└── spring-boot-quick.iml
-
 
 ```
 
@@ -105,7 +108,9 @@ springboot整合mybatis和阿里云的druid监控功能，日志可以控制sql�
 | GET | /trace | 查看基本追踪信息 | true |
 
 ## quick-multi-data
- springboot mybatis 多数据源配置，别忘了为多数据源的连接池配置
+- springboot mybatis 多数据源配置，别忘了为多数据源的连接池配置
+- 改为druid多数据源，方便监控数据库查询和性能
+ 
 
 ## quick-spark 
 springboot整合spark示例
@@ -219,6 +224,19 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 
 ## quick-redis
 工作上用到了redis，就添加了redis模块，很简单有key就获取，没有就插入
+
+## quick-rocketmq
+此处的不是Apache 的Rocketmq，是阿里云服务上的一个消息队列
+
+## quick-logback
+springboot內置的日志管理模块，使用slf4j
+
+## quick-activemq
+springboot 整合activemq 服务 非常简单，更负责的配置可以自定义containerFactory
+
+## quick-docker
+
+使用docker部署springboot的示例demo，更多内容请见blog
 
 ---
 
