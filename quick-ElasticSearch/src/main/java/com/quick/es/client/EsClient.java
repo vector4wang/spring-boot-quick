@@ -5,11 +5,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.quick.es.config.ESClientConfig;
 import com.quick.es.util.DataFactory;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.Requests;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -41,9 +43,9 @@ public class EsClient {
         try {
 //            createCluterName(INDEX);
             // TODO
-//            createMapping();
+            createMapping();
 //            createIndex();
-            search();
+//            search();
 //            putDocument();
 //            deleteDocument();
             
@@ -94,32 +96,51 @@ public class EsClient {
         try {
             mapping = jsonBuilder()
                     .startObject()
-                        .field("yzresume")
-                            .startObject()
-                                .field("properties")
-                                .startObject()
-                                .field("company").startObject().field("type", "text").endObject()
-                                .field("id").startObject().field("type", "keyword").endObject()
-                                .field("location_id").startObject().field("type", "long").endObject()
-                                .field("mobile").startObject().field("type", "keyword").endObject()
-                                .field("owner_id").startObject().field("type", "text").endObject()
-                                .field("real_name").startObject().field("type", "string").endObject()
-                                .field("year_of_experience").startObject().field("type", "integer").endObject()
-                                .field("title").startObject().field("type", "text").endObject()
-                                .field("updated").startObject().field("type", "date").endObject()
-                                .field("source_updated").startObject().field("type", "date").endObject()
-                                .field("candidate_id").startObject().field("type", "keyword").endObject()
-                                .endObject()
-                            .endObject()
+                    .field("job")
+                    .startObject()
+                    .field("properties")
+                    .startObject()
+                    .field("jobName").startObject().field("type", "string").endObject()
+                    .field("address").startObject().field("type", "string").endObject()
+                    .field("detailAddress").startObject().field("type", "string").endObject()
+                    .field("salary").startObject().field("type", "string").endObject()
+                    .field("degree").startObject().field("type", "string").endObject()
+                    .field("jobDesc").startObject().field("type", "string").endObject()
+                    .field("requirements").startObject().field("type", "string").endObject()
+                    .field("requirementsTag").startObject().field("type", "string").endObject()
+                    .field("hireHead").startObject().field("type", "string").endObject()
+                    .field("hireHeadPosition").startObject().field("type", "string").endObject()
+                    .field("jobTags").startObject().field("type", "string").endObject()
+                    .field("seductionOfPosition").startObject().field("type", "string").endObject()
+                    .field("numberOfRecruits").startObject().field("type", "string").endObject()
+                    .field("report").startObject().field("type", "string").endObject()
+                    .field("subTeam").startObject().field("type", "string").endObject()
+                    .field("department").startObject().field("type", "string").endObject()
+                    .field("yearOfExpe").startObject().field("type", "string").endObject()
+                    .field("teamDesc").startObject().field("type", "string").endObject()
+                    .field("teamTags").startObject().field("type", "string").endObject()
+                    .field("publishDate").startObject().field("type", "string").endObject()
+                    .field("isHeadHunter").startObject().field("type", "long").endObject()
+                    .field("companyName").startObject().field("type", "string").endObject()
+                    .field("companyUrl").startObject().field("type", "string").endObject()
+                    .field("companyFinancing").startObject().field("type", "string").endObject()
+                    .field("companyAddress").startObject().field("type", "string").endObject()
+                    .field("companyIndustry").startObject().field("type", "string").endObject()
+                    .field("companyInvestmentInstitution").startObject().field("type", "string").endObject()
+                    .field("companyScale").startObject().field("type", "string").endObject()
+                    .field("companyNature").startObject().field("type", "string").endObject()
+                    .field("source").startObject().field("type", "string").endObject()
+                    .field("crawlUrl").startObject().field("type", "string").endObject()
+                    .field("crawlDate").startObject().field("type", "date").endObject()
+                    .endObject()
+                    .endObject()
                     .endObject();
-
             System.out.println(mapping.string());
 
-//            PutMappingRequest source = Requests.putMappingRequest(INDEX).type(TYPE).source(mapping);
-//            TransportClient client = ESClientConfig.getClient();
-//            client.admin().indices().preparePutMapping(INDEX)
-//                    .setType(TYPE).setSource(mapping).get();
-//            client.close();
+            PutMappingRequest source = Requests.putMappingRequest("jobs_repo").type("job").source(mapping);
+            TransportClient client = ESClientConfig.getClient();
+            client.admin().indices().putMapping(source).actionGet();
+            client.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,7 +150,7 @@ public class EsClient {
     }
 
 
-    public static List<String> getSearchResult(String title,String company,int location_id,int length) throws UnknownHostException {
+    public static List<String> getSearchResult(String title, String company, int location_id, int length) throws UnknownHostException {
         List<String> result = new ArrayList<>();
         SearchResponse scrollResp = ESClientConfig.getClient()
                 .prepareSearch("data_quality_resume")
