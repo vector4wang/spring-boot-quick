@@ -1,5 +1,7 @@
 package com.docker;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class DockerApplication {
+
+    private Logger logger = LogManager.getLogger(this.getClass());
+
     @RequestMapping("/hello")
     public String hello() {
+        logger.info("接收到请求>>>>>>>>>>>>>>>>>>>>>>>>>");
         return "<h1>Hello Spring-Boot Maven Docker</h1>";
     }
 
