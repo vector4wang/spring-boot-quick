@@ -247,4 +247,4 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 ### 温馨提示
 　　如果您自己想在本地跑一跑，可以将其checkout到本地，直接`mvn clean install -U` 就ok了，如果您只想运行某个模块，直接复制配置文件和代码就ok了，如果您在测试某个模块但该模块出错，请尽快联系本人,邮箱:**vector4wang@qq.com**,我会在第一时间将其修复
 
-欢迎star和fork
+欢迎star、fork 和 pr
