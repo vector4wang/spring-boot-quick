@@ -16,7 +16,6 @@
 ├── qucik-activemq
 ├── quick-batch
 ├── quick-docker
-├── quick-ElasticSearch
 ├── quick-exception
 ├── quick-idea
 ├── quick-img2txt
@@ -133,7 +132,7 @@ apache的文本抽取开源框架，整合到springboot中
 关于es搜索的相关内容
      现在在学习Elasticsearch+Logstash+Kibana 后续会有相关博文、和代码示例~
 
-注意：想要用好es，搜索是关键
+注意：想要用好es，搜索是关键  移步[这里](https://github.com/vector4wang/quick-elasticsearch)
  
  
 ## quick-img2txt 图片与文字转换的程序示例

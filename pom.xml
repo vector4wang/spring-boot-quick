@@ -14,7 +14,6 @@
         <module>quick-spark</module>
         <module>quick-package-assembly</module>
         <module>quick-tika</module>
-        <module>quick-ElasticSearch</module>
         <module>quick-img2txt</module>
         <module>quick-batch</module>
         <module>quick-rabbitmq</module>
@@ -35,7 +34,6 @@
         <module>quick-rocketmq</module>
         <module>quick-logback</module>
         <module>qucik-activemq</module>
-        <module>test-rabbitmq</module>
         <module>quick-docker</module>
         <module>quick-vue</module>
     </modules>
