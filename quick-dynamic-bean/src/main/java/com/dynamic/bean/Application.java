@@ -2,11 +2,15 @@ package com.dynamic.bean;
 
 import com.dynamic.bean.config.Abc;
 import com.dynamic.bean.mq.Consumer;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.*;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
+
+import java.util.Arrays;
 
 /**
  * @Author: wangxc
@@ -25,12 +29,12 @@ public class Application {
      * ConditionalOnProperty 直接使用配置文件里的value，如果为true，则长长创建bean
      * @return
      */
-//    @Bean
-//    @ConditionalOnProperty(value = "spring.activemq.switch")
-//    public Consumer create() {
-//        System.out.println("成功创建bean");
-//        return new Consumer();
-//    }
+    @Bean(name = "ActiveMqConsume")
+    @ConditionalOnProperty(value = "spring.activemq.switch")
+    public Consumer createConsumer() {
+        System.out.println("成功创建bean");
+        return new Consumer();
+    }
 
     /**
      * 该Abc class位于类路径上时
@@ -42,11 +46,11 @@ public class Application {
         return "";
     }
 
-//    @Bean
-//    public Abc createAbcBean() {
-//        return new Abc();
-//    }
-
+    @Bean
+    public Abc createAbcBean() {
+        return new Abc();
+    }
+//
 
     /**
      * 存在Abc类的实例时
@@ -86,5 +90,18 @@ public class Application {
     public String property() {
         System.err.println("property is true");
         return "";
+    }
+
+    /**
+     * 打印容器里的所有bean name  (bean name 为方法名)
+     * @param appContext
+     * @return
+     */
+    @Bean
+    public CommandLineRunner run(ApplicationContext appContext) {
+        return args -> {
+            String[] beans = appContext.getBeanDefinitionNames();
+            Arrays.stream(beans).sorted().forEach(System.out::println);
+        };
     }
 }
