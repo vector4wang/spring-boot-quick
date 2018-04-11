@@ -41,6 +41,7 @@
 ├── quick-thread
 ├── quick-tika
 ├── quick-wx-api
+├── quick-dynamic-bean
 ├── README.md
 
 ```
@@ -236,6 +237,11 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 ## quick-docker
 
 使用docker部署springboot的示例demo，更多内容请见blog
+
+## quick-dynamic-bean
+根据条件动态的创建bean
+用到的场景:有的时候本地测试不想使用mq，可以在将mq对应consumer bean 加上contional注解，并
+配置条件
 
 ---
 

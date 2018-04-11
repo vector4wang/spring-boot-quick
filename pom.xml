@@ -36,6 +36,7 @@
         <module>qucik-activemq</module>
         <module>quick-docker</module>
         <module>quick-vue</module>
+        <module>quick-dynamic-bean</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
