@@ -16,7 +16,6 @@
 ├── qucik-activemq
 ├── quick-batch
 ├── quick-docker
-├── quick-ElasticSearch
 ├── quick-exception
 ├── quick-idea
 ├── quick-img2txt
@@ -42,6 +41,7 @@
 ├── quick-thread
 ├── quick-tika
 ├── quick-wx-api
+├── quick-dynamic-bean
 ├── README.md
 
 ```
@@ -133,7 +133,7 @@ apache的文本抽取开源框架，整合到springboot中
 关于es搜索的相关内容
      现在在学习Elasticsearch+Logstash+Kibana 后续会有相关博文、和代码示例~
 
-注意：想要用好es，搜索是关键
+注意：想要用好es，搜索是关键  移步[这里](https://github.com/vector4wang/quick-elasticsearch)
  
  
 ## quick-img2txt 图片与文字转换的程序示例
@@ -237,6 +237,11 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 ## quick-docker
 
 使用docker部署springboot的示例demo，更多内容请见blog
+
+## quick-dynamic-bean
+根据条件动态的创建bean
+用到的场景:有的时候本地测试不想使用mq，可以在将mq对应consumer bean 加上contional注解，并
+配置条件
 
 ---
 

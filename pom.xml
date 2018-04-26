@@ -14,7 +14,6 @@
         <module>quick-spark</module>
         <module>quick-package-assembly</module>
         <module>quick-tika</module>
-        <module>quick-ElasticSearch</module>
         <module>quick-img2txt</module>
         <module>quick-batch</module>
         <module>quick-rabbitmq</module>
@@ -35,9 +34,10 @@
         <module>quick-rocketmq</module>
         <module>quick-logback</module>
         <module>qucik-activemq</module>
-        <module>test-rabbitmq</module>
         <module>quick-docker</module>
         <module>quick-vue</module>
+        <module>quick-dynamic-bean</module>
+        <module>quick-activemq2</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
