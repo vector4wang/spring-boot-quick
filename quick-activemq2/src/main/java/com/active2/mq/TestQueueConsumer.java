@@ -14,15 +14,8 @@ import javax.jms.TextMessage;
  * @BLOG: http://vector4wang.tk
  * @wxid: BMHJQS
  */
-//@ConditionalOnProperty(value = "activemq.switch")
-//@DependsOn(value = {"jmsQueueListener1",
-//        "jmsQueueListener2",
-//        "jmsQueueListener3",
-//        "jmsQueueListener4",
-//        "jmsQueueListener5"})
-//@Component
-public class Consumer {
-    private final static Logger logger = Logger.getLogger(Consumer.class);
+public class TestQueueConsumer {
+    private final static Logger logger = Logger.getLogger(TestQueueConsumer.class);
 
 
     @JmsListener(destination = "${jsa.activemq.queue.name_1}", containerFactory = "jmsQueueListener1")

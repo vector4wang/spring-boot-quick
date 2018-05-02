@@ -1,9 +1,11 @@
 package com.active2.config;
 
-import com.active2.mq.Consumer;
+import com.active2.mq.SimpeQueueConsumer;
+import com.active2.mq.TestQueueConsumer;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -30,29 +32,22 @@ import javax.jms.Queue;
  * DUPS_OK_ACKNOWLEDGE = 3    自动批量确认
  * SESSION_TRANSACTED = 0    事务提交并确认
  * INDIVIDUAL_ACKNOWLEDGE = 4    单条消息确认 activemq 独有
+ *
+ *
+ * 默认从上到下创建Bean
  */
 @ConditionalOnProperty(value = "activemq.switch")
 @EnableJms
 @Configuration
 public class AcitveMQConfig {
 
-    @Value("${jsa.activemq.queue.name_1.concurrency}")
-    private String queueName1Concurrency;
-
-    @Value("${jsa.activemq.queue.name_2.concurrency}")
-    private String queueName2Concurrency;
-
-    @Value("${jsa.activemq.queue.name_3.concurrency}")
-    private String queueName3Concurrency;
-
-    @Value("${jsa.activemq.queue.name_4.concurrency}")
-    private String queueName4Concurrency;
-
-    @Value("${jsa.activemq.queue.name_5.concurrency}")
-    private String queueName5Concurrency;
+    private Logger logger = Logger.getLogger(this.getClass());
 
     @Value("${jsa.activemq.queue.names.concurrency}")
     private String queuesConcurrency;
+
+    @Value("${jsa.activemq.simple.names.concurrency}")
+    private String simpeQueuesConcurrency;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -64,6 +59,7 @@ public class AcitveMQConfig {
 
     @Bean
     public RedeliveryPolicy redeliveryPolicy() {
+        logger.info("init redeliveryPolicy");
         RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
         //是否在每次尝试重新发送失败后,增长这个等待时间
         redeliveryPolicy.setUseExponentialBackOff(true);
@@ -83,6 +79,7 @@ public class AcitveMQConfig {
 
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory(@Value("${activemq.url}") String url, RedeliveryPolicy redeliveryPolicy) {
+        logger.info("init activeMQConnectionFactory");
         ActiveMQConnectionFactory activeMQConnectionFactory =
                 new ActiveMQConnectionFactory(
                         "admin",
@@ -94,6 +91,7 @@ public class AcitveMQConfig {
 
     @Bean
     public JmsTemplate jmsTemplate(ActiveMQConnectionFactory activeMQConnectionFactory, Queue queue) {
+        logger.info("init jmsTemplate");
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setDeliveryMode(2);//进行持久化配置 1表示非持久化，2表示持久化</span>
         jmsTemplate.setConnectionFactory(activeMQConnectionFactory);
@@ -102,77 +100,12 @@ public class AcitveMQConfig {
         return jmsTemplate;
     }
 
-//    @Bean(name = "jmsQueueListener1")
-//    public DefaultJmsListenerContainerFactory jmsQueueListenerContainerFactory1(ActiveMQConnectionFactory activeMQConnectionFactory) {
-//        DefaultJmsListenerContainerFactory factory =
-//                new DefaultJmsListenerContainerFactory();
-//        factory.setConnectionFactory(activeMQConnectionFactory);
-//        //设置连接数
-//        factory.setConcurrency(queueName1Concurrency);
-//        //重连间隔时间
-//        factory.setRecoveryInterval(1000L);
-//        factory.setSessionAcknowledgeMode(2);
-//        return factory;
-//    }
-//
-//    @Bean(name = "jmsQueueListener2")
-//    public DefaultJmsListenerContainerFactory jmsQueueListenerContainerFactory2(ActiveMQConnectionFactory activeMQConnectionFactory) {
-//        DefaultJmsListenerContainerFactory factory =
-//                new DefaultJmsListenerContainerFactory();
-//        factory.setConnectionFactory(activeMQConnectionFactory);
-//        //设置连接数
-//        factory.setConcurrency(queueName2Concurrency);
-//        //重连间隔时间
-//        factory.setRecoveryInterval(1000L);
-//        factory.setSessionAcknowledgeMode(2);
-//        return factory;
-//    }
-//
-//
-//    @Bean(name = "jmsQueueListener3")
-//    public DefaultJmsListenerContainerFactory jmsQueueListenerContainerFactory3(ActiveMQConnectionFactory activeMQConnectionFactory) {
-//        DefaultJmsListenerContainerFactory factory =
-//                new DefaultJmsListenerContainerFactory();
-//        factory.setConnectionFactory(activeMQConnectionFactory);
-//        //设置连接数
-//        factory.setConcurrency(queueName3Concurrency);
-//        //重连间隔时间
-//        factory.setRecoveryInterval(1000L);
-//        factory.setSessionAcknowledgeMode(2);
-//        return factory;
-//    }
-//
-//    @Bean(name = "jmsQueueListener4")
-//    public DefaultJmsListenerContainerFactory jmsQueueListenerContainerFactory4(ActiveMQConnectionFactory activeMQConnectionFactory) {
-//        DefaultJmsListenerContainerFactory factory =
-//                new DefaultJmsListenerContainerFactory();
-//        factory.setConnectionFactory(activeMQConnectionFactory);
-//        //设置连接数
-//        factory.setConcurrency(queueName4Concurrency);
-//        //重连间隔时间
-//        factory.setRecoveryInterval(1000L);
-//        factory.setSessionAcknowledgeMode(2);
-//        return factory;
-//    }
-//
-//    @Bean(name = "jmsQueueListener5")
-//    public DefaultJmsListenerContainerFactory jmsQueueListenerContainerFactory5(ActiveMQConnectionFactory activeMQConnectionFactory) {
-//        DefaultJmsListenerContainerFactory factory =
-//                new DefaultJmsListenerContainerFactory();
-//        factory.setConnectionFactory(activeMQConnectionFactory);
-//        //设置连接数
-//        factory.setConcurrency(queueName5Concurrency);
-//        //重连间隔时间
-//        factory.setRecoveryInterval(1000L);
-//        factory.setSessionAcknowledgeMode(2);
-//        return factory;
-//    }
-
     /**
      *  有时间会使用下面方式创建多个类型相同不同beanname的bean，这里要注意相关的启动顺序
      */
     @Bean
     public Runnable dynamicConfiguration() throws Exception {
+        logger.info("init jmsQueueListeners");
         String[] concurrencys = queuesConcurrency.split(",");
         ConfigurableApplicationContext context = (ConfigurableApplicationContext) applicationContext;
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();
@@ -195,9 +128,45 @@ public class AcitveMQConfig {
     }
 
     @Bean
-    public Consumer consumer() {
-        return new Consumer();
+    public TestQueueConsumer consumer() {
+
+        logger.info("init jmsQueueListener Consumer");
+        return new TestQueueConsumer();
     }
+
+
+
+    @Bean
+    public Runnable dynamicConfiguration4Simpe() throws Exception {
+        logger.info("init jmsSimpeQueueListeners");
+        String[] concurrencys = simpeQueuesConcurrency.split(",");
+        ConfigurableApplicationContext context = (ConfigurableApplicationContext) applicationContext;
+        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();
+        for (int i = 1; i <= 5; i++) {
+            BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(DefaultJmsListenerContainerFactory.class);
+            /**
+             * 设置属性
+             */
+            beanDefinitionBuilder.addPropertyValue("connectionFactory", applicationContext.getBean("activeMQConnectionFactory"));
+            beanDefinitionBuilder.addPropertyValue("concurrency", concurrencys[i-1]);
+            beanDefinitionBuilder.addPropertyValue("recoveryInterval", 1000L);
+            beanDefinitionBuilder.addPropertyValue("sessionAcknowledgeMode", 2);
+
+            /**
+             * 注册到spring容器中
+             */
+            beanFactory.registerBeanDefinition("jmsSimpeQueueListener" + i, beanDefinitionBuilder.getBeanDefinition());
+        }
+        return null;
+    }
+
+    @Bean
+    public SimpeQueueConsumer simpeQueueConsumer() {
+        logger.info("init jmsSimpeQueueListener Consumer");
+        return new SimpeQueueConsumer();
+    }
+
+
 
 }
 
