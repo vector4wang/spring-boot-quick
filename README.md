@@ -14,10 +14,15 @@
 
 ```bash
 .
+├── README.md
+├── logs
 ├── pom.xml
 ├── qucik-activemq
+├── quick-activemq2
 ├── quick-batch
+├── quick-crawler
 ├── quick-docker
+├── quick-dynamic-bean
 ├── quick-exception
 ├── quick-idea
 ├── quick-img2txt
@@ -37,14 +42,10 @@
 ├── quick-rabbitmq
 ├── quick-redies
 ├── quick-rocketmq
-├── quick-simhash
-├── quick-spark
 ├── quick-swagger
-├── quick-thread
 ├── quick-tika
-├── quick-wx-api
-├── quick-dynamic-bean
-├── README.md
+├── quick-vue
+└── quick-wx-api
 
 ```
 
@@ -115,7 +116,7 @@ springboot整合mybatis和阿里云的druid监控功能，日志可以控制sql�
  
 
 ## quick-spark 
-springboot整合spark示例
+springboot整合spark示例 已抽离
 
 
 ## quick-package-assembly 

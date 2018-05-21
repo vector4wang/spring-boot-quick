@@ -10,13 +10,11 @@
     <modules>
         <module>quick-swagger</module>
         <module>quick-modules</module>
-        <module>quick-spark</module>
         <module>quick-package-assembly</module>
         <module>quick-tika</module>
         <module>quick-img2txt</module>
         <module>quick-batch</module>
         <module>quick-rabbitmq</module>
-        <module>quick-simhash</module>
         <module>quick-multi-data</module>
         <module>quick-package-assembly-multi-env</module>
         <module>quick-exception</module>
