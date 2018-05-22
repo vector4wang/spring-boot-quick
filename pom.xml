@@ -35,6 +35,7 @@
         <module>quick-vue</module>
         <module>quick-dynamic-bean</module>
         <module>quick-activemq2</module>
+        <module>quick-dubbo</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
