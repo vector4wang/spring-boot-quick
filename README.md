@@ -22,6 +22,7 @@
 ├── quick-batch
 ├── quick-crawler
 ├── quick-docker
+├── quick-dubbo
 ├── quick-dynamic-bean
 ├── quick-exception
 ├── quick-idea
@@ -185,44 +186,44 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 - 然后在pom文件中添加一下配置，目的是为了让webapp下的jsp文件留在META-INF中，让boot访问到
 ```xml
 <plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-		</plugins>
-		<resources>
-			<!-- 打包时将jsp文件拷贝到META-INF目录下-->
-			<resource>
-				<!-- 指定resources插件处理哪个目录下的资源文件 -->
-				<directory>src/main/webapp</directory>
-				<!--注意此次必须要放在此目录下才能被访问到-->
-				<targetPath>META-INF/resources</targetPath>
-				<includes>
-					<include>**/**</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>**/**</include>
-				</includes>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
+	<plugin>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-maven-plugin</artifactId>
+		<executions>
+			<execution>
+				<goals>
+					<goal>repackage</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-war-plugin</artifactId>
+		<configuration>
+			<failOnMissingWebXml>false</failOnMissingWebXml>
+		</configuration>
+	</plugin>
+</plugins>
+<resources>
+	<!-- 打包时将jsp文件拷贝到META-INF目录下-->
+	<resource>
+		<!-- 指定resources插件处理哪个目录下的资源文件 -->
+		<directory>src/main/webapp</directory>
+		<!--注意此次必须要放在此目录下才能被访问到-->
+		<targetPath>META-INF/resources</targetPath>
+		<includes>
+			<include>**/**</include>
+		</includes>
+	</resource>
+	<resource>
+		<directory>src/main/resources</directory>
+		<includes>
+			<include>**/**</include>
+		</includes>
+		<filtering>false</filtering>
+	</resource>
+</resources>
 ```
 
 ## quick-redis
@@ -245,6 +246,10 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 根据条件动态的创建bean
 用到的场景:有的时候本地测试不想使用mq，可以在将mq对应consumer bean 加上contional注解，并
 配置条件
+
+## quick-dubbo
+整合dubbo，用的不是官方的dubbo-stater，用的是这个https://github.com/halober/spring-boot-starter-dubbo 配置很详细
+注意dubbo的结构
 
 ---
 
