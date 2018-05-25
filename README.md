@@ -250,7 +250,8 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 ## quick-dubbo
 整合dubbo，用的不是官方的dubbo-stater，用的是这个https://github.com/halober/spring-boot-starter-dubbo 配置很详细
 注意dubbo的结构
-
+dubbo admin ui
+[![dubbo.jpg](https://i.loli.net/2018/05/25/5b07728002ea8.jpg)](https://i.loli.net/2018/05/25/5b07728002ea8.jpg)
 ---
 
 (后面会持续更新)
