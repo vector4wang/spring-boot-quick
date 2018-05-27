@@ -81,6 +81,7 @@
     private Date birthday; // 出生日期
 ```
 
+swagger升级到2.7版本，添加了使用swagger验证功能，注意这里不是auth2鉴权
 
 
 ## quick-thread 

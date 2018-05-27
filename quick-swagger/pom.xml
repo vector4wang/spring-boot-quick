@@ -17,7 +17,7 @@
     </parent>
 
     <properties>
-        <swagger.version>2.2.2</swagger.version>
+        <swagger.version>2.7.0</swagger.version>
     </properties>
     <dependencies>
         <dependency>
@@ -39,7 +39,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
         <dependency>
