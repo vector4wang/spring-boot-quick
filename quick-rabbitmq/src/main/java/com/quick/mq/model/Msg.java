@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Msg implements Serializable {
     private int id;
     private String content;
+	private long ttl;
 
     public int getId() {
         return id;
@@ -29,5 +30,11 @@ public class Msg implements Serializable {
         this.content = content;
     }
 
+	public long getTtl() {
+		return ttl;
+	}
 
+	public void setTtl(long ttl) {
+		this.ttl = ttl;
+	}
 }
