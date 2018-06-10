@@ -164,6 +164,11 @@ rabbit模块
 
 ![ui](http://upload-images.jianshu.io/upload_images/3167229-945c72c2569f754a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+应网友@Android-BRUCE 的要求，添加了延迟队列的处理方式(针对每个信息做延迟处理，较灵活)
+
+[![针对消息的延迟队列示意图.png](https://i.loli.net/2018/06/10/5b1c950e9e1a5.png)](https://i.loli.net/2018/06/10/5b1c950e9e1a5.png)
+
+一定要把图看懂。。。
 
 ## quick-exception
 
