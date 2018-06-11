@@ -85,7 +85,7 @@ swagger升级到2.7版本，添加了使用swagger验证功能，注意这里不
 
 
 ## quick-thread 
-java线程池Executor的示例
+java线程池Executor的示例 [点我](https://github.com/vector4wang/java-learning-quick/tree/master/src/feature_learn/thread/future)
 
 
 ## quick-modules  
@@ -118,7 +118,7 @@ springboot整合mybatis和阿里云的druid监控功能，日志可以控制sql�
  
 
 ## quick-spark 
-springboot整合spark示例 已抽离
+springboot整合spark示例 已抽离 [点我](https://github.com/vector4wang/quick-spark-process/tree/master/sb-word-count)
 
 
 ## quick-package-assembly 
