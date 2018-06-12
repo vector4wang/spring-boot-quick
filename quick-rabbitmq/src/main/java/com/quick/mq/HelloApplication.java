@@ -31,7 +31,7 @@ public class HelloApplication {
         return new ApiInfoBuilder()
                 .title("SpringBootRabbitMQ") // 标题
                 .description("api接口的文档整理，支持在线测试") // 描述
-                .termsOfServiceUrl("http://vector4wang.tk/") //网址
+                .termsOfServiceUrl("http://blog.wangxc.club/") //网址
                 .contact("Vector.Wang") // 作者
                 .version("1.0") // 版本号
                 .build();
