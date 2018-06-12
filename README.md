@@ -20,7 +20,6 @@
 ├── qucik-activemq
 ├── quick-activemq2
 ├── quick-batch
-├── quick-crawler
 ├── quick-docker
 ├── quick-dubbo
 ├── quick-dynamic-bean
