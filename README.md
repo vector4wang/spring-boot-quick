@@ -171,6 +171,7 @@ rabbit模块
 [![WX20180613-233153@2x.png](https://i.loli.net/2018/06/13/5b213948c6e1a.png)](https://i.loli.net/2018/06/13/5b213948c6e1a.png)
 
 一定要把图看懂。。。
+**友情提示：如果在刚开始queue与exchange绑定错了强烈建议从Rabbit管理页面上删除对应的配置再测试！！！**
 
 ## quick-exception
 
