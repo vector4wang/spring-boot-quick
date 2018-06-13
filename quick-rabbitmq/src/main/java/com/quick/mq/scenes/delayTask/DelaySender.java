@@ -24,15 +24,22 @@ public class DelaySender {
 	@Autowired
 	private AmqpTemplate rabbitTemplate;
 
-	public void send(Msg msg) {
+
+	public void sendDelayMsg(Msg msg) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println(msg.getId() + " 消息发送时间:" + sdf.format(new Date()));
-		rabbitTemplate.convertAndSend(RabbitConfig.DELAY_EXCHANGE_NAME,"delay", msg, new MessagePostProcessor() {
+		System.out.println(msg.getId() + " 延迟消息发送时间:" + sdf.format(new Date()));
+		rabbitTemplate.convertAndSend(RabbitConfig.DELAY_EXCHANGE_NAME, "delay", msg, new MessagePostProcessor() {
 			@Override
 			public Message postProcessMessage(Message message) throws AmqpException {
 				message.getMessageProperties().setExpiration(msg.getTtl() + "");
 				return message;
 			}
 		});
+	}
+
+	public void sendDelayQueue(Msg msg) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println(msg.getId() + " 延迟队列消息发送时间:" + sdf.format(new Date()));
+		rabbitTemplate.convertAndSend(RabbitConfig.DELAY_QUEUE_EXCHANGE_NAME,"delay",  msg);
 	}
 }

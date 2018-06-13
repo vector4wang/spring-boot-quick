@@ -50,7 +50,7 @@ public class RabbitConfig {
 		return connectionFactory;
 	}
 
-	//////////////////////////////delay////////////////////////////////
+	//////////////////////////////针对消息 delay queue////////////////////////////////
 	/**
 	 * 发送到该队列的message会在一段时间后过期进入到delay_process_queue
 	 * 每个message可以控制自己的失效时间
@@ -94,7 +94,7 @@ public class RabbitConfig {
 	Queue delayQueuePerMessageTTL(){
 		return QueueBuilder.durable(DELAY_QUEUE_MSG)
 				.withArgument("x-dead-letter-exchange", PROCESS_EXCHANGE_NAME) // DLX，dead letter发送到的exchange
-				.withArgument("x-dead-letter-routing-key", "delay") // dead letter携带的routing key
+				.withArgument("x-dead-letter-routing-key", ROUTING_KEY) // dead letter携带的routing key
 				.build();
 	}
 
@@ -114,17 +114,50 @@ public class RabbitConfig {
 	Binding dlxBinding() {
 		return BindingBuilder.bind(delayQueuePerMessageTTL())
 				.to(delayExchange())
-				.with("delay");
+				.with(ROUTING_KEY);
 	}
 
 	@Bean
 	Binding queueBinding() {
 		return BindingBuilder.bind(processQueue())
 				.to(processExchange())
-				.with("delay");
+				.with(ROUTING_KEY);
 	}
 
 	//////////////////////////////delay////////////////////////////////
+
+
+	//////////////////////////////针对队列delay////////////////////////////////
+
+	/**
+	 * 针对队列设置过期时间的队列
+	 */
+	public final static String DELAY_QUEUE_NAME = "delay_queue_queue";
+
+	public final static String DELAY_QUEUE_EXCHANGE_NAME = "delay_queue_exchange";
+
+	@Bean
+	public DirectExchange delayQueueExchange() {
+		return new DirectExchange(DELAY_QUEUE_EXCHANGE_NAME);
+	}
+
+	@Bean
+	public Queue delayQueue4Queue() {
+		return QueueBuilder.durable(DELAY_QUEUE_NAME)
+				.withArgument("x-dead-letter-exchange", PROCESS_EXCHANGE_NAME) // DLX
+				.withArgument("x-dead-letter-routing-key", ROUTING_KEY) // dead letter携带的routing key
+				.withArgument("x-message-ttl", 3000) // 设置队列的过期时间
+				.build();
+	}
+
+	@Bean
+	Binding delayQueueBind() {
+		return BindingBuilder.bind(delayQueue4Queue())
+				.to(delayQueueExchange())
+				.with(ROUTING_KEY);
+	}
+
+
 
 	@Bean
 	public Queue helloQueue() {

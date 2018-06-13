@@ -28,7 +28,17 @@ public class DelayController {
 	@RequestMapping(value = "/sendDelay", method = RequestMethod.POST)
 	public String sendDelayMsg(@RequestBody Msg msg) {
 
-		delaySender.send(msg);
+		delaySender.sendDelayMsg(msg);
+
+		return "success";
+
+	}
+
+	@ApiOperation("延时队列发送(整个队列设置过期时间，与msg没有关系)")
+	@RequestMapping(value = "/sendQueueDelay", method = RequestMethod.POST)
+	public String sendDelayQueueMsg(@RequestBody Msg msg) {
+
+		delaySender.sendDelayQueue(msg);
 
 		return "success";
 
