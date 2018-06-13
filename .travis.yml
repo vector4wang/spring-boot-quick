@@ -5,4 +5,4 @@ jdk:
 
 install: true
 
-script: true
+script: test -B -V
