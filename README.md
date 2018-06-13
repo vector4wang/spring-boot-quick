@@ -1,5 +1,8 @@
 欢迎大家留言和PR~
 
+# spring-boot-quick
+
+[![Build Status](https://travis-ci.org/vector4wang/spring-boot-quick.svg?branch=master)](https://travis-ci.org/vector4wang/spring-boot-quick)
 
 # 前言
 　　自己很早就想搞一个总的仓库就是将自己平时遇到的和学习到的东西整合在一起，方便后面用的时候快速的查找与使用，之前是通过branch
