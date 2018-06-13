@@ -5,3 +5,4 @@ jdk:
 
 install: true
 
+script: true
