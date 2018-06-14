@@ -1,7 +1,23 @@
 # 延迟队列相关介绍
 
+
+先了解exchange的作用
+
+exchange： 交换机
+
+routingkey: 路由key
+
+queue: 队列
+
+exchange和queue是绑定在一起的，然后通过routingkey来消费对应的消息。
+
+[![mq.png](https://i.loli.net/2018/06/14/5b21e04409004.png)](https://i.loli.net/2018/06/14/5b21e04409004.png)
+
+exchange分四种
 ### Default Exchange
 这种是特殊的Direct Exchange，是rabbitmq内部默认的一个交换机。该交换机的name是空字符串，所有queue都默认binding 到该交换机上。所有binding到该交换机上的queue，routing-key都和queue的name一样。
+
+**注意： 这就是为什么你直接创建一个queue也能正常的生产与消费，因为对应的exchange是默认的，routingkey就是该队列的名字**
 
 ### Topic Exchange
 通配符交换机，exchange会把消息发送到一个或者多个满足通配符规则的routing-key的queue。其中*表号匹配一个word，#匹配多个word和路径，路径之间通过.隔开。如满足a.*.c的routing-key有a.hello.c；满足#.hello的routing-key有a.b.c.helo。
@@ -12,6 +28,8 @@
 
 ### Header Exchange
 设置header attribute参数类型的交换机。
+
+简单的了解之后，下面就是延迟队列的实现方式
 
 延迟分两种
  
@@ -114,3 +132,18 @@ public void sendDelayQueue(Msg msg) {
 	rabbitTemplate.convertAndSend(RabbitConfig.DELAY_QUEUE_EXCHANGE_NAME,"delay",  msg);
 }
 ```
+
+验证结果
+
+为每个消息设置过期时间
+[![延迟消息.gif](https://i.loli.net/2018/06/14/5b2206367916d.gif)](https://i.loli.net/2018/06/14/5b2206367916d.gif)
+
+
+为队列设置过期时间
+[![延迟队列消息.gif](https://i.loli.net/2018/06/14/5b2206367110f.gif)](https://i.loli.net/2018/06/14/5b2206367110f.gif)
+
+
+如果你把设置了过期时间的消息发送到设置了过期时间的队里中的时候，已最短的时间为准~~
+
+
+强调！！！ 如果在开发的过程中发现exchange和queue绑定错误了，建议从管理界面将queue和exchange unbind或者删除重新创建

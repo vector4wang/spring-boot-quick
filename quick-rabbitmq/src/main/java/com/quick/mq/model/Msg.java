@@ -37,4 +37,9 @@ public class Msg implements Serializable {
 	public void setTtl(long ttl) {
 		this.ttl = ttl;
 	}
+
+	@Override
+	public String toString() {
+		return "Msg{" + "id=" + id + ", content='" + content + '\'' + ", ttl=" + ttl + '}';
+	}
 }
