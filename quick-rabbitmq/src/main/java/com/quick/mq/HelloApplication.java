@@ -23,17 +23,17 @@ public class HelloApplication {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.quick.mq.controller")) //扫描API的包路径
+                .apis(RequestHandlerSelectors.basePackage("com.quick.mq.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("SpringBootRabbitMQ") // 标题
-                .description("api接口的文档整理，支持在线测试") // 描述
-                .termsOfServiceUrl("http://blog.wangxc.club/") //网址
-                .contact("Vector.Wang") // 作者
-                .version("1.0") // 版本号
+                .title("SpringBootRabbitMQ")
+                .description("api接口的文档整理，支持在线测试")
+                .termsOfServiceUrl("http://blog.wangxc.club/")
+                .contact("Vector.Wang")
+                .version("1.0")
                 .build();
     }
 

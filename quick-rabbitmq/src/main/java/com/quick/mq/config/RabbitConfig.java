@@ -10,10 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
 @Configuration
 public class RabbitConfig {
 
@@ -90,8 +86,12 @@ public class RabbitConfig {
 		return new DirectExchange(PROCESS_EXCHANGE_NAME);
 	}
 
+	/**
+	 * 存放延迟消息的队列 最后将会转发给exchange(实际消费队列对应的)
+	 * @return
+	 */
 	@Bean
-	Queue delayQueuePerMessageTTL(){
+	Queue delayQueue4Msg(){
 		return QueueBuilder.durable(DELAY_QUEUE_MSG)
 				.withArgument("x-dead-letter-exchange", PROCESS_EXCHANGE_NAME) // DLX，dead letter发送到的exchange
 				.withArgument("x-dead-letter-routing-key", ROUTING_KEY) // dead letter携带的routing key
@@ -111,8 +111,8 @@ public class RabbitConfig {
 	 * @return
 	 */
 	@Bean
-	Binding dlxBinding() {
-		return BindingBuilder.bind(delayQueuePerMessageTTL())
+	Binding delayBinding() {
+		return BindingBuilder.bind(delayQueue4Msg())
 				.to(delayExchange())
 				.with(ROUTING_KEY);
 	}
@@ -141,6 +141,10 @@ public class RabbitConfig {
 		return new DirectExchange(DELAY_QUEUE_EXCHANGE_NAME);
 	}
 
+	/**
+	 * 存放消息的延迟队列 最后将会转发给exchange(实际消费队列对应的)
+	 * @return
+	 */
 	@Bean
 	public Queue delayQueue4Queue() {
 		return QueueBuilder.durable(DELAY_QUEUE_NAME)

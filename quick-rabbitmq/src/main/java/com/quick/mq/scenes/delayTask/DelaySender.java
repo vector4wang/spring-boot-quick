@@ -25,6 +25,10 @@ public class DelaySender {
 	private AmqpTemplate rabbitTemplate;
 
 
+	/**
+	 * 在消息上设置时间
+	 * @param msg
+	 */
 	public void sendDelayMsg(Msg msg) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(msg.getId() + " 延迟消息发送时间:" + sdf.format(new Date()));
@@ -37,6 +41,10 @@ public class DelaySender {
 		});
 	}
 
+	/**
+	 * 在队列上设置时间，则消息不需要任何处理
+	 * @param msg
+	 */
 	public void sendDelayQueue(Msg msg) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(msg.getId() + " 延迟队列消息发送时间:" + sdf.format(new Date()));
