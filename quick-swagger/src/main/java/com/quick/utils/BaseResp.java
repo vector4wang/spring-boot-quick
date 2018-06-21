@@ -1,26 +1,25 @@
 package com.quick.utils;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * @param <T>
  */
+@ApiModel(value = "baseResp")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseResp<T> {
-    /**
-     * 返回码
-     */
+	@ApiModelProperty(value = "返回码", required = true)
     private int code;
 
-    /**
-     * 返回信息描述
-     */
+	@ApiModelProperty(value = "返回信息描述", required = true)
     private String message;
 
-    /**
-     * 返回数据
-     */
+	@ApiModelProperty(value = "返回数据", required = true)
     private T data;
 
+	@ApiModelProperty(value = "系统时间", required = true)
     private long currentTime;
 
     public int getCode() {
@@ -39,7 +38,7 @@ public class BaseResp<T> {
         this.message = message;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
@@ -67,7 +66,7 @@ public class BaseResp<T> {
         this.code = code;
         this.message = message;
         this.data = data;
-        this.currentTime = new Date().getTime();
+        this.currentTime = System.currentTimeMillis();
     }
 
     /**
@@ -78,7 +77,7 @@ public class BaseResp<T> {
         this.code = resultStatus.getErrorCode();
         this.message = resultStatus.getErrorMsg();
         this.data = data;
-        this.currentTime = new Date().getTime();
+        this.currentTime = System.currentTimeMillis();
     }
 
     /**
@@ -90,7 +89,7 @@ public class BaseResp<T> {
         this.code = resultStatus.getErrorCode();
         this.message = resultStatus.getErrorMsg();
         this.data = data;
-        this.currentTime = new Date().getTime();
+        this.currentTime = System.currentTimeMillis();
     }
 
 
