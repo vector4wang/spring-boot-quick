@@ -2,9 +2,12 @@
 
 # spring-boot-quick
 
+[![知识共享协议（CC协议）](https://img.shields.io/badge/License-Creative%20Commons-DC3D24.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)
 [![Build Status](https://travis-ci.org/vector4wang/spring-boot-quick.svg?branch=master)](https://travis-ci.org/vector4wang/spring-boot-quick)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/vector4wang/spring-boot-quick.svg)](http://isitmaintained.com/project/vector4wang/spring-boot-quick "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/vector4wang/spring-boot-quick.svg)](http://isitmaintained.com/project/vector4wang/spring-boot-quick "Percentage of issues still open")
+[![GitHub stars](https://img.shields.io/github/stars/vector4wang/spring-boot-quick.svg?style=flat&label=Star)](https://github.com/vector4wang/spring-boot-quick/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/vector4wang/spring-boot-quick.svg?style=flat&label=Fork)](https://github.com/vector4wang/spring-boot-quick/fork)
 
 # 前言
 　　自己很早就想搞一个总的仓库就是将自己平时遇到的和学习到的东西整合在一起，方便后面用的时候快速的查找与使用，之前是通过branch
