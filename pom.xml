@@ -37,6 +37,7 @@
         <module>quick-activemq2</module>
         <module>quick-dubbo</module>
         <module>quick-async</module>
+        <module>quick-vw-crawler</module>
         <module>quick-any-date</module>
     </modules>
     <packaging>pom</packaging>
