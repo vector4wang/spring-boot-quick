@@ -1,7 +1,8 @@
 package com.modules.api;
 
-import com.modules.service.CityService;
-import net.sf.json.JSONObject;
+import com.modules.entity.Country;
+import com.modules.service.CountryService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,14 +18,12 @@ import javax.annotation.Resource;
 @RequestMapping("/service2")
 public class APIController {
 
-    @Resource
-    private CityService cityService;
+	@Resource
+	private CountryService countryService;
 
-    @RequestMapping("/hello")
-    public JSONObject hello(){
-        JSONObject result = new JSONObject();
-        result.accumulate("data","this is service2");
-        return  result;
-    }
+	@RequestMapping("/hello/{code}")
+	public Country hello(@PathVariable("code") String code) {
+		return countryService.selectByCode(code);
+	}
 
 }

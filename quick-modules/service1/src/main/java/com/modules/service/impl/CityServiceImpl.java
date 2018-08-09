@@ -1,7 +1,7 @@
-package com.modules.serviceimpl;
+package com.modules.service.impl;
 
 import com.modules.dao.CityMapper;
-import com.modules.domain.City;
+import com.modules.entity.City;
 import com.modules.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CityServiceImpl implements CityService {
 
-    @Autowired
-    private CityMapper cityMapper;
+	@Autowired
+	private CityMapper cityMapper;
 
-    @Override
-    public City selectById(int id) {
-        return cityMapper.selectByPrimaryKey(1);
-    }
+	@Override
+	public City selectById(int id) {
+		return cityMapper.selectByPrimaryKey(id);
+	}
 }

@@ -21,7 +21,7 @@
         <!-- 自己修改JDBC的路径 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/world" userId="root"
-                        password="root">
+                        password="root123">
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -29,7 +29,7 @@
         </javaTypeResolver>
 
         <!-- model的配置 -->
-        <javaModelGenerator targetPackage="com.modules.domain"
+        <javaModelGenerator targetPackage="com.modules.entity"
                             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
@@ -54,7 +54,9 @@
         <!--<table tableName="dict_school" domainObjectName="School" >-->
             <!--<generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
         <!--</table>-->
-        <table tableName="city" domainObjectName="City" >
+        <table tableName="country" domainObjectName="Country"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
     </context>

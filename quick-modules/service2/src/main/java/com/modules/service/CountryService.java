@@ -1,6 +1,6 @@
 package com.modules.service;
 
-import com.modules.domain.City;
+import com.modules.entity.Country;
 
 /**
  * Created with IDEA
@@ -8,6 +8,6 @@ import com.modules.domain.City;
  * Data: 2017/4/1
  * Time: 8:38
  */
-public interface CityService {
-    City selectById(int id);
+public interface CountryService {
+    Country selectByCode(String code);
 }

@@ -1,6 +1,6 @@
 package com.modules.service;
 
-import com.modules.domain.City;
+import com.modules.entity.City;
 
 /**
  * Created with IDEA

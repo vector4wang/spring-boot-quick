@@ -1,4 +1,4 @@
-package com.modules.domain;
+package com.modules.entity;
 
 public class City {
     private Integer id;
