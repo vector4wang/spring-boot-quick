@@ -14,6 +14,7 @@
         <module>dao</module>
         <module>service1</module>
         <module>service2</module>
+        <module>test</module>
     </modules>
 
     <properties>
@@ -35,6 +36,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <!-- dependencyManagement 可以把所有子模块用到的依赖都声明在此包括版本号，然后子模块需要显式的引用但不需要配置版本号！！！ -->
     <dependencyManagement>
         <dependencies>
             <!-- 子模块的依赖管理 -->
@@ -98,20 +100,58 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
+
+    <!-- 参照官网：https://help.sonatype.com/repomanager3/maven-repositories -->
+
+    <distributionManagement>
         <repository>
             <id>nexus</id>
-            <name>Nexus Repository</name>
-            <url>http://47.106.173.160:8081//nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <!--snapshots默认是关闭的,需要开启  -->
+            <name>Releases</name>
+            <url>http://nexus.wangxc.club:8081/repository/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Snapshot</name>
+            <url>http://nexus.wangxc.club:8081/repository/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Nexus Plugin Repository</name>
+            <url>http://nexus.wangxc.club:8081/repository/maven-public/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-    </repositories>
-
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+    <build>
+        <plugins>
+            <!-- 生成sources源码包的插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <!--意思是在什么阶段打包源文件-->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
