@@ -30,7 +30,7 @@
         <module>quick-jpa</module>
         <module>quick-rocketmq</module>
         <module>quick-logback</module>
-        <module>qucik-activemq</module>
+        <module>quick-activemq</module>
         <module>quick-docker</module>
         <module>quick-vue</module>
         <module>quick-dynamic-bean</module>
