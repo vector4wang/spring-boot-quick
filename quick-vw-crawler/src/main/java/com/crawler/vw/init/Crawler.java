@@ -20,9 +20,11 @@ public class Crawler implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) {
-		new VWCrawler.Builder().setUrl("https://blog.csdn.net/qqhjqs").setHeader("User-Agent",
+		new VWCrawler.Builder().setUrl("https://blog.csdn.net/qqHJQS").setHeader("User-Agent",
 				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36")
-				.setTargetUrlRex("https://blog.csdn.net/qqhjqs/article/details/[0-9]+").setThreadCount(5)
+				.setTargetUrlRex("https://blog.csdn.net/qqHJQS/article/details/[0-9]+")
+				.setTargetUrlRex("https://blog.csdn.net/qqhjqs/article/details/[0-9]+")
+				.setThreadCount(5)
 				.setTimeOut(5000).setPageParser(new CrawlerService<Blog>() {
 
 			@Override
