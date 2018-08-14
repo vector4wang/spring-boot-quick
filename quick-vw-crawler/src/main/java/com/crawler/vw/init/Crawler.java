@@ -6,8 +6,6 @@ import com.crawler.vw.utils.Md5Util;
 import com.github.vector4wang.VWCrawler;
 import com.github.vector4wang.service.CrawlerService;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
