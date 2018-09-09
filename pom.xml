@@ -39,6 +39,8 @@
         <module>quick-async</module>
         <module>quick-vw-crawler</module>
         <module>quick-cache</module>
+        <module>quick-feign</module>
+        <module>quick-feign</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
