@@ -9,13 +9,13 @@ import java.util.List;
 
 public class Blog implements Serializable {
 
-	@CssSelector(selector = "#mainBox > main > div.blog-content-box > div.article-header-box > div > div.article-title-box > h1", resultType = SelectType.TEXT)
-	private String title;
-
 	@CssSelector(selector = "#mainBox > main > div.blog-content-box > div.article-header-box > div > div.article-info-box > div > span.time", dateFormat = "yyyy年MM月dd日 HH:mm:ss")
 	private Date publishDate;
 
-	@CssSelector(selector = "#mainBox > main > div.blog-content-box > div.article-header-box > div > div.article-info-box > div > div > span", resultType = SelectType.TEXT)
+	@CssSelector(selector = "main > div.blog-content-box > div.article-header-box > div.article-header>div.article-title-box > h1", resultType = SelectType.TEXT)
+	private String title;
+
+	@CssSelector(selector = "main > div.blog-content-box > div.article-header-box > div.article-header>div.article-info-box > div > div > span.read-count", resultType = SelectType.TEXT)
 	private String readCountStr;
 
 	private int readCount;
