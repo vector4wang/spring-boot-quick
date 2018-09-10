@@ -1,6 +1,8 @@
 package ServiceTest;
 
 import com.quick.feign.Application;
+import com.quick.feign.entity.BaseResp;
+import com.quick.feign.entity.DomainDetail;
 import com.quick.feign.service.FeignService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +20,12 @@ public class FeignServiceTest {
 
 	@Test
 	public void testGetWeather() {
-		String weather = feignService.getWeather();
-		System.out.println(weather);
+		BaseResp<DomainDetail> weatherResp = feignService.getDomain("sina.com.cn");
+		if (weatherResp.getStatus() == 200) {
+			DomainDetail data = weatherResp.getData();
+			System.out.println(data);
+		}else{
+			System.out.println(weatherResp.getMessage());
+		}
 	}
 }

@@ -1,11 +1,15 @@
 package com.quick.feign;
 
+import com.alibaba.fastjson.JSON;
+import com.quick.feign.entity.BaseResp;
+import com.quick.feign.entity.DomainDetail;
 import com.quick.feign.service.FeignService;
-import feign.Feign;
 import feign.Request;
 import feign.Retryer;
+import feign.hystrix.HystrixFeign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
+import feign.okhttp.OkHttpClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -18,12 +22,22 @@ public class Application {
 
 	@Bean
 	FeignService feignTest(){
-		return Feign.builder()
+
+		return HystrixFeign.builder()
+				.client(new OkHttpClient())
 				.encoder(new JacksonEncoder())
 				.decoder(new JacksonDecoder())
 				.options(new Request.Options(2000, 3500))
 				.retryer(new Retryer.Default(5000, 5000, 3))
-				.target(FeignService.class, "http://www.weather.com.cn");
+				.target(FeignService.class, "https://www.sojson.com", new FeignService() {
+					@Override
+					public BaseResp<DomainDetail> getDomain(String domain) {
+						BaseResp baseResp = JSON.parseObject(
+								"{\"data\":{\"id\":\"11000002000016\",\"sitename\":\"新浪网\",\"sitedomain\":\"sina.com.cn\",\"sitetype\":\"交互式\",\"cdate\":\"2016-01-21\",\"comtype\":\"企业单位\",\"comname\":\"北京新浪互联信息服务有限公司\",\"comaddress\":\"北京市网安总队\",\"updateTime\":\"2017-09-09\"},\"status\":200}",
+								BaseResp.class);
+						return baseResp;
+					}
+				});
 	}
 
 }
