@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.quick.feign.entity.BaseResp;
 import com.quick.feign.entity.DomainDetail;
 import com.quick.feign.service.FeignService;
+import feign.Logger;
 import feign.Request;
 import feign.Retryer;
 import feign.hystrix.HystrixFeign;
@@ -27,6 +28,8 @@ public class Application {
 				.client(new OkHttpClient())
 				.encoder(new JacksonEncoder())
 				.decoder(new JacksonDecoder())
+				.logger(new Logger.JavaLogger().appendToFile("feign/http.log"))
+				.logLevel(Logger.Level.FULL)
 				.options(new Request.Options(2000, 3500))
 				.retryer(new Retryer.Default(5000, 5000, 3))
 				.target(FeignService.class, "https://www.sojson.com", new FeignService() {
