@@ -11,6 +11,7 @@ import feign.hystrix.HystrixFeign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
+import feign.slf4j.Slf4jLogger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ public class Application {
 				.client(new OkHttpClient())
 				.encoder(new JacksonEncoder())
 				.decoder(new JacksonDecoder())
-				.logger(new Logger.JavaLogger().appendToFile("feign/http.log"))
+				.logger(new Slf4jLogger(FeignService.class))
 				.logLevel(Logger.Level.FULL)
 				.options(new Request.Options(2000, 3500))
 				.retryer(new Retryer.Default(5000, 5000, 3))
