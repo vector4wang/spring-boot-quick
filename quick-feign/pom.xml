@@ -89,7 +89,6 @@
             <artifactId>feign-slf4j</artifactId>
             <version>8.18.0</version>
         </dependency>
-
     </dependencies>
 
     <build>
