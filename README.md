@@ -24,14 +24,16 @@
 .
 ├── README.md
 ├── pom.xml
-├── qucik-activemq
+├── quick-activemq
 ├── quick-activemq2
 ├── quick-async
 ├── quick-batch
+├── quick-cache
 ├── quick-docker
 ├── quick-dubbo
 ├── quick-dynamic-bean
 ├── quick-exception
+├── quick-feign
 ├── quick-img2txt
 ├── quick-jdbc
 ├── quick-jpa
@@ -54,8 +56,6 @@
 ├── quick-vue
 ├── quick-vw-crawler
 └── quick-wx-api
-
-
 ```
 
 ## spring-boot-quick
@@ -275,7 +275,9 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 结合比较流行的框架SpringBoot抓取CSDN的数据(有关的Spingboot的使用可以参考[这里](https://github.com/vector4wang/spring-boot-quick))
 有关VW-Cralwer的介绍可以看[这里](https://github.com/vector4wang/vw-crawler),简单轻便开源的一款Java爬虫框架。
 
+## quick-feign
 
+单独使用feign做为请求http接口的客户端工具
 
 (后面会持续更新)
 
