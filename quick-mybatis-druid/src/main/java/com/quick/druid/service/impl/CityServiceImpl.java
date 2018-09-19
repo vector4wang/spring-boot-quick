@@ -15,7 +15,7 @@ import java.util.UUID;
  * @Author: wangxc
  * @GitHub: https://github.com/vector4wang
  * @CSDN: http://blog.csdn.net/qqhjqs?viewmode=contents
- * @BLOG: http://vector4wang.tk
+ * @BLOG: http://blog.wangxc.club
  * @wxid: BMHJQS
  */
 @Service

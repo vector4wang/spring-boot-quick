@@ -20,8 +20,8 @@
         </commentGenerator>
         <!-- 自己修改JDBC的路径 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/world" userId="root"
-                        password="root123">
+                        connectionURL="jdbc:mysql://104.194.92.130:3307/world" userId="root"
+                        password="123456">
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -46,7 +46,7 @@
                              targetPackage="com.quick.druid.mapper" targetProject="src/main/java/">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-        <table tableName="country" domainObjectName="Country"
+        <table tableName="city" domainObjectName="City"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>

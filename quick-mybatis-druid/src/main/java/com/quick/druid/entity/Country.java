@@ -1,8 +1,5 @@
 package com.quick.druid.entity;
 
-import org.apache.ibatis.annotations.Mapper;
-
-
 public class Country {
     private String code;
 

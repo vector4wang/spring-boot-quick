@@ -1,5 +1,7 @@
 欢迎大家留言和PR~
 
+> Tip: 技术更新换代太快，本仓库仅做参考，自己的项目具体使用哪个版本还需谨慎思考~(不推荐使用最新的版本，推荐使用(最新-1|2)的版本，会比较稳定)
+
 # spring-boot-quick
 
 [![知识共享协议（CC协议）](https://img.shields.io/badge/License-Creative%20Commons-DC3D24.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)
