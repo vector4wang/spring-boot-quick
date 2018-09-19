@@ -25,6 +25,7 @@ public class Application {
 	@Bean
 	FeignService feignTest(){
 
+
 		return HystrixFeign.builder()
 				.client(new OkHttpClient())
 				.encoder(new JacksonEncoder())
@@ -33,6 +34,7 @@ public class Application {
 				.logLevel(Logger.Level.FULL)
 				.options(new Request.Options(2000, 3500))
 				.retryer(new Retryer.Default(5000, 5000, 3))
+
 				.target(FeignService.class, "https://www.sojson.com", new FeignService() {
 					@Override
 					public BaseResp<DomainDetail> getDomain(String domain) {
