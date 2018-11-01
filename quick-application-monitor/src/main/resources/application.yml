@@ -1,0 +1,15 @@
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+jmx:
+    exposure:
+        include: '*'
+shutdown:
+    enabled: true
+metrics:
+    distribution:
+        percentiles-histogram[http.server.requests]: true
+security:
+    enabled: false
