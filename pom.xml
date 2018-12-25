@@ -40,7 +40,6 @@
         <module>quick-vw-crawler</module>
         <module>quick-cache</module>
         <module>quick-feign</module>
-        <module>quick-application-monitor</module>
         <module>quick-config-encrypt</module>
     </modules>
     <packaging>pom</packaging>

@@ -283,6 +283,11 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 
 (后面会持续更新)
 
+## quick-config-encrypt
+配置加密功能(待完成)
+
+
+
 
 
 ### 温馨提示
