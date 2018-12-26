@@ -286,7 +286,8 @@ springboot 整合activemq 服务 非常简单，更负责的配置可以自定�
 ## quick-config-encrypt
 配置加密功能(待完成)
 
-
+## quick-jwt
+参考https://github.com/murraco/spring-boot-jwt 添加的jwt模块，实现网站的简单鉴权
 
 
 
