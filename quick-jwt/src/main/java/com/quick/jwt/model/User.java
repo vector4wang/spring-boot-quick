@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User {
 
 	@Id

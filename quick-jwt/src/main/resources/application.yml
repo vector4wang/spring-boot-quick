@@ -1,9 +1,10 @@
 spring:
   datasource:
 #    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    url: jdbc:mysql://localhost:3308/testdb
+    url: jdbc:mysql://localhost:3306/testdb
     username: root
-    password: 123456
+    password: root123
+    driver-class-name: com.mysql.jdbc.Driver
   tomcat:
     max-wait: 20000
     max-active: 50
@@ -11,13 +12,14 @@ spring:
     min-idle: 15
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-        format_sql: true
-        id:
-          new_generator_mappings: false
+      ddl-auto: update
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+#        format_sql: true
+#        id:
+#          new_generator_mappings: false
+    show-sql: true
 
 security:
   jwt:
