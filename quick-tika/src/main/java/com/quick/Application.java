@@ -27,6 +27,7 @@ public class Application {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("抽取文件文本内容，没有类型限制")
