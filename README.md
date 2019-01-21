@@ -253,7 +253,8 @@ springboot下统一处理异常方法，即，在请求没到达对应controller
 springboot內置的日志管理模块，使用slf4j
 
 ## quick-activemq
-springboot 整合activemq 服务 非常简单，更负责的配置可以自定义containerFactory
+- springboot 整合activemq 服务 非常简单，更负责的配置可以自定义containerFactory
+- 添加导出消息队列消息但不消费的方法(慎重使用，不知是否会对mq服务增加压力)
 
 ## quick-docker
 

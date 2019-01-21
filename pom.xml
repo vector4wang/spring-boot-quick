@@ -42,6 +42,7 @@
         <module>quick-feign</module>
         <module>quick-config-encrypt</module>
         <module>quick-jwt</module>
+        <module>quick-activemq-artemis</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>

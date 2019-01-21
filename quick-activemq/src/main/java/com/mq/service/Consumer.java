@@ -1,7 +1,5 @@
 package com.mq.service;
 
-import com.alibaba.fastjson.JSON;
-import com.mq.model.TalentMQMessage;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
