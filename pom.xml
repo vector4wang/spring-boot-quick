@@ -19,7 +19,6 @@
         <module>quick-package-assembly-multi-env</module>
         <module>quick-exception</module>
         <module>quick-log</module>
-        <module>quick-wx-api</module>
         <module>quick-oss</module>
         <module>quick-jsp</module>
         <module>quick-mybatis-druid</module>
@@ -42,6 +41,8 @@
         <module>quick-feign</module>
         <module>quick-config-encrypt</module>
         <module>quick-jwt</module>
+        <module>quick-wx-public</module>
+        <module>quick-lombok</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>

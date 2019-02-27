@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 自己修改jar的路径 -->
+    <!--<classPathEntry location="mysql-connector-java-5.1.20.jar" />-->
+
+    <context id="MySqlTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- 分页插件 -->
+<!--
+        <plugin type="MysqlPaginationPlugin"/>
+-->
+
+        <!-- 关闭注解信息 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 自己修改JDBC的路径 -->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://localhost:3306/wx_data?characterEncoding=UTF-8" userId="root"-->
+                        <!--password="root123">-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.1.82:3306/autodialer?characterEncoding=UTF-8" userId="vector"
+                        password="vector">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- model的配置  -->
+        <!--<javaModelGenerator targetPackage="com.base.voice.entity"-->
+        <javaModelGenerator targetPackage="com.base.voice.autodialer.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- mybatis的xml的配置 放在resource/mapper里-->
+        <!--<sqlMapGenerator targetPackage="mapper"-->
+        <sqlMapGenerator targetPackage="mapper/autodialer/"
+                         targetProject="src/main/resources/">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- mapper的配置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.base.voice.autodialer.mapper" targetProject="src/main/java">
+                             <!--targetPackage="com.base.voice.mapper" targetProject="src/main/java">-->
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="dict_location" domainObjectName="DictLocation"-->
+        <table tableName="autodialer_task" domainObjectName="AutodialerTask"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>
