@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
@@ -52,10 +53,15 @@ public class AcitveMQConfig {
     @Autowired
     private ApplicationContext applicationContext;
 
+	@Autowired
+	private AbstractEnvironment environment;
+
     @Bean
     public Queue queue() {
         return new ActiveMQQueue("queue1");
     }
+
+
 
     @Bean
     public RedeliveryPolicy redeliveryPolicy() {
@@ -163,6 +169,9 @@ public class AcitveMQConfig {
     @Bean
     public SimpeQueueConsumer simpeQueueConsumer() {
         logger.info("init jmsSimpeQueueListener Consumer");
+
+
+
         return new SimpeQueueConsumer();
     }
 
