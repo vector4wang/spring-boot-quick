@@ -7,11 +7,12 @@ import java.io.IOException;
 public class PostString {
     public static void main(String[] args) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        MediaType MEDIA_TYPE_TEXT = MediaType.parse("text/plain");
-        String postBody = "Hello World";
+        MediaType MEDIA_TYPE_TEXT = MediaType.parse("application/json");
+        String postBody = "{\"username\":\"3\",\"password\":\"string\",\"email\":\"string\"}";
 
         Request request = new Request.Builder()
-                .url("http://www.baidu.com")
+                .url("http://localhost:54321/users/signup")
+//				.header("Content-Type","application/json")
                 .post(RequestBody.create(MEDIA_TYPE_TEXT, postBody))
                 .build();
 

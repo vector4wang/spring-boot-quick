@@ -166,16 +166,6 @@ public class AcitveMQConfig {
         return null;
     }
 
-    @Bean
-    public SimpeQueueConsumer simpeQueueConsumer() {
-        logger.info("init jmsSimpeQueueListener Consumer");
-
-
-
-        return new SimpeQueueConsumer();
-    }
-
-
 
 }
 
