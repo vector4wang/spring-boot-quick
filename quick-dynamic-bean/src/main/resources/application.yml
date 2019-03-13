@@ -13,12 +13,12 @@ spring:
 
 dynamic:
   attr:
-    switch: false
+    switch: true
     count: 5
-
   annotate:
     switch: true
+    key: temp
     defaultVal: default-person
     unpredictable:
       key: dynamic.annotate.key
-      value:
+      value: one,two,three

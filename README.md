@@ -265,6 +265,11 @@ springboot內置的日志管理模块，使用slf4j
 用到的场景:有的时候本地测试不想使用mq，可以在将mq对应consumer bean 加上contional注解，并
 配置条件
 
+2019年03月14日00:12:54更新
+动态创建bean的方式：
+- 动态设置属性；
+- 动态设置属性文件，来改变要生成bean上的注解内容，如@Jmslistener(des="${key}"),我们可以动态改变key来生成不同的bean
+
 ## quick-dubbo
 整合dubbo，用的不是官方的dubbo-stater，用的是这个https://github.com/halober/spring-boot-starter-dubbo 配置很详细
 注意dubbo的结构

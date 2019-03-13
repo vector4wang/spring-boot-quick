@@ -1,4 +1,5 @@
 import com.dynamic.bean.Application;
+import com.dynamic.bean.box.AnonymousComponent;
 import com.dynamic.bean.box.Person;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Description;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -49,9 +51,6 @@ public class DynamicTest {
 
 	@Test
 	public void testDynamicAnnotation() {
-		System.out.println("================================================================================");
-		ConfigurableApplicationContext context = (ConfigurableApplicationContext) applicationContext;
-		Person person = (Person) context.getBean("default-person");
-		System.out.println(person.getClass());
+
 	}
 }

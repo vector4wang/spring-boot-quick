@@ -1,6 +1,7 @@
 package com.dynamic.bean.box;
 
-import org.springframework.context.annotation.Bean;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Description;
 
 /**
@@ -9,11 +10,9 @@ import org.springframework.context.annotation.Description;
  * @date: 2019/3/13 上午12:04
  *
  */
+@Getter
+@Setter
+@Description(value = "${dynamic.annotate.unpredictable.key}")
 public class AnonymousComponent {
-
-	@Description(value = "${dynamic.annotate.unpredictable.key}")
-	@Bean(name = "${dynamic.annotate.unpredictable.key}")
-	public Person createBean() {
-		return new Person();
-	}
+	private String other;
 }
