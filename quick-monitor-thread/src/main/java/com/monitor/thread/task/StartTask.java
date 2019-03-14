@@ -16,15 +16,13 @@ public class StartTask {
 
 	final static Logger logger = LoggerFactory.getLogger(StartTask.class);
 
-	private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(10);
+
 
 	//定义在构造方法完毕后，执行这个初始化方法
-//	@PostConstruct
+	@PostConstruct
 	public void init() {
-		while (true) {
-			MoniotrTask moniotrTask = ApplicationContextProvider.getBean("mTask", MoniotrTask.class);
-			executor.schedule(moniotrTask, 50, TimeUnit.SECONDS);
-		}
+        MoniotrTask moniotrTask = ApplicationContextProvider.getBean("mTask", MoniotrTask.class);
+        moniotrTask.start();
 	}
 
 

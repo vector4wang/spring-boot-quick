@@ -15,7 +15,8 @@ public class SpecialService {
 
 	public void build() {
 		try {
-			Thread.sleep(2000);
+            System.out.println(Thread.currentThread().getName() + " ====>异步执行中。。。");
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

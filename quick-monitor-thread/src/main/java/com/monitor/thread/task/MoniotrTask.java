@@ -8,12 +8,15 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.management.monitor.Monitor;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @Component("mTask")
-@Scope("prototype")//非单例
+//@Scope("prototype")//非单例
 public class MoniotrTask extends Thread {
 
 	final static Logger logger = LoggerFactory.getLogger(MoniotrTask.class);
+
 	//参数封装
 	private Monitor monitor;
 
@@ -30,8 +33,8 @@ public class MoniotrTask extends Thread {
 
 	@Override
 	public void run() {
-		specialService.build();
-		logger.info("线程:" + Thread.currentThread().getName() + "运行中.....");
+        logger.info("线程:" + Thread.currentThread().getName() + "运行中.....");
+        specialService.build();
 	}
 
 }
