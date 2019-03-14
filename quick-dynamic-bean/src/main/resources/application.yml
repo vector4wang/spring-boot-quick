@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  activemq:
+    switch: true
+    broker-url: tcp://60.205.191.82:8081
+    user: admin
+    password: admin
+    in-memory: true
+    pool.enabled: false
+
+
+dynamic:
+  attr:
+    switch: true
+    count: 5
+  annotate:
+    switch: true
+    key: temp
+    defaultVal: default-person
+    unpredictable:
+      key: dynamic.annotate.key
+      value: one,two,three
