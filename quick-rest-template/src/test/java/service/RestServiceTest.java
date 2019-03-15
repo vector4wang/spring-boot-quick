@@ -26,4 +26,9 @@ public class RestServiceTest {
         restService.get();
     }
 
+    @Test
+    public void testPost() throws URISyntaxException {
+        restService.post();
+    }
+
 }

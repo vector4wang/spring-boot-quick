@@ -28,11 +28,9 @@ public class TestController {
      * @return
      */
     @PostMapping("testPost")
-    public TestDTO testPost() {
-        TestDTO TestDTO = new TestDTO();
-        TestDTO.setId(1);
-        TestDTO.setName("post");
-        return TestDTO;
+    public TestDTO testPost(@RequestBody TestDTO testDTO) {
+        testDTO.setName("from server " + testDTO.getName());
+        return testDTO;
     }
 
 

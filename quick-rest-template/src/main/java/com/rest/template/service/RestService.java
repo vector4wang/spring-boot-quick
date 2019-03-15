@@ -1,7 +1,10 @@
 package com.rest.template.service;
 
+import com.alibaba.fastjson.JSON;
 import com.rest.template.model.TestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,15 +33,35 @@ public class RestService {
 
 
     public void get() throws URISyntaxException {
-
         ResponseEntity<TestDTO> responseEntity = this.restTemplate.getForEntity(HOST + GET_URL, TestDTO.class);
         System.out.println("getForEntity: " + responseEntity.getBody());
 
         TestDTO forObject = this.restTemplate.getForObject(HOST + GET_URL, TestDTO.class);
-        System.out.println("getForObject: "+ forObject);
+        System.out.println("getForObject: " + forObject);
 
         RequestEntity<Void> requestEntity = RequestEntity.get(new URI(HOST + GET_URL)).build();
         ResponseEntity<TestDTO> exchange = this.restTemplate.exchange(requestEntity, TestDTO.class);
-        System.out.println("exchange: "+ exchange.getBody());
+        System.out.println("exchange: " + exchange.getBody());
+    }
+
+    public void post() throws URISyntaxException {
+
+        TestDTO td = new TestDTO();
+        td.setId(1);
+        td.setName("post");
+
+        String url = HOST + POST_URL;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<TestDTO> httpEntity = new HttpEntity<>(td, headers);
+
+        ResponseEntity<TestDTO> responseEntity = this.restTemplate.postForEntity(url, httpEntity, TestDTO.class);
+        System.out.println("postForEntity: " + responseEntity.getBody());
+
+        TestDTO testDTO = this.restTemplate.postForObject(url, httpEntity, TestDTO.class);
+        System.out.println("postForObject: " + testDTO);
+
+        RequestEntity requestEntity = RequestEntity.post(new URI(url)).body(httpEntity);
+        ResponseEntity<TestDTO> exchange = this.restTemplate.exchange(requestEntity, TestDTO.class);
+        System.out.println("exchange: " + exchange.getBody());
     }
 }
