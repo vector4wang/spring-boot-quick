@@ -31,4 +31,9 @@ public class RestServiceTest {
         restService.post();
     }
 
+    @Test
+    public void testPost4Form() {
+        restService.post4Form();
+    }
+
 }
