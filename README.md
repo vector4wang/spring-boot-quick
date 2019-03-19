@@ -31,6 +31,7 @@
 ├── quick-async
 ├── quick-batch
 ├── quick-cache
+├── quick-config-encrypt
 ├── quick-docker
 ├── quick-dubbo
 ├── quick-dynamic-bean
@@ -40,9 +41,12 @@
 ├── quick-jdbc
 ├── quick-jpa
 ├── quick-jsp
+├── quick-jwt
 ├── quick-log
 ├── quick-logback
+├── quick-lombok
 ├── quick-modules
+├── quick-monitor-thread
 ├── quick-multi-data
 ├── quick-mybatis-druid
 ├── quick-oauth2
@@ -52,12 +56,14 @@
 ├── quick-package-assembly-multi-env
 ├── quick-rabbitmq
 ├── quick-redies
+├── quick-rest-template
 ├── quick-rocketmq
 ├── quick-swagger
 ├── quick-tika
 ├── quick-vue
 ├── quick-vw-crawler
-└── quick-wx-api
+└── quick-wx-public
+
 ```
 
 ## spring-boot-quick
