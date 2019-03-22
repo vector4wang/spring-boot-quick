@@ -18,7 +18,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <tika.version>1.19.1</tika.version>
+        <tika.version>1.20</tika.version>
         <swagger.version>2.2.2</swagger.version>
     </properties>
     <dependencies>
