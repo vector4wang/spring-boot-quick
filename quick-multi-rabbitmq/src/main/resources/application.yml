@@ -1,0 +1,14 @@
+spring:
+  rabbitmq:
+    first:
+      host: 192.168.68.11
+      port: 5672
+      username: tbddev
+      password: tbddev!#%2017
+      virtual-host: /tbddev
+    second:
+      host: 192.168.68.11
+      port: 5672
+      username: tbdrc
+      password: tbdrc!#%2017
+      virtual-host: /tbdrc
