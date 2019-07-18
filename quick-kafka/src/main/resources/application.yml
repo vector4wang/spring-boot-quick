@@ -1,22 +1,18 @@
 
-
-#kafka相关配置
 spring:
   kafka:
-    bootstrap-servers: 192.168.1.95:9092
+    bootstrap-servers: 192.168.1.8:9092
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      #每次批量发送消息的数量
+
       batch-size: 65536
       buffer-memory: 524288
 
 
-    #设置一个默认组
     consumer:
       group-id: 0
-      #key-value序列化反序列化
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
