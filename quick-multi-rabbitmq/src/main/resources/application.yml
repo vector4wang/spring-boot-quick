@@ -12,3 +12,12 @@ spring:
       username: tbdrc
       password: tbdrc!#%2017
       virtual-host: /tbdrc
+
+rabbit:
+  mq:
+    queue0: tbd_resume_id_dev_0
+    queue1: tbd_resume_id_dev_1
+    queue2: tbd_resume_id_dev_2
+    queue3: tbd_resume_id_dev_3
+    queue4: tbd_resume_id_dev_4
+    queue5: tbd_resume_id_dev_5
