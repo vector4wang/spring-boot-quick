@@ -3,6 +3,8 @@
 - 第二个挑战是分析收集的数据；
 
 
+最近在搭建一个简易的基于Flink的实时推荐系统中用到了kafka，就快速的整合了下并记录在此
+
 ### 简介
 
 #### 什么是Kafka
@@ -29,8 +31,8 @@ Apache Kafka是一个分布式发布 - 订阅消息系统和一个强大的队�
 可扩展性、数据分区、低延迟、处理大量不同消费者
 
 #### 容错
-kafka集群，每一个服务器为broker，每一个broker会有多个partition(创建topic后)，假如有三个broker，然后一个topic会有三个分区，那么每一个broker都会拥有一个分区，然后分区中会产生一个leader，在使用
-过程中有消息进来(producer发送数据)，leader则会拿到数据，然后会分发(复制)给其他两个随从，最终会保持每一个分区都会存在该消息(类似ES的集群，也有大部分的集群都是这样设计的) 
+kafka集群，每一个服务器为broker，每一个broker会有多个partition(创建topic后)，假如有三个broker，然后一个topic设置了三个分区，那么每一个broker都会拥有一个分区，然后分区中会产生一个leader，在使用
+过程中有消息进来(producer发送数据)，leader则会拿到数据，然后会分发(复制)给其他两个随从，最终会保持每一个分区都会存在该消息(类似ES的集群，也许大部分的集群都是这样设计的) 
 
 #### 消息偏移量
 
@@ -44,7 +46,7 @@ Kafka集群持久地保留所有已发布的记录 - 无论它们是否已被消
 
 基于每个消费者保留的唯一元数据是该消费者在日志中的偏移或位置。这种偏移由消费者控制：通常消费者在读取记录时会线性地提高其偏移量，但事实上，由于消费者控制位置，它可以按照自己喜欢的任何顺序消费记录。例如，消费者可以重置为较旧的偏移量以重新处理过去的数据，或者跳到最近的记录并从“现在”开始消费。
 
-可读这一片[博文](https://zhuanlan.zhihu.com/p/31731892)
+可查看此[博文](https://zhuanlan.zhihu.com/p/31731892)
 
 
 ### 使用Docker搭建Kafka开发环境
@@ -129,13 +131,15 @@ web ui in `localhost:9000`
 
 项目启动后，kafka自动创建了三个topic
 
-![mark](http://cdn.wangxc.club/image/20190718/Js3bAzjpqd5Q.png?imageslim)
+![mark](http://cdn.wangxc.club/image/20190718/Js3bAzjpqd5Q.png)
 
 在postman中发送一个请求
-![mark](http://cdn.wangxc.club/image/20190718/th9rISBAT1CK.png?imageslim)
+![mark](http://cdn.wangxc.club/image/20190718/th9rISBAT1CK.png)
 控制台日志显示发送和接受一个消息
 
 
 ### 不错的博文
 
 https://zhuanlan.zhihu.com/p/31731892
+
+
