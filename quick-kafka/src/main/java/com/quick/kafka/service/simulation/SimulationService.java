@@ -24,6 +24,7 @@ public class SimulationService {
 	 * @param body
 	 */
 	public void send(String topic, String body) {
+		System.out.println(body);
 		producerService.sendMessage(topic,body);
 	}
 }

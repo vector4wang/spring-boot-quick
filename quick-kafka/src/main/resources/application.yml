@@ -1,7 +1,7 @@
 
 spring:
   kafka:
-    bootstrap-servers: 192.168.1.8:9092
+    bootstrap-servers: 192.168.1.13:9092
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -25,4 +25,4 @@ kafka:
       - topic2
       - topic3
 server:
-  port: 8081
+  port: 8091
