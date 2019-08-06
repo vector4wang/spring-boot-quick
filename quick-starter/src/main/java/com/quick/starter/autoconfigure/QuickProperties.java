@@ -1,12 +1,12 @@
 package com.quick.starter.autoconfigure;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author vector
  * @date: 2019/8/6 0006 17:00
  */
-@ConditionalOnProperty(prefix = "quick")
+@ConfigurationProperties(prefix = "quick")
 public class QuickProperties {
 
     private String name = "quick starter demo!!!";
