@@ -48,6 +48,8 @@
         <module>quick-multi-rabbitmq</module>
         <module>quick-kafka</module>
         <module>quick-hbase</module>
+        <module>quick-starter</module>
+        <module>quick-starter-demo</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
