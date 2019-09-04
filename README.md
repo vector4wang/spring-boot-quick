@@ -37,17 +37,20 @@
 ├── quick-dynamic-bean
 ├── quick-exception
 ├── quick-feign
+├── quick-hbase
 ├── quick-img2txt
 ├── quick-jdbc
 ├── quick-jpa
 ├── quick-jsp
 ├── quick-jwt
+├── quick-kafka
 ├── quick-log
 ├── quick-logback
 ├── quick-lombok
 ├── quick-modules
 ├── quick-monitor-thread
 ├── quick-multi-data
+├── quick-multi-rabbitmq
 ├── quick-mybatis-druid
 ├── quick-oauth2
 ├── quick-okhttp
@@ -58,11 +61,13 @@
 ├── quick-redies
 ├── quick-rest-template
 ├── quick-rocketmq
+├── quick-starter
+├── quick-starter-demo
 ├── quick-swagger
-├── quick-tika
 ├── quick-vue
 ├── quick-vw-crawler
 └── quick-wx-public
+
 
 ```
 
@@ -303,7 +308,14 @@ springboot內置的日志管理模块，使用slf4j
 ## quick-jwt
 参考https://github.com/murraco/spring-boot-jwt 添加的jwt模块，实现网站的简单鉴权
 
+## quick-hbase
+使用docker搭建hbase环境，springboot集成hbase client，完成基本的CURD；
 
+## quick-kafka
+使用docker搭建的kafka环境，springboot集成kafka，完成消息的接受和发送
+
+## quick-starter
+一个开发xxx-starter的示例，帮助你快速开发和部署自己的xxx-starter
 
 ### 温馨提示
 　　如果您自己想在本地跑一跑，可以将其checkout到本地，直接`mvn clean install -U` 就ok了，如果您只想运行某个模块，直接复制配置文件和代码就ok了，如果您在测试某个模块但该模块出错，请尽快联系本人,邮箱:**vector4wang@qq.com**,我会在第一时间将其修复

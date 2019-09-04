@@ -3,6 +3,7 @@ package com.quick.jdbc.type;
 import java.sql.*;
 
 /**
+ * jdbc+sqlserver 用来快速验证
  * @author vector
  * @date: 2019/9/3 0003 10:12
  */

@@ -67,7 +67,21 @@ docker run -d -h docker-hbase \
 ```
 可以看下[简易教程](https://blog.csdn.net/qqHJQS/column/info/33078)
 
-![Hbase用到的端口](http://cdn.wangxc.club/20190716221732.png)
+
+|节点|端口号|协议|使用|说明|
+|:---:|---|---|---|---|
+|zookeeper|2181||zkCli.sh-serverzookeeper1:2181|客户端接入|
+|zookeeper|2888,3888|||集群内部通讯|
+|HDFSNamenode|9000|HDFS|hdfsdfs-lshdfs://namenode1:9000/|客户端接入
+|HDFSNamenode|50070|HTTP|http://namenode1:50070/|集群监控|
+|HDFSSecondaryNamenode|50090|HTTP|http://namenode1:50090/|secondary监控|
+|HDFSDatanode|50010|||客户端接入/其他节点接入|
+|HDFSDatanode|50020||||
+|HDFSDatanode|50075|HTTP|http://datanode1:50075/|节点监控|
+|HBaseMaster|16000||hbase-client-1.x.x.jar|RegionServer接入|
+|HBaseMaster|16010|HTTP|http://namenode1:16010/|集群监控|
+|HBaseRegionServer|16020|||客户端接入|
+|HBaseRegionServer|16030|HTTP|http://datanode1:16030/|节点监控|
 
 hbase对应的端口(harisekhon/hbase 修改了默认端口：)
 ```text
