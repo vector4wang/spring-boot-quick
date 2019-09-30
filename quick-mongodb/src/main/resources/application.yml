@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://admin:Www1hirede@192.168.1.35:27017/test-springboot?authSource=admin&authMechanism=SCRAM-SHA-1
