@@ -50,7 +50,7 @@ public class Img2TxtController {
             HttpHeaders headers = new HttpHeaders();
 
             // 支持jpg、png
-            if(originalFilename.endsWith("jpg")||originalFilename.endsWith("png")){
+            if(originalFilename.toLowerCase().endsWith("jpg")||originalFilename.toLowerCase().endsWith("png")){
                 File outFile = img2TxtService.save(file.getBytes(), originalFilename);
                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
                 headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", outFile.getName()));

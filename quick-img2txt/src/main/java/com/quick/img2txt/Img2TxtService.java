@@ -21,9 +21,20 @@ public class Img2TxtService {
     public static String toChar = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:, ^`'. ";
     public static int width = 150, height = 150; // 大小自己可设置
 
-    @Value("${upload.file.path}")
-    private String filePath;
+	private static String FILE_PATH;
 
+	static {
+		try {
+			FILE_PATH = ResourceUtils.getURL("classpath:").getPath();
+			System.out.println(FILE_PATH);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+//    @Value("${upload.file.path}")
+//    private String filePath;
+//
     @Value("${error.file.path}")
     private String errPath;
 
@@ -38,7 +49,7 @@ public class Img2TxtService {
 //    }
 
     public File save(byte[] bytes,String name) throws IOException {
-        File newFile = new File(filePath + File.separator + name);
+        File newFile = new File(FILE_PATH + File.separator + name);
         if(!newFile.exists()){
             newFile.createNewFile();
         }
