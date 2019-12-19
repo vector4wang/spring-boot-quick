@@ -1,0 +1,11 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.12.128:3306/world
+    username: root
+    password: 123456
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
