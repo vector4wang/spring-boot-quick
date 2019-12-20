@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author: wangxc
  * @GitHub: https://github.com/vector4wang
@@ -34,6 +37,15 @@ public class Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         User user = userService.getById(1);
         System.out.println(user.toString());
+
+        List<User> userList = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            User anyData= JMockData.mockSimpleType(User.class);
+            anyData.setId(null);
+            userList.add(anyData);
+        }
+        userService.saveBatch(userList);
 
     }
 }
