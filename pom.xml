@@ -51,9 +51,11 @@
         <module>quick-starter-demo</module>
         <module>quick-mongodb</module>
         <module>quick-method-evaluate</module>
-<!--        <module>quick-spring-shiro</module>-->
-<!--        <module>quick-config-server</module>-->
+        <module>quick-spring-shiro</module>
+        <module>quick-config-server</module>
         <module>quick-i18n</module>
+        <module>quick-undertow</module>
+        <module>quick-mail</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
