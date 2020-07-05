@@ -47,5 +47,10 @@ public class ApiController {
         return result;
     }
 
+	@RequestMapping("s")
+	public String ss() {
+		return "123";
+	}
+
 
 }
