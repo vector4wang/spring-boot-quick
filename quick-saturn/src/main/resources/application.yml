@@ -1,0 +1,5 @@
+server:
+  port: 8080
+
+app:
+  class: com.quick.saturn.SaturnApplication

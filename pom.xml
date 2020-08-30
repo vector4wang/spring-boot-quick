@@ -57,6 +57,8 @@
         <module>quick-undertow</module>
         <module>quick-mail</module>
         <module>quick-graphQL</module>
+        <module>quick-saturn</module>
+        <module>quick-zookeeper</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
