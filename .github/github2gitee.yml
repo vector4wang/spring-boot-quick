@@ -1,0 +1,22 @@
+on: push
+name: actions
+jobs:
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source codes
+        uses: actions/checkout@v1
+      - name: Mirror Github to Gitee
+        uses: ./.
+        with:
+          src: github/vector4wang
+          dst: gitee/backwxc
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          account_type: org
+          # Only sync Kunpeng
+          black_list: 'KAE'
+          white_list: 'spring-boot-quick'
+          force_update: true
+          debug: true
