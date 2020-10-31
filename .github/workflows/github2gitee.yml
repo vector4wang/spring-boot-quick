@@ -1,22 +1,21 @@
 on: push
-name: actions
+name: Mirror GitHub Auto Queried Repos to Gitee
 jobs:
   run:
-    name: Run
+    name:  Sync-GitHub-to-Gitee
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source codes
-        uses: actions/checkout@v1
-      - name: Mirror Github to Gitee
-        uses: ./.
+      - name: Mirror the Github repos to Gitee.
+#        uses: actions/checkout@v1
+#      - name: Mirror Github to Gitee
         with:
           src: github/vector4wang
           dst: gitee/backwxc
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token: ${{ secrets.GITEE_TOKEN }}
-          account_type: org
-          # Only sync Kunpeng
-          black_list: 'KAE'
-          white_list: 'spring-boot-quick'
+#          account_type: org
+#          # Only sync Kunpeng
+#          black_list: 'KAE'
+#          white_list: 'spring-boot-quick'
           force_update: true
-          debug: true
+#          debug: true
