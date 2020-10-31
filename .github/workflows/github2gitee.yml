@@ -16,6 +16,6 @@ jobs:
 #          account_type: org
 #          # Only sync Kunpeng
 #          black_list: 'KAE'
-#          white_list: 'spring-boot-quick'
+          white_list: 'spring-boot-quick'
           force_update: true
 #          debug: true
