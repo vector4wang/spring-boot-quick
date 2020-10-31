@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Mirror the Github repos to Gitee.
-        uses: vector4wang/spring-boot-quick@master
+        uses: Yikun/hub-mirror-action@master
 #      - name: Mirror Github to Gitee
         with:
           src: github/vector4wang
