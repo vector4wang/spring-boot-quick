@@ -1,4 +1,3 @@
-# use travis-ci.com
 language: java
 
 jdk:
