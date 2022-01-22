@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>quick-parent</artifactId>
+        <artifactId>quick-platform</artifactId>
         <groupId>com.quick</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -54,26 +54,7 @@
                     <groupId>org.mybatis.generator</groupId>
                     <artifactId>mybatis-generator-maven-plugin</artifactId>
                     <version>${mybatis.generator.version}</version>
-                    <!--                    <configuration>-->
-                    <!--                        <verbose>true</verbose>-->
-                    <!--                        <overwrite>true</overwrite>-->
-                    <!--                    </configuration>-->
-                    <!--                    <dependencies>-->
-                    <!--                        <dependency>-->
-                    <!--                            <groupId>mysql</groupId>-->
-                    <!--                            <artifactId>mysql-connector-java</artifactId>-->
-                    <!--                            <version>${mysql.version}</version>-->
-                    <!--                        </dependency>-->
-                    <!--                    </dependencies>-->
                 </plugin>
-                <!--                <plugin>-->
-                <!--                    <groupId>org.apache.maven.plugins</groupId>-->
-                <!--                    <artifactId>maven-surefire-plugin</artifactId>-->
-                <!--                    <version>2.18.1</version>-->
-                <!--                    <configuration>-->
-                <!--                        <skipTests>true</skipTests>-->
-                <!--                    </configuration>-->
-                <!--                </plugin>-->
 
             </plugins>
         </pluginManagement>

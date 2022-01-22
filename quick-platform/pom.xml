@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 
-    <artifactId>quick-parent</artifactId>
+    <artifactId>quick-platform</artifactId>
     <groupId>com.quick</groupId>
     <version>1.0-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
@@ -14,6 +14,7 @@
 
     <modules>
         <module>plugins</module>
+        <module>dependencies</module>
     </modules>
 
 
@@ -21,5 +22,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+
 
 </project>

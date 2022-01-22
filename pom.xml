@@ -64,8 +64,8 @@
         <module>quick-profiles/module1</module>
         <module>quick-profiles/api</module>
         <module>quick-hmac</module>
-        <module>quick-parent</module>
-        <module>quick-parent/dependencies</module>
+        <!--  基础依赖包 -->
+        <module>quick-platform</module>
 
     </modules>
     <packaging>pom</packaging>
