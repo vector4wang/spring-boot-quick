@@ -24,6 +24,14 @@
     </properties>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>com.quick</groupId>
+            <artifactId>platform-plugins</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <!-- spring 相关 -->
