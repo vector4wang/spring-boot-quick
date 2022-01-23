@@ -13,7 +13,7 @@
     <name>${project.artifactId}</name>
 
 
-    <artifactId>plugins</artifactId>
+    <artifactId>platform-plugins</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -13,8 +13,8 @@
     <name>${project.artifactId}</name>
 
     <modules>
-        <module>plugins</module>
-        <module>dependencies</module>
+        <module>platform-plugins</module>
+        <module>platform-dependencies</module>
     </modules>
 
 

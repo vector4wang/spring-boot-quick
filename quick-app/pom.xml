@@ -5,7 +5,7 @@
     <artifactId>quick-app</artifactId>
     <version>1.0.0</version>
     <modelVersion>4.0.0</modelVersion>
-    <!--    <name>app</name>-->
+    <name>${project.artifactId}</name>
 
     <parent>
         <artifactId>quick-platform</artifactId>
