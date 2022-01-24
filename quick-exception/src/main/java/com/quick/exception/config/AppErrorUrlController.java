@@ -2,7 +2,7 @@ package com.quick.exception.config;
 
 import com.quick.exception.utils.BaseResp;
 import com.quick.exception.utils.ResultStatus;
-import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,11 +20,11 @@ public class AppErrorUrlController implements ErrorController {
 
     @RequestMapping(value = PATH)
     public BaseResp<?> error() {
-        return new BaseResp<String>(ResultStatus.error_invalid_argument,ResultStatus.error_invalid_argument.name());
+        return new BaseResp<String>(ResultStatus.error_invalid_argument, ResultStatus.error_invalid_argument.name());
     }
 
-    @Override
-    public String getErrorPath() {
-        return PATH;
-    }
+//    @Override
+//    public String getErrorPath() {
+//        return PATH;
+//    }
 }

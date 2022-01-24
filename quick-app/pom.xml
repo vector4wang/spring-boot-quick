@@ -8,10 +8,10 @@
     <name>${project.artifactId}</name>
 
     <parent>
-        <artifactId>platform-dependencies</artifactId>
+        <artifactId>quick-platform</artifactId>
         <groupId>com.quick</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath>../quick-platform/pom.xml</relativePath>
     </parent>
 
     <properties>
@@ -27,7 +27,6 @@
 
     </dependencies>
 
-
     <build>
         <plugins>
             <plugin>
@@ -37,6 +36,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

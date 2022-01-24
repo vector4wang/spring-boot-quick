@@ -7,10 +7,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>platform-dependencies</artifactId>
+        <artifactId>quick-platform</artifactId>
         <groupId>com.quick</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath>../quick-platform/pom.xml</relativePath>
     </parent>
 
 
