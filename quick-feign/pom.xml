@@ -3,22 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>quick-feign</artifactId>
-    <groupId>com.quick</groupId>
     <version>1.0-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <artifactId>quick-platform</artifactId>
+        <groupId>com.quick</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../quick-platform/pom.xml</relativePath>
     </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -34,60 +28,50 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.31</version>
         </dependency>
 
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-core</artifactId>
-            <version>8.18.0</version>
         </dependency>
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-jackson</artifactId>
-            <version>8.18.0</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
-            <version>3.6.0</version>
             <!--<scope>test</scope>-->
         </dependency>
 
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-okhttp</artifactId>
-            <version>8.18.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.6.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-hystrix</artifactId>
-            <version>8.18.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.netflix.archaius</groupId>
             <artifactId>archaius-core</artifactId>
-            <version>0.6.6</version>
         </dependency>
 
         <dependency>
             <groupId>com.netflix.hystrix</groupId>
             <artifactId>hystrix-core</artifactId>
-            <version>1.4.26</version>
         </dependency>
 
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-slf4j</artifactId>
-            <version>8.18.0</version>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,6 @@
 package ServiceTest;
 
-import com.quick.feign.Application;
+import com.quick.feign.FeignApplication;
 import com.quick.feign.entity.BaseResp;
 import com.quick.feign.entity.DomainDetail;
 import com.quick.feign.service.FeignService;
@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = FeignApplication.class)
 @RunWith(SpringRunner.class)
 public class FeignServiceTest {
 
