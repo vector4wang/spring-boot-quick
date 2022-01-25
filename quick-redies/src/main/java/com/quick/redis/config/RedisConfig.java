@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
+    @Override
     public KeyGenerator keyGenerator() {
         return new KeyGenerator() {
             @Override

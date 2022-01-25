@@ -1,6 +1,7 @@
 package com.quick.feign;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.quick.feign.entity.BaseResp;
 import com.quick.feign.entity.DomainDetail;
 import com.quick.feign.service.FeignService;
@@ -38,10 +39,9 @@ public class FeignApplication {
                 .target(FeignService.class, "https://www.sojson.com", new FeignService() {
                     @Override
                     public BaseResp<DomainDetail> getDomain(String domain) {
-                        BaseResp baseResp = JSON.parseObject(
+                        return JSON.parseObject(
                                 "{\"data\":{\"id\":\"11000002000016\",\"sitename\":\"新浪网\",\"sitedomain\":\"sina.com.cn\",\"sitetype\":\"交互式\",\"cdate\":\"2016-01-21\",\"comtype\":\"企业单位\",\"comname\":\"北京新浪互联信息服务有限公司\",\"comaddress\":\"北京市网安总队\",\"updateTime\":\"2017-09-09\"},\"status\":200}",
-                                BaseResp.class);
-                        return baseResp;
+                                new TypeReference<BaseResp<DomainDetail>>(){});
                     }
                 });
     }
