@@ -12,17 +12,259 @@
 
     <name>${project.artifactId}</name>
 
-    <modules>
-        <module>platform-plugins</module>
-        <module>platform-dependencies</module>
-    </modules>
-
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <maven.compiler.source.version>8</maven.compiler.source.version>
+        <maven.compiler.target.version>8</maven.compiler.target.version>
+
+        <springboot.version>2.6.3</springboot.version>
+        <shiro.springboot.version>1.5.3</shiro.springboot.version>
+        <springboot.log4j.version>1.3.8.RELEASE</springboot.log4j.version>
+
+
+        <fastjson.version>1.2.31</fastjson.version>
+        <commons-io.version>2.7</commons-io.version>
+        <graphql.version>230521-nf-execution</graphql.version>
+        <graphql.springboot.version>2021-10-25T04-50-54-fbc162f</graphql.springboot.version>
+        <guava.version>31.0.1-jre</guava.version>
+
+        <feign.version>8.18.0</feign.version>
+        <mockwebserver.version>3.6.0</mockwebserver.version>
+        <archaius-core.version>0.6.6</archaius-core.version>
+        <hystrix-core.version>1.4.26</hystrix-core.version>
+
+        <okhttp.version>3.6.0</okhttp.version>
+        <spring-boot-maven-plugin.version>2.2.1.RELEASE</spring-boot-maven-plugin.version>
+        <maven.compiler.version>1.8</maven.compiler.version>
+        <maven.surefire.version>2.22.2</maven.surefire.version>
+        <mybatis.generator.version>1.3.2</mybatis.generator.version>
+        <docker-maven.version>0.4.3</docker-maven.version>
+        <sqljdbc4.version>4.0</sqljdbc4.version>
+        <shiro.version>1.8.0</shiro.version>
     </properties>
 
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring 相关 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring-boot-web-starter</artifactId>
+                <version>${shiro.springboot.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j</artifactId>
+                <version>${springboot.log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-core</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-jackson</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>${mockwebserver.version}</version>
+                <!--<scope>test</scope>-->
+            </dependency>
+
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-hystrix</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.netflix.archaius</groupId>
+                <artifactId>archaius-core</artifactId>
+                <version>${archaius-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.netflix.hystrix</groupId>
+                <artifactId>hystrix-core</artifactId>
+                <version>${hystrix-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-slf4j</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+
+            <!-- 工具包 -->
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-java</artifactId>
+                <version>${graphql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-java-spring-boot-starter-webmvc</artifactId>
+                <version>${graphql.springboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>sqljdbc4</artifactId>
+                <version>${sqljdbc4.version}</version>
+            </dependency>
+
+
+            <!-- shiro -->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-cas</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-web</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-ehcache</artifactId>
+                <version>${shiro.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-quartz</artifactId>
+                <version>${shiro.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.opensymphony.quartz</groupId>
+                        <artifactId>quartz</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-guice</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-aspectj</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-all</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${maven.compiler.source.version}</source>
+                        <target>${maven.compiler.target.version}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.version}</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                    <version>${mybatis.generator.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker-maven.version}</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

@@ -7,16 +7,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.1.RELEASE</version>
+        <artifactId>quick-platform</artifactId>
+        <groupId>com.quick</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../quick-platform/pom.xml</relativePath>
     </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
 
     <dependencies>
 
@@ -24,10 +20,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -43,12 +39,10 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
-            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.62</version>
         </dependency>
 
 
