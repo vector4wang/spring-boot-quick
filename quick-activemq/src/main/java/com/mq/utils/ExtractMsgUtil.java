@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils;
 
 import javax.jms.*;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -52,7 +53,7 @@ public class ExtractMsgUtil {
         }
         System.out.println("save to file");
         try {
-            IOUtils.writeLines(temp,"\n",new FileOutputStream(new File("D:\\activemq-resume-msg.txt")));
+            IOUtils.writeLines(temp,"\n",new FileOutputStream(new File("D:\\activemq-resume-msg.txt")), Charset.defaultCharset());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package com.active2.mq;
 
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 
 import javax.jms.JMSException;
@@ -14,8 +14,8 @@ import javax.jms.TextMessage;
  * @BLOG: http://vector4wang.tk
  * @wxid: BMHJQS
  */
+@Slf4j
 public class SimpeQueueConsumer {
-    private final static Logger logger = Logger.getLogger(TestQueueConsumer.class);
 
 
     @JmsListener(destination = "${jsa.activemq.simple.queue.name_1}", containerFactory = "jmsSimpeQueueListener1")
@@ -50,7 +50,7 @@ public class SimpeQueueConsumer {
 
     private void doMsg(TextMessage text, Session session, String message) throws JMSException {
         try {
-            logger.info(text.getText());
+            log.info(text.getText());
             text.acknowledge();// 使用手动签收模式，需要手动的调用，如果不在catch中调用session.recover()消息只会在重启服务后重发
         } catch (Exception e) {
             session.recover();// 此不可省略 重发信息使用

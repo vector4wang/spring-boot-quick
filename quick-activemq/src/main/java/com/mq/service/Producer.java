@@ -2,16 +2,14 @@ package com.mq.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Service;
-
-import static org.apache.activemq.artemis.api.core.Message.HDR_DUPLICATE_DETECTION_ID;
+import org.springframework.stereotype.Component;
 
 
-@Service
+@Component
 public class Producer {
 
-
-    @Autowired // 也可以注入JmsTemplate，JmsMessagingTemplate对JmsTemplate进行了封装
+    // 也可以注入JmsTemplate，JmsMessagingTemplate对JmsTemplate进行了封装
+    @Autowired
     private JmsTemplate jmsTemplate;
 
     // TODO
