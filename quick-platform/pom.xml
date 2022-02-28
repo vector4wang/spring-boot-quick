@@ -22,12 +22,15 @@
         <maven.compiler.target.version>8</maven.compiler.target.version>
 
         <springboot.version>2.6.3</springboot.version>
+        <mybatis.springboot.version>1.1.1</mybatis.springboot.version>
         <shiro.springboot.version>1.5.3</shiro.springboot.version>
         <springboot.log4j.version>1.3.8.RELEASE</springboot.log4j.version>
 
-
+        <mysql.version>8.0.16</mysql.version>
+        <druid.springboot.version>1.1.10</druid.springboot.version>
         <fastjson.version>1.2.31</fastjson.version>
         <commons-io.version>2.7</commons-io.version>
+        <xstream.version>1.4.19</xstream.version>
         <graphql.version>230521-nf-execution</graphql.version>
         <graphql.springboot.version>2021-10-25T04-50-54-fbc162f</graphql.springboot.version>
         <guava.version>31.0.1-jre</guava.version>
@@ -37,7 +40,10 @@
         <archaius-core.version>0.6.6</archaius-core.version>
         <hystrix-core.version>1.4.26</hystrix-core.version>
 
+        <httpclient.version>4.5.3</httpclient.version>
         <okhttp.version>3.6.0</okhttp.version>
+        <dom4j.version>2.1.1</dom4j.version>
+        <commonslang3.version>3.4</commonslang3.version>
         <spring-boot-maven-plugin.version>2.2.1.RELEASE</spring-boot-maven-plugin.version>
         <maven.compiler.version>1.8</maven.compiler.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
@@ -70,6 +76,25 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-log4j</artifactId>
                 <version>${springboot.log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.springboot.version}</version>
+            </dependency>
+
+            <!-- jdbc-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.springboot.version}</version>
             </dependency>
 
             <dependency>
@@ -159,6 +184,35 @@
                 <groupId>com.microsoft.sqlserver</groupId>
                 <artifactId>sqljdbc4</artifactId>
                 <version>${sqljdbc4.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commonslang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
             </dependency>
 
 
