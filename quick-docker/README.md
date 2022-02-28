@@ -1,6 +1,17 @@
 ![DOCKER.png](http://upload-images.jianshu.io/upload_images/3167229-9a4b70bb7a4dd06b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
+
+2022年2月28日 更新
+对java应用的docker 进行'标准化'建设，增加starts.sh启动脚本，使用assembly打标准包，即所有的jar包存放在lib下，conf用于外部挂载配置文件
+```text
+## 注意，以下命令防止容器退出
+tailf /dev/null
+```
+
+
+---
+
 > 准备工作
 
 - 会一点springboot

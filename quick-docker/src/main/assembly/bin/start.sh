@@ -96,3 +96,7 @@ echo "OK!"
 PIDS=`ps aux | grep java | grep "$DEPLOY_DIR" | awk '{print $2}'`
 echo "PID: $PIDS"
 echo "STDOUT: $STDOUT_FILE"
+
+
+## 注意，以下命令防止容器退出
+tailf /dev/null
