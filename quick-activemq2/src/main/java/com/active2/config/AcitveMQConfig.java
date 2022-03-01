@@ -1,11 +1,10 @@
 package com.active2.config;
 
-import com.active2.mq.SimpeQueueConsumer;
 import com.active2.mq.TestQueueConsumer;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -40,9 +39,9 @@ import javax.jms.Queue;
 @ConditionalOnProperty(value = "activemq.switch")
 @EnableJms
 @Configuration
+@Slf4j
 public class AcitveMQConfig {
 
-    private Logger logger = Logger.getLogger(this.getClass());
 
     @Value("${jsa.activemq.queue.names.concurrency}")
     private String queuesConcurrency;
@@ -65,7 +64,7 @@ public class AcitveMQConfig {
 
     @Bean
     public RedeliveryPolicy redeliveryPolicy() {
-        logger.info("init redeliveryPolicy");
+        log.info("init redeliveryPolicy");
         RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
         //是否在每次尝试重新发送失败后,增长这个等待时间
         redeliveryPolicy.setUseExponentialBackOff(true);
@@ -85,7 +84,7 @@ public class AcitveMQConfig {
 
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory(@Value("${activemq.url}") String url, RedeliveryPolicy redeliveryPolicy) {
-        logger.info("init activeMQConnectionFactory");
+        log.info("init activeMQConnectionFactory");
         ActiveMQConnectionFactory activeMQConnectionFactory =
                 new ActiveMQConnectionFactory(
                         "admin",
@@ -97,7 +96,7 @@ public class AcitveMQConfig {
 
     @Bean
     public JmsTemplate jmsTemplate(ActiveMQConnectionFactory activeMQConnectionFactory, Queue queue) {
-        logger.info("init jmsTemplate");
+        log.info("init jmsTemplate");
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setDeliveryMode(2);//进行持久化配置 1表示非持久化，2表示持久化</span>
         jmsTemplate.setConnectionFactory(activeMQConnectionFactory);
@@ -111,7 +110,7 @@ public class AcitveMQConfig {
      */
     @Bean
     public Runnable dynamicConfiguration() throws Exception {
-        logger.info("init jmsQueueListeners");
+        log.info("init jmsQueueListeners");
         String[] concurrencys = queuesConcurrency.split(",");
         ConfigurableApplicationContext context = (ConfigurableApplicationContext) applicationContext;
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();
@@ -136,7 +135,7 @@ public class AcitveMQConfig {
     @Bean
     public TestQueueConsumer consumer() {
 
-        logger.info("init jmsQueueListener Consumer");
+        log.info("init jmsQueueListener Consumer");
         return new TestQueueConsumer();
     }
 
@@ -144,7 +143,7 @@ public class AcitveMQConfig {
 
     @Bean
     public Runnable dynamicConfiguration4Simpe() throws Exception {
-        logger.info("init jmsSimpeQueueListeners");
+        log.info("init jmsSimpeQueueListeners");
         String[] concurrencys = simpeQueuesConcurrency.split(",");
         ConfigurableApplicationContext context = (ConfigurableApplicationContext) applicationContext;
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();

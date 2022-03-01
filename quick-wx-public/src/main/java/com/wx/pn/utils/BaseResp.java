@@ -1,6 +1,9 @@
 package com.wx.pn.utils;
 
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
 import java.util.Date;
 
 /**
@@ -57,35 +60,35 @@ public class BaseResp<T> {
     }
 
     public BaseResp(){
-        this.currentTime = DateUtils.format(new Date(),DateUtils.defaultDateTimeFormat);
+        this.currentTime = DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
 
     public BaseResp(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
-        this.currentTime = DateUtils.format(new Date(),DateUtils.defaultDateTimeFormat);
+        this.currentTime = DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
 
     public BaseResp(int code, ResultStatus resultStatus,String message) {
         this.code = code;
         this.message = message;
         this.data = data;
-        this.currentTime = DateUtils.format(new Date(),DateUtils.defaultDateTimeFormat);
+        this.currentTime = DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
 
     public BaseResp(ResultStatus resultStatus) {
         this.code = resultStatus.getErrorCode();
         this.message = resultStatus.getErrorMsg();
         this.data = data;
-        this.currentTime = DateUtils.format(new Date(),DateUtils.defaultDateTimeFormat);
+        this.currentTime = DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
 
     public BaseResp(ResultStatus resultStatus, T data) {
         this.code = resultStatus.getErrorCode();
         this.message = resultStatus.getErrorMsg();
         this.data = data;
-        this.currentTime = DateUtils.format(new Date(),DateUtils.defaultDateTimeFormat);
+        this.currentTime = DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
 
 

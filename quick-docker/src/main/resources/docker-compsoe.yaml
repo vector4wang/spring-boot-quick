@@ -1,0 +1,23 @@
+version: "2.0"
+
+services:
+  msg:
+    image: springboot:v1.0
+    container_name: msg
+    hostname: msg
+    depends_on:
+      - redis
+      - mysql
+    ports:
+      - "8083:8080"
+    volumes:
+      - "/app/msg/conf:/app/deploy/conf"
+      - "/app/msg/lib:/app/deploy/lib"
+      - "/app/msg/bin:/app/deploy/bin"
+      - "/app/scripts/entrypoint.sh:/app/scripts/entrypoint.sh"
+      - /nfsc:/nfsc
+      - "/app/msg/logs:/app/deploy/logs"
+    environment:
+      - "JAVA_OPTS=-Xms2g -Xmx4g -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -Xss512k -XX:+PrintGCDateStamps -Dspring.profiles.active=saas"
+    restart: always
+    entrypoint: /app/scripts/entrypoint.sh -d redis:6379,mysql:3306 -c 'sh ~/container_start.sh';
