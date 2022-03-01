@@ -17,4 +17,10 @@ public class AppController {
 
         return html;
     }
+
+	@RequestMapping("/login")
+	public String myTranslate3(){
+		return "login";
+	}
+
 }
