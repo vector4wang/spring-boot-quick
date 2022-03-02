@@ -1,14 +1,47 @@
 ![DOCKER.png](http://upload-images.jianshu.io/upload_images/3167229-9a4b70bb7a4dd06b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
+2022年03月02日22:57:14 更新 
 
+使用docker-compose 完成服务编排，并支持依赖启动
+结合assembly完成如下目录
+```
+lib
+conf
+bin
+logs
+```
+这四个目录都可以通过docker-compose 宿主机与容器的映射，从而实现快速的更新、快速的查看日志等功能
+注：vector4wang/java:8 增加了nc工具
+
+
+
+
+
+
+---
+2022年03月01日22:44:45 更新
+
+使用docker-compose 编排服务，支持依赖启动
+参考：https://www.cnblogs.com/wang_yb/p/9400291.html
+```
+docker run -itd --name redis-test -p 6379:6379 redis
+```
+
+---
+2022年03月01日 更新
+
+需要开启docker远程连接
+
+mac版操作：https://github.com/docker/for-mac/issues/770
+
+---
 2022年2月28日 更新
 对java应用的docker 进行'标准化'建设，增加starts.sh启动脚本，使用assembly打标准包，即所有的jar包存放在lib下，conf用于外部挂载配置文件
 ```text
 ## 注意，以下命令防止容器退出
 tailf /dev/null
 ```
-
 
 ---
 
