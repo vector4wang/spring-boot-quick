@@ -8,6 +8,11 @@
     <artifactId>spring-boot-quick</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <!--  基础依赖包 -->
+        <module>quick-platform</module>
+        <module>quick-framework</module>
+
+
         <module>quick-swagger</module>
         <module>quick-modules</module>
         <module>quick-package-assembly</module>
@@ -64,9 +69,7 @@
         <module>quick-profiles/module1</module>
         <module>quick-profiles/api</module>
         <module>quick-hmac</module>
-        <!--  基础依赖包 -->
-        <module>quick-platform</module>
-        <module>quick-framework</module>
+        <module>quick-dubbo-nacos</module>
 
     </modules>
     <packaging>pom</packaging>
