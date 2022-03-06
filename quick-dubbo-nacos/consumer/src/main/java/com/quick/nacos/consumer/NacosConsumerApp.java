@@ -1,10 +1,8 @@
 package com.quick.nacos.consumer;
 
-import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
-import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
-import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  *
@@ -13,9 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-@EnableDubbo
-@NacosPropertySource(dataId = "nacos-consumer",autoRefreshed = true)
-@EnableNacosConfig
+@EnableDiscoveryClient
 public class NacosConsumerApp {
 	public static void main(String[] args) {
 		SpringApplication.run(NacosConsumerApp.class, args);

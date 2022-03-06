@@ -3,6 +3,8 @@ package com.quick.nacos.consumer.controller;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.quick.nacos.provider.HelloProvider;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,7 @@ import java.util.Map;
  *
  */
 @RestController
+@RefreshScope//自动刷新配置
 public class HelloController {
 
 	@DubboReference(interfaceClass = HelloProvider.class,
@@ -25,7 +28,7 @@ public class HelloController {
 	/**
 	 * nacos 配置的json格式 {"user":"whhhh"}
 	 */
-	@NacosValue(value = "${user}")
+	@Value(value = "${user}")
 	private String helloSuffix;
 
 	@GetMapping("hello/{param}")

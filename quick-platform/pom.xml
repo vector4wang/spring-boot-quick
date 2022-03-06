@@ -31,8 +31,7 @@
         <dubbo.boot.version>2.7.11</dubbo.boot.version>
         <jasypt.version>3.0.3</jasypt.version>
 
-        <nacos.boot.version>0.2.7</nacos.boot.version>
-        <nacos.config.version>0.2.7</nacos.config.version>
+        <springcloud.alibaba.version>2.2.5.RELEASE</springcloud.alibaba.version>
         <mysql.version>8.0.16</mysql.version>
         <druid.springboot.version>1.1.10</druid.springboot.version>
         <fastjson.version>1.2.31</fastjson.version>
@@ -99,20 +98,32 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.springboot.version}</version>
             </dependency>
+
             <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>${dubbo.boot.version}</version>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${springcloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
+
             <dependency>
-                <groupId>com.alibaba.boot</groupId>
-                <artifactId>nacos-discovery-spring-boot-starter</artifactId>
-                <version>${nacos.boot.version}</version>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-dubbo</artifactId>
+                <version>${springcloud.alibaba.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
             <dependency>
-                <groupId>com.alibaba.boot</groupId>
-                <artifactId>nacos-config-spring-boot-starter</artifactId>
-                <version>${nacos.config.version}</version>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${springcloud.alibaba.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${springcloud.alibaba.version}</version>
             </dependency>
 
             <!-- jdbc-->

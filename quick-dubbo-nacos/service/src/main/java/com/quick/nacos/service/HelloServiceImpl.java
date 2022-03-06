@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @date: 2022/3/5 10:18 PM
  *
  */
-@DubboService(interfaceClass = HelloProvider.class,interfaceName = "${service.name}", version = "${service.version}")
+@DubboService(version = "${service.version}")
 public class HelloServiceImpl implements HelloProvider {
 
 	@Value("${service.name}")
