@@ -2,6 +2,7 @@
 
 ###  sh -c 的重要性
 
+命令必须得加  `sh -c`
 
 ### k8s镜像仓库设置
 
@@ -24,3 +25,11 @@ k3d 本身就是个容器集群，还需要将主机的文件挂进去，然后�
 
 ### yaml 示例
 https://www.cnblogs.com/shaozhiqi/p/12393962.html
+
+
+### 过程脚本
+```bash
+k3d cluster create --config cluster.yml
+
+kubectl apply -f app.yaml
+```
