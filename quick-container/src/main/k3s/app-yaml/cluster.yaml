@@ -1,0 +1,36 @@
+apiVersion: k3d.io/v1alpha3
+kind: Simple
+name: mycluster
+servers: 1
+agents: 2
+kubeAPI:
+  hostPort: "6443" # same as `--api-port '6443'`
+ports:
+  # The range of valid ports is 30000-32767
+  - port: 9001:30901  # same as `--port '8080:80@loadbalancer'`
+    nodeFilters:
+      - loadbalancer
+  - port: 8443:443 # same as `--port '8443:443@loadbalancer'`
+    nodeFilters:
+      - loadbalancer
+
+registries: # define how registries should be created or used
+  config: | # define contents of the `registries.yaml` file (or reference a file); same as `--registry-config /path/to/config.yaml`
+    mirrors:
+      docker.io:
+        endpoint:
+          - "https://5d1wgx44.mirror.aliyuncs.com"
+
+
+volumes: # repeatable flags are represented as YAML lists k3d 本身就是个容器集群，还需要将主机的文件挂进去，然后才能被k3d里面的k3s集群使用
+  - volume: /Users/wangxc/Code/Github/spring-boot-quick/quick-container:/Users/wangxc/Code/Github/spring-boot-quick/quick-container # same as `--volume '/my/host/path:/path/in/node@server:0;agent:*'`
+    nodeFilters:
+      - server:0
+      - agent:*
+
+options:
+  k3s:
+    extraArgs:
+      - arg: --kube-apiserver-arg=feature-gates=RemoveSelfLink=false # 开启nfs存储，k8s 1.20后如果要使用nfs需要开启
+        nodeFilters:
+          - server:*

@@ -19,11 +19,11 @@ services:
     ports:
       - "8083:8080"
     volumes:
-      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-docker/target/conf:/app/conf"
-      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-docker/target/lib:/app/lib"
-      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-docker/target/bin:/app/bin"
-      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-docker/src/main/dockercompose/entrypoint.sh:/app/scripts/entrypoint.sh"
-      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-docker/target/logs:/app/logs"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/conf:/app/conf"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/lib:/app/lib"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/bin:/app/bin"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/src/main/dockercompose/entrypoint.sh:/app/scripts/entrypoint.sh"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/logs:/app/logs"
     environment:
       - "JAVA_OPTS=-Xms2g -Xmx4g -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -Xss512k -XX:+PrintGCDateStamps"
     restart: always
