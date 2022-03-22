@@ -17,12 +17,15 @@ public class HelloController {
 	@Value(value = "${share.remark}")
 	private String remark;
 
+	@Value(value = "${test.haha}")
+	private String redishost;
+//
 	@Autowired
 	private RedisTemplate<String,String> redisTemplate;
 
 	@GetMapping("hello")
 	public String hello() {
 		Long test = redisTemplate.opsForValue().increment("test");
-		return "hello" + remark + ": " + test;
+		return "hello" + remark + " redishost: " + redishost + ": " + test;
 	}
 }

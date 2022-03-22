@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: nacos-config-share
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.address}
+      config:
+        server-addr: ${nacos.address}
+        prefix: ${spring.application.name}
+        file-extension: yml
+        shared-configs[0]:
+          data-id: application-common-redis.yml # 配置文件名-Data Id
+          refresh: true   # 是否动态刷新，默认为false
+        shared-configs[1]:
+          data-id: server-common.yml # 配置文件名-Data Id
+          refresh: true   # 是否动态刷新，默认为false
+#          -
+#          -
+#          dataId: server-common.yml
+#          refresh: true
+#        shared-configs[1]:
+#          dataId: application-common-redis.yml
+#          refresh: true
+
+# -Dspring.profiles.active=idea
+---
+#
+spring:
+  profiles: container
+nacos:
+  address: nacos-standalone-mysql:8848
+
+---
+spring:
+  profiles: idea
+nacos:
+  address: localhost:8848
+#
+#
