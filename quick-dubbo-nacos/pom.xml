@@ -16,6 +16,7 @@
         <module>provider</module>
         <module>consumer</module>
         <module>service</module>
+        <module>share-config</module>
     </modules>
 
     <properties>
