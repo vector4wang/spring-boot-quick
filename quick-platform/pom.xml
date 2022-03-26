@@ -50,7 +50,7 @@
 
         <httpclient.version>4.5.13</httpclient.version>
         <okhttp.version>3.6.0</okhttp.version>
-        <dom4j.version>1.6.1</dom4j.version>
+        <dom4j.version>2.1.1</dom4j.version>
         <commonslang3.version>3.4</commonslang3.version>
         <spring-boot-maven-plugin.version>2.2.1.RELEASE</spring-boot-maven-plugin.version>
         <maven.compiler.version>1.8</maven.compiler.version>
@@ -264,11 +264,13 @@
                 <version>${xstream.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
             <dependency>
-                <groupId>dom4j</groupId>
+                <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
             </dependency>
+
 
 
             <!-- shiro -->
