@@ -2,26 +2,6 @@
 
 # 注意：该种方式只适合单节点集群方式部署，因为pod的配置、二进制文件都从主机挂载进去的
 
-2022年04月18日 更新
-
-### 使用configmap挂载配置文件
-以目录方式创建configmap
-```bash
-kubectl create configmap my-config --from-file=path/to/bar
-```
-
-yml挂载
-```docker
-volumes:
-  - name: conf
-    configMap:
-      name: app-conf
-```
-可以通过`kubectl edit cm app-conf` 进行实时更新，之后再重启pod即可更新配置文件
-
-
----
-
 ###  sh -c 的重要性
 
 命令必须得加  `sh -c`
@@ -55,5 +35,24 @@ k3d cluster create --config cluster.yml
 
 kubectl apply -f app.yaml
 ```
+---
+2022年04月18日 更新
 
+### 使用configmap挂载配置文件
+以目录方式创建configmap
+```bash
+kubectl create configmap my-config --from-file=path/to/bar
+```
+
+yml挂载
+```docker
+volumes:
+  - name: conf
+    configMap:
+      name: app-conf
+```
+可以通过`kubectl edit cm app-conf` 进行实时更新，之后再重启pod即可更新配置文件
+
+
+---
 
