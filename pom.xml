@@ -71,6 +71,7 @@
         <module>quick-hmac</module>
         <module>quick-dubbo-nacos</module>
         <module>nacos-common-config</module>
+        <module>mybatis-crypt</module>
 
     </modules>
     <packaging>pom</packaging>

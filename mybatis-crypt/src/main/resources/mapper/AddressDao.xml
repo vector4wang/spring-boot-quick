@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quick.db.crypt.dao.AddressDao">
+
+    <resultMap type="com.quick.db.crypt.entity.Address" id="AddressMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AddressMap">
+        select
+          id, user_id, address
+        from address
+        where id = #{id}
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from address
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into address(user_id, address)
+        values (#{userId}, #{address})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into address(user_id, address)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.userId}, #{entity.address})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into address(user_id, address)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.userId}, #{entity.address})
+        </foreach>
+        on duplicate key update
+        user_id = values(user_id),
+        address = values(address)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update address
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from address where id = #{id}
+    </delete>
+
+</mapper>
+

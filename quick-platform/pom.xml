@@ -40,6 +40,7 @@
         <graphql.version>230521-nf-execution</graphql.version>
         <graphql.springboot.version>2019-06-24T11-47-27-31ab4f9</graphql.springboot.version>
         <guava.version>31.0.1-jre</guava.version>
+        <hutool-version>5.7.22</hutool-version>
 
         <feign.version>8.18.0</feign.version>
         <mockwebserver.version>3.6.0</mockwebserver.version>
@@ -200,6 +201,12 @@
             </dependency>
 
             <!-- 工具包 -->
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.graphql-java</groupId>
                 <artifactId>graphql-java</artifactId>
