@@ -14,7 +14,6 @@ import java.io.Serializable;
  * @since 2022-05-18 16:51:55
  */
 @Data
-@Builder
 @CryptEntity
 public class User implements Serializable {
     private static final long serialVersionUID = -33370517147127073L;

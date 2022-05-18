@@ -72,5 +72,6 @@ public interface UserDao {
      */
     int deleteById(Integer id);
 
+    List<User> findAll();
 }
 

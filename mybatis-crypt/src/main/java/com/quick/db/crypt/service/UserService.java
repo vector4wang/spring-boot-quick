@@ -2,6 +2,8 @@ package com.quick.db.crypt.service;
 
 import com.quick.db.crypt.entity.User;
 
+import java.util.List;
+
 /**
  * (User)表服务接口
  *
@@ -44,4 +46,5 @@ public interface UserService {
      */
     boolean deleteById(Integer id);
 
+    List<User> findAll();
 }

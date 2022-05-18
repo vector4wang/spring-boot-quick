@@ -2,6 +2,7 @@ package com.quick.db.crypt.intercept;
 
 import com.quick.db.crypt.annotation.CryptEntity;
 import com.quick.db.crypt.annotation.CryptField;
+import com.quick.db.crypt.encrypt.AesDesEncrypt;
 import com.quick.db.crypt.encrypt.Encrypt;
 import com.quick.db.crypt.util.PluginUtils;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
@@ -12,6 +13,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 
 import java.lang.reflect.Field;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -27,7 +29,13 @@ public class CryptReadInterceptor implements Interceptor {
     private Encrypt encrypt;
 
     public CryptReadInterceptor(Encrypt encrypt) {
-        Objects.requireNonNull(encrypt, "encrypt should not be null!");
+        if (Objects.isNull(encrypt)) {
+            try {
+                encrypt = new AesDesEncrypt("0123avb");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
         this.encrypt = encrypt;
     }
 
@@ -61,7 +69,7 @@ public class CryptReadInterceptor implements Interceptor {
             for (Map.Entry<String, CryptField> entry : cryptFieldMap.entrySet()) {
                 String name = entry.getKey();
                 String value = (String) objMetaObject.getValue(name);
-                if (value != null) {
+                if (Objects.nonNull(value)) {
                     // 解密
                     String encrypted = this.encrypt.decrypt(value);
                     objMetaObject.setValue(name, encrypted);
@@ -71,7 +79,6 @@ public class CryptReadInterceptor implements Interceptor {
         return results;
     }
 
-    // ResultMap ?
     private Map<String, CryptField> getCryptField(ResultMap resultMap) {
         Map<String, CryptField> cryptFieldMap = new HashMap<>(16);
 

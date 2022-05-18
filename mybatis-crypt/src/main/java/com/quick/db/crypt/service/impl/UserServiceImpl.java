@@ -6,6 +6,7 @@ import com.quick.db.crypt.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (User)表服务实现类
@@ -64,5 +65,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteById(Integer id) {
         return this.userDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userDao.findAll();
     }
 }

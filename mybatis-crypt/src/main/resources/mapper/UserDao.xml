@@ -33,6 +33,9 @@
             </if>
         </where>
     </select>
+    <select id="findAll" resultType="com.quick.db.crypt.entity.User">
+        select * from user;
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
