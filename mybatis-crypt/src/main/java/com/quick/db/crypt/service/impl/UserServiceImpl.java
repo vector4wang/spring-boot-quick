@@ -1,7 +1,7 @@
 package com.quick.db.crypt.service.impl;
 
-import com.quick.db.crypt.entity.User;
 import com.quick.db.crypt.dao.UserDao;
+import com.quick.db.crypt.entity.User;
 import com.quick.db.crypt.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * (User)表服务实现类
  *
  * @author makejava
- * @since 2022-05-12 16:47:35
+ * @since 2022-05-18 16:52:03
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     public User queryById(Integer id) {
         return this.userDao.queryById(id);
     }
+
 
 
     /**

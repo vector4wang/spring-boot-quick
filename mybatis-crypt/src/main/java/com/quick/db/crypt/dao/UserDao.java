@@ -1,7 +1,6 @@
 package com.quick.db.crypt.dao;
 
 import com.quick.db.crypt.entity.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,9 +9,8 @@ import java.util.List;
  * (User)表数据库访问层
  *
  * @author makejava
- * @since 2022-05-12 16:47:34
+ * @since 2022-05-18 16:51:53
  */
-@Mapper
 public interface UserDao {
 
     /**
@@ -22,6 +20,8 @@ public interface UserDao {
      * @return 实例对象
      */
     User queryById(Integer id);
+
+
 
     /**
      * 统计总行数

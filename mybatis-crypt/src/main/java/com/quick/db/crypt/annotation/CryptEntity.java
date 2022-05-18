@@ -1,9 +1,10 @@
-package com.quick.db.crypt.intercept.anno;
+package com.quick.db.crypt.annotation;
 
 import java.lang.annotation.*;
 
+@Target(value = ElementType.TYPE)
 @Inherited
-@Target({ElementType.TYPE})
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CryptEntity {
 }

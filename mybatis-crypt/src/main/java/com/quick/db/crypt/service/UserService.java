@@ -6,7 +6,7 @@ import com.quick.db.crypt.entity.User;
  * (User)表服务接口
  *
  * @author makejava
- * @since 2022-05-12 16:47:35
+ * @since 2022-05-18 16:52:01
  */
 public interface UserService {
 
@@ -17,6 +17,7 @@ public interface UserService {
      * @return 实例对象
      */
     User queryById(Integer id);
+
 
 
     /**

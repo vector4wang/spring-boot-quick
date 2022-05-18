@@ -1,46 +1,32 @@
 package com.quick.db.crypt.entity;
 
+import com.quick.db.crypt.annotation.CryptEntity;
+import com.quick.db.crypt.annotation.CryptField;
+import lombok.Builder;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * (User)实体类
  *
  * @author makejava
- * @since 2022-05-12 16:47:34
+ * @since 2022-05-18 16:51:55
  */
+@Data
+@Builder
+@CryptEntity
 public class User implements Serializable {
-    private static final long serialVersionUID = 162386198473499838L;
+    private static final long serialVersionUID = -33370517147127073L;
     
     private Integer id;
     
     private String name;
-    
+
+    @CryptField
     private String phone;
 
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
 }
 

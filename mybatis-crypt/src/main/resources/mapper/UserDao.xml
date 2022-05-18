@@ -11,7 +11,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
-        id, name, phone
+          id, name, phone
         from user
         where id = #{id}
     </select>
@@ -44,7 +44,7 @@
         insert into user(name, phone)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.phone})
+        (#{entity.name}, #{entity.phone})
         </foreach>
     </insert>
 
