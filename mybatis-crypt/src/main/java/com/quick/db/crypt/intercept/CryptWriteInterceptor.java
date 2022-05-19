@@ -32,7 +32,7 @@ public class CryptWriteInterceptor implements Interceptor {
      * org.apache.ibatis.reflection.ParamNameResolver#getNamedParams(java.lang.Object[])
      * 跳过无用的paramx
      */
-    private static final String PARAM = "param";
+    private static final String GENERIC_NAME_PREFIX = "param";
     private static final String MAPPEDSTATEMENT = "delegate.mappedStatement";
     private static final String BOUND_SQL = "delegate.boundSql";
 
@@ -85,7 +85,7 @@ public class CryptWriteInterceptor implements Interceptor {
             MapperMethod.ParamMap<Object> paramMap = (MapperMethod.ParamMap<Object>) params;
             for (Map.Entry<String, Object> paramObj : paramMap.entrySet()) {
                 Object paramValue = paramObj.getValue();
-                if (CryptInterceptorUtil.isNotCrypt(paramValue) || paramValue instanceof Map || paramObj.getKey().contains("param")) {
+                if (CryptInterceptorUtil.isNotCrypt(paramValue) || paramValue instanceof Map || paramObj.getKey().contains(GENERIC_NAME_PREFIX)) {
                     continue;
                 }
                 if (paramValue instanceof List) {
@@ -95,8 +95,6 @@ public class CryptWriteInterceptor implements Interceptor {
         } else if (params instanceof Map) {
             return invocation.proceed();
         }
-
-
 
 
         CryptEntity cryptEntity = params != null ? params.getClass().getAnnotation(CryptEntity.class) : null;
