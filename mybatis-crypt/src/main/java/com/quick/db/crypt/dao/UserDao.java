@@ -19,7 +19,7 @@ public interface UserDao {
      * @param id 主键
      * @return 实例对象
      */
-    User queryById(Integer id);
+    User queryById(@Param("id") Integer id);
 
 
 
@@ -29,7 +29,7 @@ public interface UserDao {
      * @param user 查询条件
      * @return 总行数
      */
-    long count(User user);
+    long count(@Param("user") User user);
 
     /**
      * 新增数据
@@ -37,7 +37,7 @@ public interface UserDao {
      * @param user 实例对象
      * @return 影响行数
      */
-    int insert(User user);
+    int insert(@Param("user") User user);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
@@ -62,7 +62,7 @@ public interface UserDao {
      * @param user 实例对象
      * @return 影响行数
      */
-    int update(User user);
+    int update(@Param("user") User user);
 
     /**
      * 通过主键删除数据
@@ -70,7 +70,7 @@ public interface UserDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Integer id);
+    int deleteById(@Param("id") Integer id);
 
     List<User> findAll();
 }

@@ -44,6 +44,12 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public int batchInsert(List<User> userList) {
+        return this.userDao.insertBatch(userList);
+    }
+
+
     /**
      * 修改数据
      *

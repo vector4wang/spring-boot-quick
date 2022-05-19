@@ -30,6 +30,8 @@ public interface UserService {
      */
     User insert(User user);
 
+    int batchInsert(List<User> userList);
+
     /**
      * 修改数据
      *
