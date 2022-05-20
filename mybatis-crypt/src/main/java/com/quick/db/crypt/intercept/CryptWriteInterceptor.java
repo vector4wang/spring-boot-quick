@@ -101,10 +101,6 @@ public class CryptWriteInterceptor implements Interceptor {
         } else {
             // 走到这里一般代表方法中只有一个参数，并且米有添加@param注解
             entityEncrypt(params);
-//            CryptEntity cryptEntity = params.getClass().getAnnotation(CryptEntity.class);
-//            if (cryptEntity != null) {
-//                handlerParameters(mappedStatement.getConfiguration(), boundSql, params, commandType);
-//            }
         }
         return invocation.proceed();
     }
