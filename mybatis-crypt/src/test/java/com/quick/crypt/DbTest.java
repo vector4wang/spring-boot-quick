@@ -13,7 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.LongStream;
 
 @SpringBootTest(classes = CryptApplication.class)
@@ -38,6 +40,11 @@ public class DbTest {
     }
 
     @Test
+    public void testInsertStr() {
+        userService.insert("vector", "11111111111");
+    }
+
+    @Test
     public void testBatchInsert() {
 //        User vector = User.builder().name("vector").phone("13333333333").build();
         List<User> list = new ArrayList<>();
@@ -50,6 +57,22 @@ public class DbTest {
             list.add(vector);
         });
         int sum = userService.batchInsert(list);
+        log.info("insert obj {}", sum);
+    }
+
+    @Test
+    public void testBatchSetInsert() {
+//        User vector = User.builder().name("vector").phone("13333333333").build();
+        Set<User> sets = new HashSet<>();
+        LongStream.range(0, 10).forEach(k -> {
+            System.out.println(k);
+            User vector = new User();
+            vector.setName("vector" + k);
+            vector.setPhone(RandomUtil.randomNumbers(11));
+
+            sets.add(vector);
+        });
+        int sum = userService.batchSetInsert(sets);
         log.info("insert obj {}", sum);
     }
 

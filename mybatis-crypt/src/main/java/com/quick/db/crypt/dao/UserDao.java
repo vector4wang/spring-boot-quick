@@ -3,7 +3,9 @@ package com.quick.db.crypt.dao;
 import com.quick.db.crypt.entity.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * (User)表数据库访问层
@@ -45,7 +47,7 @@ public interface UserDao {
      * @param entities List<User> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<User> entities);
+    int insertBatch(@Param("entities") Collection<User> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
@@ -73,5 +75,9 @@ public interface UserDao {
     int deleteById(@Param("id") Integer id);
 
     List<User> findAll();
+
+    int insertStr(@Param("name") String name, @Param("phone") String phone);
+
+//    int batchSetInsert(@Param("sets") Set<User> sets);
 }
 

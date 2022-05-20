@@ -62,6 +62,21 @@
         phone = values(phone)
     </insert>
 
+    <insert id="insertStr">
+        insert into user(name, phone)
+        values (#{name}, #{phone})
+    </insert>
+<!--    <insert id="batchSetInsert">-->
+<!--        insert into user(name, phone)-->
+<!--        values-->
+<!--        <foreach collection="entities" item="entity" separator=",">-->
+<!--            (#{entity.name}, #{entity.phone})-->
+<!--        </foreach>-->
+<!--        on duplicate key update-->
+<!--        name = values(name),-->
+<!--        phone = values(phone)-->
+<!--    </insert>-->
+
     <!--通过主键修改数据-->
     <update id="update">
         update user

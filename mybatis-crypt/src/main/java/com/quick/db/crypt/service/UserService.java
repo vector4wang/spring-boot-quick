@@ -3,6 +3,7 @@ package com.quick.db.crypt.service;
 import com.quick.db.crypt.entity.User;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * (User)表服务接口
@@ -49,4 +50,8 @@ public interface UserService {
     boolean deleteById(Integer id);
 
     List<User> findAll();
+
+    int insert(String vector, String s);
+
+    int batchSetInsert(Set<User> sets);
 }

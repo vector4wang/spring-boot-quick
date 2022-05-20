@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * (User)表服务实现类
@@ -76,5 +77,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userDao.findAll();
+    }
+
+    @Override
+    public int insert(String name, String phone) {
+        return userDao.insertStr(name, phone);
+    }
+
+    @Override
+    public int batchSetInsert(Set<User> sets) {
+        return userDao.insertBatch(sets);
     }
 }

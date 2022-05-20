@@ -40,6 +40,7 @@ public class CryptReadInterceptor implements Interceptor {
     }
 
 
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         final List<Object> results = (List<Object>) invocation.proceed();
@@ -79,6 +80,11 @@ public class CryptReadInterceptor implements Interceptor {
         return results;
     }
 
+    /**
+     * 获取需要加密的属性
+     * @param resultMap
+     * @return
+     */
     private Map<String, CryptField> getCryptField(ResultMap resultMap) {
         Map<String, CryptField> cryptFieldMap = new HashMap<>(16);
 
@@ -103,7 +109,5 @@ public class CryptReadInterceptor implements Interceptor {
     }
 
     @Override
-    public void setProperties(Properties properties) {
-
-    }
+    public void setProperties(Properties properties) {}
 }

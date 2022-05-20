@@ -61,7 +61,7 @@ public class CryptWriteInterceptor implements Interceptor {
         SqlCommandType commandType = mappedStatement.getSqlCommandType();
 
         /**
-         * 只有insert和update的才继续
+         * 只有insert和update的才做处理
          */
         if (!isWriteCmd(commandType)) {
             return invocation.proceed();
@@ -72,61 +72,65 @@ public class CryptWriteInterceptor implements Interceptor {
         /**
          * params 单个参数 insert(user)     Object
          * params 集合参数 insert(list<user>)  MapperMethod$ParamMap
-         *https://github.com/miaoxinwei/mybatis-crypt/blob/master/src/main/java/org/apache/ibatis/plugin/CryptInterceptor.java
+         * https://github.com/miaoxinwei/mybatis-crypt/blob/master/src/main/java/org/apache/ibatis/plugin/CryptInterceptor.java
          */
         log.info("params.getClass().getTypeName(): {}", params.getClass().getTypeName());
 
         /**
          * MapperMethod.ParamMap
-         * 参数使用@param，程序会自动增加对应的param1
-         *
+         * 参数使用@param，程序会自动增加对应的paramx
          */
         if (params instanceof MapperMethod.ParamMap) {
             MapperMethod.ParamMap<Object> paramMap = (MapperMethod.ParamMap<Object>) params;
             for (Map.Entry<String, Object> paramObj : paramMap.entrySet()) {
                 Object paramValue = paramObj.getValue();
-                if (CryptInterceptorUtil.isNotCrypt(paramValue) || paramValue instanceof Map || paramObj.getKey().contains(GENERIC_NAME_PREFIX)) {
+                if (CryptInterceptorUtil.isNotCrypt(paramValue) || paramObj.getKey().contains(GENERIC_NAME_PREFIX)) {
                     continue;
                 }
-                if (paramValue instanceof List) {
-                    listCrypt((List) paramValue);
+                log.info("paramValue.getClass().getTypeName(): {}", paramValue.getClass().getTypeName());
+                // 集合类型的参数
+                if (paramValue instanceof Collection) {
+                    listEntityCrypt((Collection) paramValue);
+                    continue;
                 }
+                // 对象类型的参数
+                entityEncrypt(paramObj);
             }
         } else if (params instanceof Map) {
             return invocation.proceed();
+        } else {
+            // 走到这里一般代表方法中只有一个参数，并且米有添加@param注解
+            entityEncrypt(params);
+//            CryptEntity cryptEntity = params.getClass().getAnnotation(CryptEntity.class);
+//            if (cryptEntity != null) {
+//                handlerParameters(mappedStatement.getConfiguration(), boundSql, params, commandType);
+//            }
         }
-
-
-        CryptEntity cryptEntity = params != null ? params.getClass().getAnnotation(CryptEntity.class) : null;
-        if (cryptEntity != null) {
-            handlerParameters(mappedStatement.getConfiguration(), boundSql, params, commandType);
-        }
-
         return invocation.proceed();
     }
 
+
     /**
      * 对一个list进行加密处理
+     * 暂时不考虑List<List> 这种情况
      *
      * @param paramList
      * @throws Exception
      */
-    private void listCrypt(List paramList) throws Exception {
-        for (int i = 0; i < paramList.size(); i++) {
-            Object val = paramList.get(i);
-            if (CryptInterceptorUtil.isNotCrypt(val) || val instanceof Map) {
+    private void listEntityCrypt(Collection paramList) throws Exception {
+        Iterator iterator = paramList.iterator();
+        while (iterator.hasNext()) {
+            Object next = iterator.next();
+            if (CryptInterceptorUtil.isNotCrypt(next)) {
                 break;
             }
-            if (val instanceof String) {
-                paramList.set(i, encrypt.encrypt(val.toString()));
-            }
-            entityEncrypt(val);
+            entityEncrypt(next);
         }
     }
 
 
     /**
-     * 对一个对象进行加密处理
+     * 对一个加了CryptEntity的对象中加了CryptFeild的注解进行加密处理
      *
      * @param obj
      * @throws Exception
@@ -141,12 +145,13 @@ public class CryptWriteInterceptor implements Interceptor {
             if (Objects.isNull(annotation)) {
                 continue;
             }
-            Object fieldVal = declaredField.get(obj);
+            MetaObject metaObject = SystemMetaObject.forObject(obj);
+            Object fieldVal = metaObject.getValue(declaredField.getName());
             if (Objects.isNull(fieldVal)) {
                 continue;
             }
             if (fieldVal instanceof CharSequence) {
-                declaredField.set(obj, encrypt.encrypt(fieldVal.toString()));
+                metaObject.setValue(declaredField.getName(), encrypt.encrypt(fieldVal.toString()));
             }
         }
     }
