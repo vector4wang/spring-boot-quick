@@ -2,19 +2,24 @@ package com.quick.db.crypt.intercept;
 
 import com.quick.db.crypt.annotation.CryptEntity;
 import com.quick.db.crypt.annotation.CryptField;
-import com.quick.db.crypt.encrypt.AesDesEncrypt;
 import com.quick.db.crypt.encrypt.Encrypt;
 import com.quick.db.crypt.util.PluginUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
+
+import static com.quick.db.crypt.util.CryptInterceptorUtil.ENTITY_FILED_ANN_MAP;
 
 /**
  * https://blog.csdn.net/qq_42764269/article/details/121121807
@@ -22,24 +27,18 @@ import java.util.*;
 @Intercepts({
         @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {java.sql.Statement.class})
 })
-public class CryptReadInterceptor implements Interceptor {
+@Slf4j
+public class CryptReadInterceptor extends CryptInterceptor implements Interceptor {
 
     private static final String MAPPED_STATEMENT = "mappedStatement";
 
-    private Encrypt encrypt;
-
-    public CryptReadInterceptor(Encrypt encrypt) {
-        if (Objects.isNull(encrypt)) {
-            try {
-                encrypt = new AesDesEncrypt("0123avb");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-        }
-        this.encrypt = encrypt;
+    public CryptReadInterceptor() {
+        super();
     }
 
-
+    public CryptReadInterceptor(Encrypt encrypt) {
+        super(encrypt);
+    }
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -55,59 +54,55 @@ public class CryptReadInterceptor implements Interceptor {
         final ResultMap resultMap = mappedStatement.getResultMaps().isEmpty() ? null : mappedStatement.getResultMaps().get(0);
 
         Object result = results.get(0);
+
         CryptEntity cryptEntity = result.getClass().getAnnotation(CryptEntity.class);
-        if (cryptEntity == null) {
+        if (cryptEntity == null || resultMap == null) {
             return results;
         }
 
-        Map<String, CryptField> cryptFieldMap = getCryptField(resultMap);
-        if (cryptFieldMap.isEmpty()) {
-            return results;
-        }
+        List<String> cryptFieldList = getCryptField(resultMap);
 
-        for (Object obj : results) {
-            MetaObject objMetaObject = mappedStatement.getConfiguration().newMetaObject(obj);
-            for (Map.Entry<String, CryptField> entry : cryptFieldMap.entrySet()) {
-                String name = entry.getKey();
-                String value = (String) objMetaObject.getValue(name);
+        cryptFieldList.forEach(item -> {
+            results.forEach(x -> {
+                MetaObject objMetaObject = SystemMetaObject.forObject(x);
+                Object value = objMetaObject.getValue(item);
                 if (Objects.nonNull(value)) {
-                    // 解密
-                    String encrypted = this.encrypt.decrypt(value);
-                    objMetaObject.setValue(name, encrypted);
+                    objMetaObject.setValue(item, encrypt.decrypt(value.toString()));
                 }
-            }
-        }
+            });
+        });
+
         return results;
     }
 
     /**
      * 获取需要加密的属性
+     *
      * @param resultMap
      * @return
      */
-    private Map<String, CryptField> getCryptField(ResultMap resultMap) {
-        Map<String, CryptField> cryptFieldMap = new HashMap<>(16);
-
-        if (resultMap == null) {
-            return cryptFieldMap;
-        }
+    private List<String> getCryptField(ResultMap resultMap) {
         Class<?> clazz = resultMap.getType();
-        for (Field declaredField : clazz.getDeclaredFields()) {
-            CryptField cryptField = declaredField.getAnnotation(CryptField.class);
-            if (cryptField != null) {
-                cryptFieldMap.put(declaredField.getName(), cryptField);
+        log.info("clazz: {}", clazz);
+        List<String> fieldList = ENTITY_FILED_ANN_MAP.getOrDefault(clazz.getName(), new ArrayList<>());
+        if (CollectionUtils.isEmpty(fieldList)) {
+            for (Field declaredField : clazz.getDeclaredFields()) {
+                CryptField cryptField = declaredField.getAnnotation(CryptField.class);
+                if (cryptField != null) {
+                    fieldList.add(declaredField.getName());
+                }
             }
         }
-
-        return cryptFieldMap;
+        return fieldList;
     }
 
 
     @Override
     public Object plugin(Object o) {
-        return Plugin.wrap(o,this);
+        return Plugin.wrap(o, this);
     }
 
     @Override
-    public void setProperties(Properties properties) {}
+    public void setProperties(Properties properties) {
+    }
 }

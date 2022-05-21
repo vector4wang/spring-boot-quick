@@ -39,7 +39,7 @@ public interface UserDao {
      * @param user 实例对象
      * @return 影响行数
      */
-    int insert(@Param("user") User user);
+    int insert(User user);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）

@@ -25,7 +25,5 @@ public class User implements Serializable {
     @CryptField
     private String phone;
 
-
-
 }
 

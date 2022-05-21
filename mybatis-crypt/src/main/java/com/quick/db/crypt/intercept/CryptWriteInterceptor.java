@@ -2,7 +2,6 @@ package com.quick.db.crypt.intercept;
 
 import com.quick.db.crypt.annotation.CryptEntity;
 import com.quick.db.crypt.annotation.CryptField;
-import com.quick.db.crypt.encrypt.AesDesEncrypt;
 import com.quick.db.crypt.encrypt.Encrypt;
 import com.quick.db.crypt.util.CryptInterceptorUtil;
 import com.quick.db.crypt.util.PluginUtils;
@@ -15,18 +14,18 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.apache.ibatis.session.Configuration;
+import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.Field;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.*;
+
+import static com.quick.db.crypt.util.CryptInterceptorUtil.ENTITY_FILED_ANN_MAP;
 
 @Intercepts({
         @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})
 })
 @Slf4j
-public class CryptWriteInterceptor implements Interceptor {
+public class CryptWriteInterceptor extends CryptInterceptor implements Interceptor {
 
     /**
      * org.apache.ibatis.reflection.ParamNameResolver#getNamedParams(java.lang.Object[])
@@ -36,18 +35,14 @@ public class CryptWriteInterceptor implements Interceptor {
     private static final String MAPPEDSTATEMENT = "delegate.mappedStatement";
     private static final String BOUND_SQL = "delegate.boundSql";
 
-    private Encrypt encrypt;
+    public CryptWriteInterceptor() {
+        super();
+    }
 
     public CryptWriteInterceptor(Encrypt encrypt) {
-        if (Objects.isNull(encrypt)) {
-            try {
-                encrypt = new AesDesEncrypt("0123avb");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-        }
-        this.encrypt = encrypt;
+        super(encrypt);
     }
+
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -55,7 +50,6 @@ public class CryptWriteInterceptor implements Interceptor {
         StatementHandler statementHandler = PluginUtils.realTarget(invocation.getTarget());
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue(MAPPEDSTATEMENT);
-
         log.info("mappedStatement.getId(): {}", mappedStatement.getId());
 
         SqlCommandType commandType = mappedStatement.getSqlCommandType();
@@ -63,7 +57,7 @@ public class CryptWriteInterceptor implements Interceptor {
         /**
          * 只有insert和update的才做处理
          */
-        if (!isWriteCmd(commandType)) {
+        if (!CryptInterceptorUtil.isWriteCmd(commandType)) {
             return invocation.proceed();
         }
 
@@ -82,6 +76,7 @@ public class CryptWriteInterceptor implements Interceptor {
          */
         if (params instanceof MapperMethod.ParamMap) {
             MapperMethod.ParamMap<Object> paramMap = (MapperMethod.ParamMap<Object>) params;
+
             for (Map.Entry<String, Object> paramObj : paramMap.entrySet()) {
                 Object paramValue = paramObj.getValue();
                 if (CryptInterceptorUtil.isNotCrypt(paramValue) || paramObj.getKey().contains(GENERIC_NAME_PREFIX)) {
@@ -100,6 +95,7 @@ public class CryptWriteInterceptor implements Interceptor {
             return invocation.proceed();
         } else {
             // 走到这里一般代表方法中只有一个参数，并且米有添加@param注解
+            log.warn("请检查方法中参数的写法，是否有加@param！！！ 方法名为: {}", mappedStatement.getId());
             entityEncrypt(params);
         }
         return invocation.proceed();
@@ -126,60 +122,47 @@ public class CryptWriteInterceptor implements Interceptor {
 
 
     /**
-     * 对一个加了CryptEntity的对象中加了CryptFeild的注解进行加密处理
+     * 对一个加了CryptEntity的对象中加了CryptField的注解进行加密处理
      *
      * @param obj
      * @throws Exception
      */
     private void entityEncrypt(Object obj) throws Exception {
-        CryptEntity declaredAnnotation = obj.getClass().getDeclaredAnnotation(CryptEntity.class);
-        if (Objects.isNull(declaredAnnotation)) {
+        log.info("obj.getClass().getName(): {}", obj.getClass().getName());
+        String objFqn = obj.getClass().getName();
+        List<String> objFieldList = ENTITY_FILED_ANN_MAP.getOrDefault(objFqn, new ArrayList<>());
+
+        MetaObject metaObject = SystemMetaObject.forObject(obj);
+        if (!CollectionUtils.isEmpty(objFieldList)) {
+            // 不为空，已缓存
+            objFieldList.forEach(s -> cryptField(s, metaObject));
+        } else {
+            // 为空，需要遍历 再缓存
+            CryptEntity declaredAnnotation = obj.getClass().getDeclaredAnnotation(CryptEntity.class);
+            if (Objects.isNull(declaredAnnotation)) {
+                return;
+            }
+            Arrays.stream(obj.getClass().getDeclaredFields())
+                    .filter(item -> Objects.nonNull(item.getAnnotation(CryptField.class)))
+                    .forEach(item -> {
+                        String fieldName = item.getName();
+                        System.out.println(fieldName);
+                        objFieldList.add(fieldName);
+                        cryptField(fieldName, metaObject);
+                    });
+            ENTITY_FILED_ANN_MAP.put(objFqn, objFieldList);
+        }
+
+    }
+
+    private void cryptField(String fieldName, MetaObject metaObject) {
+        Object fieldVal = metaObject.getValue(fieldName);
+        if (Objects.isNull(fieldVal)) {
             return;
         }
-        for (Field declaredField : obj.getClass().getDeclaredFields()) {
-            CryptField annotation = declaredField.getAnnotation(CryptField.class);
-            if (Objects.isNull(annotation)) {
-                continue;
-            }
-            MetaObject metaObject = SystemMetaObject.forObject(obj);
-            Object fieldVal = metaObject.getValue(declaredField.getName());
-            if (Objects.isNull(fieldVal)) {
-                continue;
-            }
-            if (fieldVal instanceof CharSequence) {
-                metaObject.setValue(declaredField.getName(), encrypt.encrypt(fieldVal.toString()));
-            }
+        if (fieldVal instanceof CharSequence) {
+            metaObject.setValue(fieldName, encrypt.encrypt(fieldVal.toString()));
         }
-    }
-
-
-    private boolean isWriteCmd(SqlCommandType commandType) {
-        return SqlCommandType.UPDATE.equals(commandType) || SqlCommandType.INSERT.equals(commandType);
-
-    }
-
-    private void handlerParameters(Configuration configuration, BoundSql boundSql, Object params, SqlCommandType commandType) {
-        MetaObject metaObject = configuration.newMetaObject(params);
-
-        for (Field field : params.getClass().getDeclaredFields()) {
-            CryptField declaredAnnotation = field.getDeclaredAnnotation(CryptField.class);
-            if (Objects.isNull(declaredAnnotation)) {
-                continue;
-            }
-            Object value = metaObject.getValue(field.getName());
-            if (value instanceof CharSequence) {
-                value = encryptValue(field, value);
-                boundSql.setAdditionalParameter(field.getName(), value);
-            }
-        }
-    }
-
-    private Object encryptValue(Field field, Object value) {
-        CryptField annotation = field.getAnnotation(CryptField.class);
-        if (Objects.isNull(annotation)) {
-            return value;
-        }
-        return encrypt.encrypt(value.toString());
     }
 
     @Override

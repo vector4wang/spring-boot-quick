@@ -20,8 +20,8 @@ public class EncryptPluginConfig {
 
     @Bean
     public ConfigurationCustomizer configurationCustomizer() throws Exception {
-        CryptReadInterceptor cryptReadInterceptor = new CryptReadInterceptor(null);
-        CryptWriteInterceptor cryptWriteInterceptor = new CryptWriteInterceptor(null);
+        CryptReadInterceptor cryptReadInterceptor = new CryptReadInterceptor();
+        CryptWriteInterceptor cryptWriteInterceptor = new CryptWriteInterceptor();
         return (configuration) -> {
             configuration.addInterceptor(cryptReadInterceptor);
             configuration.addInterceptor(cryptWriteInterceptor);

@@ -78,7 +78,7 @@ public class DbTest {
 
     @Test
     public void testQueryById() {
-        User user = userService.queryById(13);
+        User user = userService.queryById(164);
         log.info("query: {}", user);
     }
 
