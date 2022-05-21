@@ -16,7 +16,6 @@ public abstract class CryptInterceptor {
             encrypt = new AesDesEncrypt("0123456789ABCDEFGHIJKLMN");
         } catch (NoSuchAlgorithmException e) {
             log.error("初始化加密函数失败!!! ", e);
-            e.printStackTrace();
         }
         this.encrypt = encrypt;
     }

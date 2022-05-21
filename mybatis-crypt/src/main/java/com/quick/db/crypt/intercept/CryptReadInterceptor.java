@@ -21,9 +21,6 @@ import java.util.Properties;
 
 import static com.quick.db.crypt.util.CryptInterceptorUtil.ENTITY_FILED_ANN_MAP;
 
-/**
- * https://blog.csdn.net/qq_42764269/article/details/121121807
- */
 @Intercepts({
         @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {java.sql.Statement.class})
 })
