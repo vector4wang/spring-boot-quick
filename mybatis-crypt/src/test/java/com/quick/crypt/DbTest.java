@@ -31,11 +31,11 @@ public class DbTest {
 //        User vector = User.builder().name("vector").phone("13333333333").build();
 //        LongStream.range(0, 10).forEach(k -> {
 //            System.out.println(k);
-            User vector = new User();
-            vector.setName("vector" + 1);
-            vector.setPhone(RandomUtil.randomNumbers(11));
-            User insert = userService.insert(vector);
-            log.info("insert obj {}", insert);
+        User vector = new User();
+        vector.setName("vector" + 1);
+        vector.setPhone(RandomUtil.randomNumbers(11));
+        User insert = userService.insert(vector);
+        log.info("insert obj {}", insert);
 //        });
     }
 
