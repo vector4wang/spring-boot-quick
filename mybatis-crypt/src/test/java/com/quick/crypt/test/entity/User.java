@@ -1,8 +1,7 @@
-package com.quick.db.crypt.entity;
+package com.quick.crypt.test.entity;
 
 import com.quick.db.crypt.annotation.CryptEntity;
 import com.quick.db.crypt.annotation.CryptField;
-import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;

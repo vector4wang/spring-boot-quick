@@ -1,8 +1,8 @@
-package com.quick.db.crypt.service.impl;
+package com.quick.crypt.test.service.impl;
 
-import com.quick.db.crypt.dao.UserDao;
-import com.quick.db.crypt.entity.User;
-import com.quick.db.crypt.service.UserService;
+import com.quick.crypt.test.dao.UserDao;
+import com.quick.crypt.test.entity.User;
+import com.quick.crypt.test.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

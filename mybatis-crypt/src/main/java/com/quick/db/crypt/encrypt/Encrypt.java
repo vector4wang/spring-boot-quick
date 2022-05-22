@@ -1,6 +1,8 @@
 package com.quick.db.crypt.encrypt;
 
 public interface Encrypt {
+
+
     /**
      * 对字符串进行加密存储
      * @param src 源

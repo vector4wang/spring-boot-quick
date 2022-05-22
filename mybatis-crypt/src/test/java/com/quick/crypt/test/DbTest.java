@@ -1,10 +1,10 @@
-package com.quick.crypt;
+package com.quick.crypt.test;
 
 
 import cn.hutool.core.util.RandomUtil;
-import com.quick.db.crypt.CryptApplication;
-import com.quick.db.crypt.entity.User;
-import com.quick.db.crypt.service.UserService;
+import com.quick.crypt.test.entity.User;
+import com.quick.crypt.test.service.UserService;
+import com.quick.db.crypt.encrypt.AesDesDefaultEncrypt;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,7 @@ public class DbTest {
         User vector = new User();
         vector.setName("vector" + 1);
         vector.setPhone(RandomUtil.randomNumbers(11));
+        log.info("wait crypt: {}", vector);
         User insert = userService.insert(vector);
         log.info("insert obj {}", insert);
 //        });
@@ -86,5 +88,15 @@ public class DbTest {
     public void testQueryAll() {
         List<User> userList = userService.findAll();
         log.info("query: {}", userList);
+    }
+
+    @Test
+    public void testDeencrypt() throws NoSuchAlgorithmException {
+        /**
+         * 98929429633--->8720d9eb197889fe7761ed03dc455ea5
+         */
+
+        AesDesDefaultEncrypt aesDesDefaultEncrypt = new AesDesDefaultEncrypt("123");
+        System.out.println(aesDesDefaultEncrypt.decrypt("8720d9eb197889fe7761ed03dc455ea5"));
     }
 }

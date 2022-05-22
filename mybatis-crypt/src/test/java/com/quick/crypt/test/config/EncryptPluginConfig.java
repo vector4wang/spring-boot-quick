@@ -1,7 +1,5 @@
-package com.quick.db.crypt.config;
+package com.quick.crypt.test.config;
 
-import com.quick.db.crypt.encrypt.AesDesEncrypt;
-import com.quick.db.crypt.encrypt.Encrypt;
 import com.quick.db.crypt.intercept.CryptReadInterceptor;
 import com.quick.db.crypt.intercept.CryptWriteInterceptor;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
@@ -9,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-@Configuration
+//@Configuration
 public class EncryptPluginConfig {
 
 

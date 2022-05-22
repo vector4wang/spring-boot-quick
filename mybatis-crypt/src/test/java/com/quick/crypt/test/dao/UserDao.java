@@ -1,11 +1,10 @@
-package com.quick.db.crypt.dao;
+package com.quick.crypt.test.dao;
 
-import com.quick.db.crypt.entity.User;
+import com.quick.crypt.test.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * (User)表数据库访问层

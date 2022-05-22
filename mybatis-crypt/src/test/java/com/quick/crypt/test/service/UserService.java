@@ -1,6 +1,6 @@
-package com.quick.db.crypt.service;
+package com.quick.crypt.test.service;
 
-import com.quick.db.crypt.entity.User;
+import com.quick.crypt.test.entity.User;
 
 import java.util.List;
 import java.util.Set;

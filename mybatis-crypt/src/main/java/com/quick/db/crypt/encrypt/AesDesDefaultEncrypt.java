@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 @Slf4j
-public class AesDesEncrypt implements Encrypt {
+public class AesDesDefaultEncrypt implements Encrypt {
 
     private static final String KEY_ALGORITHM = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
@@ -20,7 +20,15 @@ public class AesDesEncrypt implements Encrypt {
     private String password;
     private SecretKeySpec secretKeySpec;
 
-    public AesDesEncrypt(String password) throws NoSuchAlgorithmException {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public AesDesDefaultEncrypt(String password) throws NoSuchAlgorithmException {
 
         if (StringUtils.isEmpty(password)) {
             throw new IllegalArgumentException("password should not be null!");

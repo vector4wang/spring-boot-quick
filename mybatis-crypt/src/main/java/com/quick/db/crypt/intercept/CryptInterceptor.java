@@ -1,6 +1,6 @@
 package com.quick.db.crypt.intercept;
 
-import com.quick.db.crypt.encrypt.AesDesEncrypt;
+import com.quick.db.crypt.encrypt.AesDesDefaultEncrypt;
 import com.quick.db.crypt.encrypt.Encrypt;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +13,7 @@ public abstract class CryptInterceptor {
 
     public CryptInterceptor() {
         try {
-            encrypt = new AesDesEncrypt("0123456789ABCDEFGHIJKLMN");
+            encrypt = new AesDesDefaultEncrypt("0123456789ABCDEFGHIJKLMN");
         } catch (NoSuchAlgorithmException e) {
             log.error("初始化加密函数失败!!! ", e);
         }
