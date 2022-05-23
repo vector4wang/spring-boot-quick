@@ -1,5 +1,6 @@
 package com.quick.crypt.test.service.impl;
 
+import com.quick.crypt.test.base.BaseServiceImpl;
 import com.quick.crypt.test.dao.UserDao;
 import com.quick.crypt.test.entity.User;
 import com.quick.crypt.test.service.UserService;
@@ -16,7 +17,7 @@ import java.util.Set;
  * @since 2022-05-18 16:52:03
  */
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
     @Resource
     private UserDao userDao;
 
@@ -48,19 +49,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public int batchInsert(List<User> userList) {
         return this.userDao.insertBatch(userList);
-    }
-
-
-    /**
-     * 修改数据
-     *
-     * @param user 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public User update(User user) {
-        this.userDao.update(user);
-        return this.queryById(user.getId());
     }
 
     /**

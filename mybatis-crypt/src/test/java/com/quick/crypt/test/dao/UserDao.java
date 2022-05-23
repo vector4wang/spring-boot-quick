@@ -1,5 +1,6 @@
 package com.quick.crypt.test.dao;
 
+import com.quick.crypt.test.base.BaseMapper;
 import com.quick.crypt.test.entity.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-05-18 16:51:53
  */
-public interface UserDao {
+public interface UserDao extends BaseMapper<User> {
 
     /**
      * 通过ID查询单条数据

@@ -1,5 +1,6 @@
 package com.quick.crypt.test.service;
 
+import com.quick.crypt.test.base.BaseService;
 import com.quick.crypt.test.entity.User;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Set;
  * @author makejava
  * @since 2022-05-18 16:52:01
  */
-public interface UserService {
+public interface UserService extends BaseService<User> {
 
     /**
      * 通过ID查询单条数据
@@ -33,13 +34,6 @@ public interface UserService {
 
     int batchInsert(List<User> userList);
 
-    /**
-     * 修改数据
-     *
-     * @param user 实例对象
-     * @return 实例对象
-     */
-    User update(User user);
 
     /**
      * 通过主键删除数据

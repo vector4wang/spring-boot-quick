@@ -82,6 +82,7 @@ public class CryptWriteInterceptor extends CryptInterceptor implements Intercept
                 if (CryptInterceptorUtil.isNotCrypt(paramValue) || paramObj.getKey().contains(GENERIC_NAME_PREFIX)) {
                     continue;
                 }
+
                 log.info("paramValue.getClass().getTypeName(): {}", paramValue.getClass().getTypeName());
                 // 集合类型的参数
                 if (paramValue instanceof Collection) {
@@ -89,7 +90,8 @@ public class CryptWriteInterceptor extends CryptInterceptor implements Intercept
                     continue;
                 }
                 // 对象类型的参数
-                entityEncrypt(paramObj);
+//                entityEncrypt(paramObj);
+                entityEncrypt(paramValue);
             }
         } else if (params instanceof Map) {
             return invocation.proceed();
@@ -123,6 +125,7 @@ public class CryptWriteInterceptor extends CryptInterceptor implements Intercept
 
     /**
      * 对一个加了CryptEntity的对象中加了CryptField的注解进行加密处理
+     * 进入到这里要么是一个对象实体，要么是map类型的对象实体
      *
      * @param obj
      * @throws Exception

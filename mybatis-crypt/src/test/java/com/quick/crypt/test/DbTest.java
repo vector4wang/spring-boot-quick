@@ -2,6 +2,7 @@ package com.quick.crypt.test;
 
 
 import cn.hutool.core.util.RandomUtil;
+import com.quick.crypt.test.base.BeanCriteria;
 import com.quick.crypt.test.entity.User;
 import com.quick.crypt.test.service.UserService;
 import com.quick.db.crypt.encrypt.AesDesDefaultEncrypt;
@@ -39,6 +40,18 @@ public class DbTest {
         User insert = userService.insert(vector);
         log.info("insert obj {}", insert);
 //        });
+    }
+
+    @Test
+    public void testUpdate() {
+        BeanCriteria beanCriteria = new BeanCriteria(User.class);
+        beanCriteria.createCriteria().andEqualTo("id", 153);
+
+        User updateUser = new User();
+        updateUser.setPhone("17727826853");
+
+        userService.updateByExampleSelective(updateUser, beanCriteria);
+
     }
 
     @Test
