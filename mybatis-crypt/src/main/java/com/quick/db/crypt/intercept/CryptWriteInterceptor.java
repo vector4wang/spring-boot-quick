@@ -35,12 +35,9 @@ public class CryptWriteInterceptor extends CryptInterceptor implements Intercept
     private static final String MAPPEDSTATEMENT = "delegate.mappedStatement";
     private static final String BOUND_SQL = "delegate.boundSql";
 
-    public CryptWriteInterceptor() {
-        super();
-    }
-
     public CryptWriteInterceptor(Encrypt encrypt) {
         super(encrypt);
+        log.info("init CryptWriteInterceptor");
     }
 
 

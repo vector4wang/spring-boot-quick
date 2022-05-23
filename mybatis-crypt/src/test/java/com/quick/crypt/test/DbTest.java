@@ -35,7 +35,7 @@ public class DbTest {
 //            System.out.println(k);
         User vector = new User();
         vector.setName("vector" + 1);
-        vector.setPhone(RandomUtil.randomNumbers(11));
+        vector.setPhone("13333333333");
         log.info("wait crypt: {}", vector);
         User insert = userService.insert(vector);
         log.info("insert obj {}", insert);
@@ -67,7 +67,7 @@ public class DbTest {
             System.out.println(k);
             User vector = new User();
             vector.setName("vector" + k);
-            vector.setPhone(RandomUtil.randomNumbers(11));
+            vector.setPhone("13333333333");
 
             list.add(vector);
         });
@@ -110,6 +110,6 @@ public class DbTest {
          */
 
         AesDesDefaultEncrypt aesDesDefaultEncrypt = new AesDesDefaultEncrypt("123");
-        System.out.println(aesDesDefaultEncrypt.decrypt("8720d9eb197889fe7761ed03dc455ea5"));
+        System.out.println(aesDesDefaultEncrypt.decrypt("0e22e227f48d13e17baa500f68e72024"));
     }
 }

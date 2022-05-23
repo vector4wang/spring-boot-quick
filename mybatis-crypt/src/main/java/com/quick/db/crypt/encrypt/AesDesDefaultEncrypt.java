@@ -14,6 +14,7 @@ import java.security.SecureRandom;
 @Slf4j
 public class AesDesDefaultEncrypt implements Encrypt {
 
+    private static final String DEFAULT_SEC = "FMjDV69Xkd6y9HVVK";
     private static final String KEY_ALGORITHM = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 
@@ -26,6 +27,11 @@ public class AesDesDefaultEncrypt implements Encrypt {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public AesDesDefaultEncrypt() throws NoSuchAlgorithmException {
+        this.password = DEFAULT_SEC;
+        this.secretKeySpec = getSecretKey(this.password);
     }
 
     public AesDesDefaultEncrypt(String password) throws NoSuchAlgorithmException {

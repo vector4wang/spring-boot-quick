@@ -29,12 +29,13 @@ public class CryptReadInterceptor extends CryptInterceptor implements Intercepto
 
     private static final String MAPPED_STATEMENT = "mappedStatement";
 
-    public CryptReadInterceptor() {
-        super();
-    }
+//    public CryptReadInterceptor() {
+//        super();
+//    }
 
     public CryptReadInterceptor(Encrypt encrypt) {
         super(encrypt);
+        log.info("init CryptReadInterceptor");
     }
 
     @Override

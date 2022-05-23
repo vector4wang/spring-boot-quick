@@ -4,11 +4,14 @@ package com.quick.db.crypt.config;
 import com.quick.db.crypt.annotation.EnableEncrypt;
 import com.quick.db.crypt.encrypt.AesDesDefaultEncrypt;
 import com.quick.db.crypt.encrypt.Encrypt;
+import com.quick.db.crypt.intercept.CryptReadInterceptor;
+import com.quick.db.crypt.intercept.CryptWriteInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.util.StringUtils;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -26,15 +29,19 @@ public class EncryptConfig implements ImportBeanDefinitionRegistrar {
         log.info("enable encrypt value: {}", value);
         Encrypt encrypt = null;
         try {
-            encrypt = new AesDesDefaultEncrypt(value);
+            encrypt = StringUtils.isEmpty(value) ? new AesDesDefaultEncrypt() : new AesDesDefaultEncrypt(value);
         } catch (NoSuchAlgorithmException e) {
             log.error("init Encrypt error", e);
         }
 
 
-        BeanDefinitionBuilder bdb = BeanDefinitionBuilder.rootBeanDefinition(EnCryptConfigurationCustomizer.class);
-        bdb.addConstructorArgValue(encrypt);
-        registry.registerBeanDefinition("configurationCustomizer", bdb.getBeanDefinition());
+        BeanDefinitionBuilder bdb1 = BeanDefinitionBuilder.rootBeanDefinition(CryptReadInterceptor.class);
+        bdb1.addConstructorArgValue(encrypt);
+        registry.registerBeanDefinition("cryptReadInterceptor", bdb1.getBeanDefinition());
+
+        BeanDefinitionBuilder bdb2 = BeanDefinitionBuilder.rootBeanDefinition(CryptWriteInterceptor.class);
+        bdb2.addConstructorArgValue(encrypt);
+        registry.registerBeanDefinition("cryptWriteInterceptor", bdb2.getBeanDefinition());
 
     }
 
