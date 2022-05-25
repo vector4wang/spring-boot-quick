@@ -3,15 +3,15 @@ import com.quick.crypt.test.CryptApplication;
 import com.quick.crypt.test.base.BeanCriteria;
 import com.quick.crypt.test.entity.User;
 import com.quick.crypt.test.service.UserService;
-//import com.quick.db.crypt.encrypt.AesDesDefaultEncrypt;
+import com.quick.db.crypt.encrypt.Encrypt;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +25,9 @@ public class DbTest {
 
     @Resource
     private UserService userService;
+
+    @Autowired
+    private Encrypt encrypt;
 
     @Test
     public void testInsert() {
@@ -54,11 +57,14 @@ public class DbTest {
 
     @Test
     public void testInsertStr() {
-        userService.insert("vector", "11111111111");
+        userService.insert("vector", "13333333333");
     }
 
     @Test
     public void testBatchInsert() {
+
+        System.out.println(encrypt.encrypt("13333333333"));
+
 //        User vector = User.builder().name("vector").phone("13333333333").build();
         List<User> list = new ArrayList<>();
         LongStream.range(0, 10).forEach(k -> {

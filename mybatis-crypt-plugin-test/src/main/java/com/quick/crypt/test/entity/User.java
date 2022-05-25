@@ -1,5 +1,7 @@
 package com.quick.crypt.test.entity;
 
+import com.quick.db.crypt.annotation.CryptEntity;
+import com.quick.db.crypt.annotation.CryptField;
 import lombok.Data;
 
 import javax.persistence.Id;
@@ -13,7 +15,7 @@ import java.io.Serializable;
  * @since 2022-05-18 16:51:55
  */
 @Data
-//@CryptEntity
+@CryptEntity
 @Table(name = "user")
 public class User implements Serializable {
     private static final long serialVersionUID = -33370517147127073L;
@@ -23,7 +25,7 @@ public class User implements Serializable {
     
     private String name;
 
-//    @CryptField
+    @CryptField
     private String phone;
 
 }

@@ -1,7 +1,7 @@
 package com.quick.crypt.test;
 
 
-//import com.quick.db.crypt.annotation.EnableEncrypt;
+import com.quick.db.crypt.annotation.EnableEncrypt;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 @MapperScan(basePackages = "com.quick.crypt.test.dao")
 @Slf4j
-//@EnableEncrypt()
+@EnableEncrypt()
 public class CryptApplication {
 
     @PostConstruct

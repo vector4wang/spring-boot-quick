@@ -30,6 +30,7 @@ public class AesDesDefaultEncrypt implements Encrypt {
     }
 
     public AesDesDefaultEncrypt() throws NoSuchAlgorithmException {
+        log.info("init encrypt by default passwd");
         this.password = DEFAULT_SEC;
         this.secretKeySpec = getSecretKey(this.password);
     }
@@ -39,7 +40,7 @@ public class AesDesDefaultEncrypt implements Encrypt {
         if (StringUtils.isEmpty(password)) {
             throw new IllegalArgumentException("password should not be null!");
         }
-
+        log.info("init encrypt by custom passwd");
         this.password = password;
         this.secretKeySpec = getSecretKey(password);
     }

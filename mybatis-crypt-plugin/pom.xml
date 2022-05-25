@@ -21,6 +21,7 @@
 
         <spring.version>5.2.7.RELEASE</spring.version>
         <tk.mybatis.version>3.4.2</tk.mybatis.version>
+<!--        <org.mybatis.version>3.3.0</org.mybatis.version>-->
         <org.mybatis.version>3.3.0</org.mybatis.version>
     </properties>
 
@@ -63,7 +64,7 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
-            <version>[1.67,)</version>
+            <version>1.70</version>
         </dependency>
 
     </dependencies>
