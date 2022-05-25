@@ -32,7 +32,6 @@ public class CryptParamInterceptor extends CryptInterceptor implements Intercept
      */
     private static final String GENERIC_NAME_PREFIX = "param";
     private static final String MAPPEDSTATEMENT = "mappedStatement";
-    private static final String BOUND_SQL = "delegate.boundSql";
 
     public CryptParamInterceptor() throws NoSuchAlgorithmException {
         super();
