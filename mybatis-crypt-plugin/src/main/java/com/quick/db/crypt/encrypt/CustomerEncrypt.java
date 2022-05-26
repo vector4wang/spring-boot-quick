@@ -6,14 +6,14 @@ package com.quick.db.crypt.encrypt;
  * @create 2022/5/25
  * @since 1.0.0
  */
-public class CustomerEncrypt extends BaseEncrypt{
+public class CustomerEncrypt extends BaseEncrypt {
     @Override
     public String encrypt(String src) {
-        return null;
+        return src + " 使用 " + password + "已加密";
     }
 
     @Override
     public String decrypt(String encrypt) {
-        return null;
+        return encrypt + " 使用" + password + "已解密";
     }
 }

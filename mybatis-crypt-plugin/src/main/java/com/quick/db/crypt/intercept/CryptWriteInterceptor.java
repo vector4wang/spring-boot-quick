@@ -16,7 +16,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.util.CollectionUtils;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.*;
 
@@ -36,9 +35,6 @@ public class CryptWriteInterceptor extends CryptInterceptor implements Intercept
     private static final String MAPPEDSTATEMENT = "delegate.mappedStatement";
     private static final String BOUND_SQL = "delegate.boundSql";
 
-    public CryptWriteInterceptor() throws NoSuchAlgorithmException {
-        super();
-    }
 
     public CryptWriteInterceptor(Encrypt encrypt) {
         super(encrypt);
