@@ -2,6 +2,7 @@ package com.quick.crypt.test.service;
 
 import com.quick.crypt.test.base.BaseService;
 import com.quick.crypt.test.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Set;

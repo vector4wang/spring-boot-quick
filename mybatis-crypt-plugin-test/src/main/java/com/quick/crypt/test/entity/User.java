@@ -22,7 +22,7 @@ public class User implements Serializable {
 
     @Id
     private Integer id;
-    
+
     private String name;
 
     @CryptField

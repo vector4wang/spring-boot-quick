@@ -63,7 +63,9 @@ public class DbTest {
 
     @Test
     public void testInsertStr() {
-        userService.insert("vector", "13333333333");
+
+        String vector = encrypt.encrypt("vector");
+        userService.insert(vector, "13333333333");
     }
 
     @Test

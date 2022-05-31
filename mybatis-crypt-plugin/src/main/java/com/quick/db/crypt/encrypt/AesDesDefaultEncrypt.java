@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 @Slf4j
-public class AesDesDefaultEncrypt implements Encrypt {
+public class AesDesDefaultEncrypt extends BaseEncrypt {
 
     private static final String DEFAULT_SEC = "FMjDV69Xkd6y9HVVK";
     private static final String KEY_ALGORITHM = "AES";
