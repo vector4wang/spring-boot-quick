@@ -1,7 +1,7 @@
 package com.quick.db.crypt.encrypt;
 
-import com.quick.db.crypt.util.Hex;
 import lombok.extern.slf4j.Slf4j;
+import com.quick.db.crypt.util.Hex;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.*;
