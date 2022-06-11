@@ -30,6 +30,12 @@ public class DbTest {
     private Encrypt encrypt;
 
     @Test
+    public void testEncrypt() {
+        System.out.println(encrypt.encrypt("13333333333"));
+        System.out.println(encrypt.decrypt("13333333333"));
+    }
+
+    @Test
     public void testInsert() {
 //        User vector = User.builder().name("vector").phone("13333333333").build();
 //        LongStream.range(0, 10).forEach(k -> {
@@ -57,13 +63,15 @@ public class DbTest {
 
     @Test
     public void testInsertStr() {
-        userService.insert("vector", "13333333333");
+
+        String vector = encrypt.encrypt("vector");
+        userService.insert(vector, "13333333333");
     }
 
     @Test
     public void testBatchInsert() {
 
-        System.out.println(encrypt.encrypt("13333333333"));
+
 
 //        User vector = User.builder().name("vector").phone("13333333333").build();
         List<User> list = new ArrayList<>();

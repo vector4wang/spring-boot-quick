@@ -1,17 +1,20 @@
 package com.quick.db.crypt.encrypt;
 
 /**
- * @author 01390942
- * @Description
- * @create 2022/5/25
- * @since 1.0.0
+ * 继承此类，必须实现实现无参数和有参数的构造器
  */
 public abstract class BaseEncrypt implements Encrypt {
 
+    private static final String DEFAULT_SEC = "FMjDV69Xkd6y9HVVK";
+
     public String password;
 
+    public String getDefaultPassword() {
+        return password;
+    }
+
     public BaseEncrypt() {
-        this.password = "FMjDV69Xkd6y9HVVK";
+        this.password = DEFAULT_SEC;
     }
 
     public BaseEncrypt(String password) {

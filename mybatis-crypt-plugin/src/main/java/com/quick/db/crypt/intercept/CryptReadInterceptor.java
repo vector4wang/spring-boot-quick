@@ -6,16 +6,13 @@ import com.quick.db.crypt.encrypt.Encrypt;
 import com.quick.db.crypt.util.PluginUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
-import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
-import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,10 +27,6 @@ import static com.quick.db.crypt.util.CryptInterceptorUtil.ENTITY_FILED_ANN_MAP;
 public class CryptReadInterceptor extends CryptInterceptor implements Interceptor {
 
     private static final String MAPPED_STATEMENT = "mappedStatement";
-
-    public CryptReadInterceptor() throws NoSuchAlgorithmException {
-        super();
-    }
 
     public CryptReadInterceptor(Encrypt encrypt) {
         super(encrypt);

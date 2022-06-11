@@ -14,24 +14,15 @@ import java.security.SecureRandom;
 @Slf4j
 public class AesDesDefaultEncrypt2 extends BaseEncrypt {
 
-    private static final String DEFAULT_SEC = "FMjDV69Xkd6y9HVVK";
+
     private static final String KEY_ALGORITHM = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 
-//    private String password;
     private SecretKeySpec secretKeySpec;
-
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
     public AesDesDefaultEncrypt2() throws NoSuchAlgorithmException {
         log.info("init encrypt by default passwd");
-        this.password = DEFAULT_SEC;
+        this.password = getDefaultPassword();
         this.secretKeySpec = getSecretKey(this.password);
     }
 

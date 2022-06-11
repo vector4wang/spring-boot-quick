@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 @MapperScan(basePackages = "com.quick.crypt.test.dao")
 @Slf4j
-@EnableEncrypt(encryptIml = CustomerCryptor.class)
+@EnableEncrypt(value = "123", encryptIml = CustomerCryptor.class)
 public class CryptApplication {
 
     @PostConstruct

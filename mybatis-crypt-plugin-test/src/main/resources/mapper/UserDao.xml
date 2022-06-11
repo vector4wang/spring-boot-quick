@@ -40,7 +40,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into user(name, phone)
-        values (#{name}, #{phone})
+        values (#{user.name}, #{user.phone})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
