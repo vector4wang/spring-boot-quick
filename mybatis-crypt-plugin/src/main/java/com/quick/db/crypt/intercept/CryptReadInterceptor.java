@@ -64,7 +64,6 @@ public class CryptReadInterceptor extends CryptInterceptor implements Intercepto
                 }
             });
         });
-
         return results;
     }
 
