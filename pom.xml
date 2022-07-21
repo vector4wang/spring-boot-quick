@@ -73,6 +73,8 @@
         <module>nacos-common-config</module>
         <module>mybatis-crypt-plugin</module>
         <module>mybatis-crypt-plugin-test</module>
+        <module>quick-camunda</module>
+        <module>quick-flowable</module>
 
     </modules>
     <packaging>pom</packaging>
