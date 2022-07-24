@@ -3,13 +3,17 @@ package com.quick.flowable;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;
 import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.engine.history.HistoricActivityInstanceQuery;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
+import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.image.ProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,10 +21,10 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  *
@@ -89,7 +93,7 @@ public class ForgetFightTest {
 		RuntimeService runtimeService = processEngine.getRuntimeService();
 		HashMap<String, Object> variables = new HashMap<>();
 		variables.put("employee", "vector");
-		variables.put("datetime", "2022-07-23");
+		variables.put("datetime", "2022-07-24");
 		variables.put("description", "忘记打卡");
 		ProcessInstance processInstance = runtimeService.startProcessInstanceById("test-key:1:45004", variables);
 		System.out.println("processInstance.getProcessInstanceId() = " + processInstance.getProcessInstanceId());
@@ -101,11 +105,14 @@ public class ForgetFightTest {
 	@Test
 	public void testQueryWaitProcessTask() {
 		TaskService taskService = processEngine.getTaskService();
-		Task task = taskService.createTaskQuery().processDefinitionKey("test-key").taskAssignee("bm")
+		Task task = taskService.createTaskQuery().processDefinitionKey("test-key")
+//				.taskAssignee("$INITIATOR")
+								.taskAssignee("bm")
 				.singleResult();
 		if (Objects.nonNull(task)) {
 			System.out.println("task.getDelegationState() = " + task.getDelegationState());
 			System.out.println("task.getName() = " + task.getName());
+			System.out.println("task.getProcessInstanceId() = " + task.getProcessInstanceId());
 		}
 
 
@@ -114,17 +121,18 @@ public class ForgetFightTest {
 	@Test
 	public void testProcessNode() {
 		TaskService taskService = processEngine.getTaskService();
-		Task task = taskService.createTaskQuery().processDefinitionKey("test-key").taskAssignee("bm")
+		Task task = taskService.createTaskQuery().processDefinitionKey("test-key").taskAssignee("$INITIATOR")
 				.singleResult();
 		if (Objects.nonNull(task)) {
 			System.out.println("task.getDelegationState() = " + task.getDelegationState());
 			System.out.println("task.getName() = " + task.getName());
-			//		Map<String, Object> variables = new HashMap<>();
-			//		variables.put("manager", "bm");
-			//		taskService.complete(task.getId(), variables);
 
-			// 领导审批
-			taskService.complete(task.getId());
+			// 个人审批
+			Map<String, Object> variables = new HashMap<>();
+			variables.put("manager", "bm");
+			taskService.complete(task.getId(), variables);
+			//			 领导审批
+			//			taskService.complete(task.getId());
 		}
 
 
@@ -156,4 +164,38 @@ public class ForgetFightTest {
 	}
 
 
+	@Test
+	public void testGetImg() throws IOException {
+		String processId = "57501";
+		ProcessInstance pi = processEngine.getRuntimeService().createProcessInstanceQuery().processInstanceId(processId)
+				.singleResult();
+		//流程走完的不显示图
+		if (pi == null) {
+			return;
+		}
+		Task task = processEngine.getTaskService().createTaskQuery().processInstanceId(pi.getId()).singleResult();
+		//使用流程实例ID，查询正在执行的执行对象表，返回流程实例对象
+		String InstanceId = task.getProcessInstanceId();
+		List<Execution> executions = processEngine.getRuntimeService().createExecutionQuery()
+				.processInstanceId(InstanceId).list();
+		//得到正在执行的Activity的Id
+		List<String> activityIds = new ArrayList<>();
+		List<String> flows = new ArrayList<>();
+		for (Execution exe : executions) {
+			List<String> ids = processEngine.getRuntimeService().getActiveActivityIds(exe.getId());
+			activityIds.addAll(ids);
+		}
+		//获取流程图
+		String suffix = "png";
+		BpmnModel bpmnModel = processEngine.getRepositoryService().getBpmnModel(pi.getProcessDefinitionId());
+		ProcessEngineConfiguration engconf = processEngine.getProcessEngineConfiguration();
+		ProcessDiagramGenerator diagramGenerator = engconf.getProcessDiagramGenerator();
+		InputStream inputStream = diagramGenerator.generateDiagram(bpmnModel, suffix, activityIds, flows,
+				engconf.getActivityFontName(), engconf.getLabelFontName(), engconf.getAnnotationFontName(),
+				engconf.getClassLoader(), 1.0, true);
+
+
+		byte[] bytes = IOUtils.toByteArray(inputStream);
+		IOUtils.write(bytes,new FileOutputStream(processId + "_" + UUID.randomUUID() + "." + suffix) );
+	}
 }
