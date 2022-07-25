@@ -4,7 +4,7 @@
     <startEvent id="sid-E579AE18-2EEE-4DC8-81B7-A69C5291335D" flowable:formFieldValidation="true"></startEvent>
     <userTask id="sid-9408EC3B-048F-495C-B708-2BB66FBA6FB8" name="忘记打卡" flowable:assignee="$INITIATOR" flowable:formFieldValidation="true">
       <extensionElements>
-        <flowable:taskListener event="assignment" class="com.quick.flowable.listen.ForgetFightListen"></flowable:taskListener>
+        <flowable:taskListener event="assignment" class="com.quick.flowable.listener.ForgetFightListener"></flowable:taskListener>
         <modeler:activiti-idm-initiator xmlns:modeler="http://flowable.org/modeler"><![CDATA[true]]></modeler:activiti-idm-initiator>
       </extensionElements>
     </userTask>

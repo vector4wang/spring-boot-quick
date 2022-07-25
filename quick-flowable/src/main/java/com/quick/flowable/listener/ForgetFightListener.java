@@ -1,4 +1,4 @@
-package com.quick.flowable.listen;
+package com.quick.flowable.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.delegate.TaskListener;
@@ -11,7 +11,7 @@ import org.flowable.task.service.delegate.DelegateTask;
  *
  */
 @Slf4j
-public class ForgetFightListen implements TaskListener {
+public class ForgetFightListener implements TaskListener {
 	@Override
 	public void notify(DelegateTask delegateTask) {
 		log.info(delegateTask.getOwner());
