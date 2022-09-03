@@ -2,40 +2,15 @@ package com.shiro.quick.shiro.realm;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.subject.PrincipalCollection;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.apache.shiro.realm.AuthenticatingRealm;
 
 @Slf4j
-public class MyRealm extends AuthorizingRealm {
+public class OtherRealm  extends AuthenticatingRealm {
 
-
-    // 授权
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-
-        Object principal = principalCollection.getPrimaryPrincipal();
-
-        Set<String> roles = new HashSet<>();
-        roles.add("user");
-        if ("admin".equals(principal)) {
-            roles.add("admin");
-        }
-
-        return new SimpleAuthorizationInfo(roles);
-    }
-
-
-    // 认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        log.info("MyRealm doGetAuthenticationInfo");
-
+        log.info("OtherRealm doGetAuthenticationInfo");
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
         String username = userToken.getUsername();
         if ("unknown".equals(username)) {
@@ -47,11 +22,8 @@ public class MyRealm extends AuthorizingRealm {
         }
 
         Object principal = username;
-        Object credentials = "e10adc3949ba59abbe56e057f20f883e";
+        Object credentials = "7c4a8d09ca3762af61e59520943dc26494f8941b";
         String realmName = getName();
-
-
-
 
         log.info("doGetAuthenticationInfo username: {}", username);
         /**
@@ -60,9 +32,8 @@ public class MyRealm extends AuthorizingRealm {
         return new SimpleAuthenticationInfo(principal, credentials, realmName);
     }
 
-
     public static void main(String[] args) {
-        String hashAlgorithmName = "MD5";
+        String hashAlgorithmName = "SHA1";
         String credentials = "123456";
         Object salt = null;
         int hashIterations = 1;

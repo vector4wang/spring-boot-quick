@@ -1,5 +1,6 @@
 package com.shiro.quick.controller;
 
+import com.shiro.quick.service.TestService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -9,9 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
+
 
 @Controller
 public class LoginController {
+
+    @Resource
+    private TestService testService;
+
     @PostMapping("/doLogin")
     public String doLogin(String username, String password) {
         Subject subject = SecurityUtils.getSubject();
@@ -35,12 +42,31 @@ public class LoginController {
     @GetMapping("/index")
     @ResponseBody
     public String index() {
-        return "wel!";
+        String wel = "hello ~ ";
+        Subject subject = SecurityUtils.getSubject();
+        System.out.println(subject.hasRole("admin"));
+        String s = testService.vipPrint();
+        wel = wel + s;
+        return wel;
     }
 
     @GetMapping("/login")
     @ResponseBody
     public String login() {
         return "please login!";
+    }
+
+
+    @GetMapping("/vip")
+    @ResponseBody
+    public String vip() {
+        return "hello vip";
+    }
+
+
+    @GetMapping("/common")
+    @ResponseBody
+    public String common() {
+        return "hello common";
     }
 }
