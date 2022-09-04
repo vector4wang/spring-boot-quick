@@ -21,7 +21,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 
-    <shiro.version>1.4.0</shiro.version>
+    <shiro.version>1.9.1</shiro.version>
   </properties>
 
   <dependencies>
