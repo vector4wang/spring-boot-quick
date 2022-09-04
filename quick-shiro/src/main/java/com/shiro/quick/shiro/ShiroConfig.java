@@ -36,7 +36,6 @@ public class ShiroConfig {
         hashedCredentialsMatcher.setHashAlgorithmName("MD5");
         hashedCredentialsMatcher.setHashIterations(1);
         myRealm.setCredentialsMatcher(hashedCredentialsMatcher);
-//
         return myRealm;
     }
 
@@ -47,7 +46,6 @@ public class ShiroConfig {
         hashedCredentialsMatcher.setHashAlgorithmName("SHA1");
         hashedCredentialsMatcher.setHashIterations(1);
         otherRealm.setCredentialsMatcher(hashedCredentialsMatcher);
-//
         return otherRealm;
     }
 
@@ -101,12 +99,7 @@ public class ShiroConfig {
         map.put("/doLogin", "anon");
         map.put("/vip", "roles[admin]");
         map.put("/common", "roles[user]");
-
-
         map.put("/**", "authc");
-
-
-
         factoryBean.setFilterChainDefinitionMap(map);
         return factoryBean;
     }
