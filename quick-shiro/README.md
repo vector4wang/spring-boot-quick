@@ -21,7 +21,13 @@ docker cp server.keystore cas:/etc/cas/thekeystore
 密码：Mellon
 
 TODO 
-待处理：https://www.cnblogs.com/hellxz/p/15768700.html
+待处理：
+
+[x] https://github.com/willwu1984/springboot-cas-shiro
+
+https://www.cnblogs.com/hellxz/p/15768700.html
+https://shiro.apache.org/cas.html
+https://blog.csdn.net/yixuan_love/article/details/107080671
 
 
 ---
