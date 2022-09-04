@@ -76,6 +76,8 @@
         <module>quick-shiro</module>
         <module>quick-camunda</module>
         <module>quick-flowable</module>
+        <module>quick-sharding-jdbc</module>
+        <module>quick-shiro</module>
 
     </modules>
     <packaging>pom</packaging>
