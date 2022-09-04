@@ -52,10 +52,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
 		}
 		User user = (User) getAvailablePrincipal(principals);
-
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		System.out.println("获取角色信息："+user.getRoles());
-		System.out.println("获取权限信息："+user.getPerms());
+		System.out.println("获取角色信息：" + user.getRoles());
+		System.out.println("获取权限信息：" + user.getPerms());
 		info.setRoles(user.getRoles());
 		info.setStringPermissions(user.getPerms());
 		return info;
@@ -73,14 +72,12 @@ public class MyShiroRealm extends AuthorizingRealm {
 		if (Objects.isNull(userByName)) {
 			throw new UnknownAccountException("No account found for admin [" + username + "]");
 		}
-
 		//查询用户的角色和权限存到SimpleAuthenticationInfo中，这样在其它地方
 		//SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息，包括角色和权限
 		Set<String> roles = roleService.getRolesByUserId(userByName.getUid());
 		Set<String> perms = permService.getPermsByUserId(userByName.getUid());
 		userByName.getRoles().addAll(roles);
 		userByName.getPerms().addAll(perms);
-
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userByName, userByName.getPwd(), getName());
 		if (userByName.getSalt() != null) {
 			info.setCredentialsSalt(ByteSource.Util.bytes(userByName.getSalt()));
