@@ -7,6 +7,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,6 +19,21 @@ public class LoginController {
 
     @Resource
     private TestService testService;
+
+
+	@GetMapping("/getLogin/{username}/{password}")
+	public String doLoginGet(@PathVariable("username") String username,@PathVariable("password") String password) {
+		Subject subject = SecurityUtils.getSubject();
+		try {
+			subject.login(new UsernamePasswordToken(username, password));
+			System.out.println("登录成功!");
+			return "redirect:/getIndex.html";
+		} catch (AuthenticationException e) {
+			e.printStackTrace();
+			System.out.println("登录失败!");
+		}
+		return "redirect:/login";
+	}
 
     @PostMapping("/doLogin")
     public String doLogin(String username, String password) {
@@ -43,10 +59,10 @@ public class LoginController {
     @ResponseBody
     public String index() {
         String wel = "hello ~ ";
-        Subject subject = SecurityUtils.getSubject();
-        System.out.println(subject.hasRole("admin"));
-        String s = testService.vipPrint();
-        wel = wel + s;
+//        Subject subject = SecurityUtils.getSubject();
+//        System.out.println(subject.hasRole("admin"));
+//        String s = testService.vipPrint();
+//        wel = wel + s;
         return wel;
     }
 

@@ -97,6 +97,7 @@ public class ShiroConfig {
          * {@link DefaultFilter}
          */
         map.put("/doLogin", "anon");
+        map.put("/getLogin/**", "anon");
         map.put("/vip", "roles[admin]");
         map.put("/common", "roles[user]");
         map.put("/**", "authc");

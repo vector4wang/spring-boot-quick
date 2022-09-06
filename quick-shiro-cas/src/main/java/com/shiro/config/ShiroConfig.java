@@ -131,15 +131,15 @@ public class ShiroConfig {
 		callbackFilter.setConfig(config);
 		callbackFilter.setDefaultUrl(projectUrl);
 		filters.put("callbackFilter", callbackFilter);
-		// 注销 拦截器
-//		LogoutFilter logoutFilter = new LogoutFilter();
-//		logoutFilter.setConfig(config);
-//		logoutFilter.setCentralLogout(true);
-//		logoutFilter.setLocalLogout(true);
-//		//添加logout后  跳转到指定url  url的匹配规则  默认为 /.*;
-//		logoutFilter.setLogoutUrlPattern(".*");
-//		logoutFilter.setDefaultUrl(projectUrl + "/callback?client_name=" + clientName);
-//		filters.put("logout", logoutFilter);
+//		 注销 拦截器
+		LogoutFilter logoutFilter = new LogoutFilter();
+		logoutFilter.setConfig(config);
+		logoutFilter.setCentralLogout(true);
+		logoutFilter.setLocalLogout(true);
+		//添加logout后  跳转到指定url  url的匹配规则  默认为 /.*;
+		logoutFilter.setLogoutUrlPattern(".*");
+		logoutFilter.setDefaultUrl(projectUrl + "/callback?client_name=" + clientName);
+		filters.put("logout", logoutFilter);
 		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}
