@@ -50,6 +50,8 @@
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
 
+        <springboot-redis.version></springboot-redis.version>
+
         <feign.version>8.18.0</feign.version>
         <mockwebserver.version>3.6.0</mockwebserver.version>
         <archaius-core.version>0.6.6</archaius-core.version>
@@ -94,6 +96,7 @@
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
+
 
             <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j -->
             <dependency>

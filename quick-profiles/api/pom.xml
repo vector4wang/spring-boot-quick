@@ -23,7 +23,7 @@
                 </dependency>
             </dependencies>
             <activation>
-                <activeByDefault>true</activeByDefault>
+<!--                <activeByDefault>true</activeByDefault>-->
             </activation>
         </profile>
 

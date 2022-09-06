@@ -66,8 +66,6 @@
         <module>quick-zookeeper</module>
         <module>quick-app</module>
         <module>quick-profiles</module>
-        <module>quick-profiles/module1</module>
-        <module>quick-profiles/api</module>
         <module>quick-hmac</module>
         <module>quick-dubbo-nacos</module>
         <module>nacos-common-config</module>
