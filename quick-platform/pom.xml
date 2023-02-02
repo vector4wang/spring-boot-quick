@@ -71,6 +71,10 @@
         <sqljdbc4.version>4.0</sqljdbc4.version>
         <shiro.version>1.9.1</shiro.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
+
+        <!-- plugin -->
+        <maven-plugin-api.version>3.0</maven-plugin-api.version>
+        <maven-plugin-annotations.version>3.4</maven-plugin-annotations.version>
     </properties>
 
 
@@ -392,6 +396,20 @@
                 <version>${springboot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!--这个依赖引入了插件开发需要的相关基础类-->
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>${maven-plugin-api.version}</version>
+            </dependency>
+            <!--这个依赖引入了插件开发需要的相关注解-->
+            <dependency>
+                <groupId>org.apache.maven.plugin-tools</groupId>
+                <artifactId>maven-plugin-annotations</artifactId>
+                <version>${maven-plugin-annotations.version}</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
 
