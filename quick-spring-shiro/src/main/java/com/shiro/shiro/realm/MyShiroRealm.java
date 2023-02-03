@@ -1,4 +1,4 @@
-package com.shiro.shiro;
+package com.shiro.shiro.realm;
 
 import com.shiro.entity.User;
 import com.shiro.service.PermService;
@@ -10,6 +10,7 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -36,14 +37,15 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 
 	//告诉shiro如何根据获取到的用户信息中的密码和盐值来校验密码
-	{
-		//设置用于匹配密码的CredentialsMatcher
-		HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
-		hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
-		hashMatcher.setStoredCredentialsHexEncoded(false);
-		hashMatcher.setHashIterations(1024);
-		this.setCredentialsMatcher(hashMatcher);
-	}
+	// 抽取到配置类中设置
+//	{
+//		//设置用于匹配密码的CredentialsMatcher
+//		HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
+//		hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+//		hashMatcher.setStoredCredentialsHexEncoded(false);
+//		hashMatcher.setHashIterations(1024);
+//		this.setCredentialsMatcher(hashMatcher);
+//	}
 
 	//定义如何获取用户的角色和权限的逻辑，给shiro做权限判断
 	@Override
@@ -63,7 +65,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 	//定义如何获取用户信息的业务逻辑，给shiro做登录
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+ 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 		String username = usernamePasswordToken.getUsername();
 		if (StringUtils.isEmpty(username)) {
 			throw new AccountException("Null usernames are not allowed by this realm.");
@@ -83,5 +85,14 @@ public class MyShiroRealm extends AuthorizingRealm {
 			info.setCredentialsSalt(ByteSource.Util.bytes(userByName.getSalt()));
 		}
 		return info;
+	}
+
+	public static void main(String[] args) {
+		String hashAlgorithmName = "MD5";
+		String credentials = "123456";
+		Object salt = "wxKYXuTPST5SG0jMQzVPsg==";
+		int hashIterations = 100;
+		SimpleHash simpleHash = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
+		System.out.println(simpleHash);
 	}
 }

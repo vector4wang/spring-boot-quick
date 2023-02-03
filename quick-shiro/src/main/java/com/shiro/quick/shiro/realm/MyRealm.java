@@ -65,7 +65,7 @@ public class MyRealm extends AuthorizingRealm {
         String hashAlgorithmName = "MD5";
         String credentials = "123456";
         Object salt = null;
-        int hashIterations = 1;
+        int hashIterations = 100;
         SimpleHash simpleHash = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
         System.out.println(simpleHash);
     }
