@@ -63,6 +63,13 @@ public class MyShiroRealm extends AuthorizingRealm {
 	}
 
 	//定义如何获取用户信息的业务逻辑，给shiro做登录
+
+	/**
+	 * 可在此逻辑下增加保存用户信息到session或缓存中
+	 * @param token the authentication token containing the user's principal and credentials.
+	 * @return
+	 * @throws AuthenticationException
+	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
  		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;

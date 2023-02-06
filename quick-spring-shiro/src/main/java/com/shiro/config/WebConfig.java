@@ -42,10 +42,10 @@ public class WebConfig implements WebMvcConfigurer {
 		converter.setFastJsonConfig(config);
 		converters.add(converter);
 	}
-//
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(new AccessInterceptor()).addPathPatterns("/**");
-//		WebMvcConfigurer.super.addInterceptors(registry);
-//	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new AccessInterceptor()).addPathPatterns("/**");
+		WebMvcConfigurer.super.addInterceptors(registry);
+	}
 }

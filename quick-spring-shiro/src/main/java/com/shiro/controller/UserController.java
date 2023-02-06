@@ -26,7 +26,13 @@ public class UserController {
         return "unauthorized";
     }
 
-    @PostMapping("/login")
+    @GetMapping("/loginUrl")
+    public String loginPage() {
+
+        return "需要登陆，请使用登陆接口/user/login";
+    }
+
+    @RequestMapping("/login")
     public Json login(@RequestBody String body) {
         String oper = "user login";
         log.info("{}, body: {}", oper, body);
@@ -67,5 +73,12 @@ public class UserController {
             log.warn("登录出错");
             return Json.fail(oper, "登录失败：" + ae.getMessage());
         }
+    }
+
+
+    @RequestMapping("/success")
+    public String methodName() {
+
+        return "登陆成功";
     }
 }
