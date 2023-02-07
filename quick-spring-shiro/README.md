@@ -28,5 +28,3 @@ Consider defining a bean named 'authenticator' in your configuration.
 
 shiroFilterFactoryBean实例化是，设置的setLogin method为post，其他无权限访问的get接口会重定向到setlogin
 就会出现此错误；
-
-3、
