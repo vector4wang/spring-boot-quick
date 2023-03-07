@@ -2,6 +2,7 @@ package com.quick.controller;
 
 import com.quick.exception.BusinessException;
 import com.quick.service.SseEmitterService;
+import com.quick.vo.ChatRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -13,6 +14,9 @@ public class SseEmitterController {
     @Autowired
     private SseEmitterService sseEmitterService;
 
+
+
+
     /**
      * 创建SSE长链接
      *
@@ -22,8 +26,8 @@ public class SseEmitterController {
      * @date 2021/12/12
      **/
     @CrossOrigin //如果nginx做了跨域处理，此处可去掉
-    @GetMapping("/ask")
-    public SseEmitter ask(@RequestParam(name = "clientId", required = false) String clientId) throws BusinessException {
+    @GetMapping("/CreateSseConnect")
+    public SseEmitter createSseConnect(@RequestParam(name = "clientId", required = false) String clientId) throws BusinessException {
         return sseEmitterService.createSseConnect(clientId);
     }
 
@@ -38,6 +42,12 @@ public class SseEmitterController {
     public String closeSseConnect(String clientId) {
         sseEmitterService.closeSseConnect(clientId);
         return "success";
+    }
+
+
+    @PostMapping( "/chat/stream")
+    public SseEmitter chatStream(@RequestBody ChatRequest request) throws Exception {
+        return sseEmitterService.streamChat(request);
     }
 
 }

@@ -1,12 +1,26 @@
 package com.quick.service;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.quick.constant.SseEmitterConstant;
+import com.quick.event.ChatGPTEventListener;
 import com.quick.exception.BusinessException;
+import com.quick.vo.ChatRequest;
 import com.quick.vo.SseEmitterResultVO;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.sse.EventSource;
+import okhttp3.sse.EventSourceListener;
+import okhttp3.sse.EventSources;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -14,6 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,12 +39,51 @@ import java.util.function.Consumer;
 @Slf4j
 public class SseEmitterServiceImpl implements SseEmitterService {
 
+    private static final String URL = "https://api.openai.com/v1/chat/completions";
+
     /**
      * 容器，保存连接，用于输出返回
      */
     private static Map<String, SseEmitter> sseCache = new ConcurrentHashMap<>();
 
     private final ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+
+    @Autowired
+    private OkHttpClient okHttpClient;
+
+    @Value("${chatgpt.key:}")
+    private String chatgptKey;
+
+
+    @Override
+    @SneakyThrows
+    public SseEmitter streamChat(ChatRequest request) {
+        request.setStream(true);
+        SseEmitter sseEmitter = new SseEmitter(300000L);
+        sseEmitter.onCompletion(() -> log.info("答案已返回，请处理后续逻辑"));
+        String traceId = UUID.randomUUID().toString();
+        sseEmitter.send(SseEmitter.event().id(traceId).name("update"));
+        ChatGPTEventListener chatGPTEventListener = new ChatGPTEventListener(sseEmitter,traceId);
+        streamChat(request,chatGPTEventListener,traceId);
+        log.info("请求已结束");
+        return sseEmitter;
+    }
+
+    public void streamChat(ChatRequest request, EventSourceListener eventSourceListener, String traceId) {
+        try {
+            EventSource.Factory factory = EventSources.createFactory(this.okHttpClient);
+
+            Request apiRequest = new Request.Builder()
+                    .url(URL)
+                    .post(RequestBody.create(JSONUtil.toJsonStr(request), okhttp3.MediaType.parse("application/json")))
+                    .header("Authorization", "Bearer " + chatgptKey)
+                    .build();
+            factory.newEventSource(apiRequest, eventSourceListener);
+        } catch (Exception e) {
+            log.error("请求服务器异常!：traceId{}", traceId, e);
+        }
+    }
+
 
 
     @Override
@@ -93,6 +147,48 @@ public class SseEmitterServiceImpl implements SseEmitterService {
         for (Map.Entry<String, SseEmitter> entry : sseCache.entrySet()) {
             sendMsgToClientByClientId(entry.getKey(), sseEmitterResultVOList, entry.getValue());
         }
+    }
+
+    @Override
+    public SseEmitter ask(String clientId) throws BusinessException {
+        SseEmitter sseEmitter = new SseEmitter(0L);
+        if (StrUtil.isBlank(clientId)) {
+            clientId = IdUtil.simpleUUID();
+        }
+        // 注册回调
+        sseEmitter.onCompletion(completionCallBack(clientId));
+        sseCache.put(clientId, sseEmitter);
+        log.info("创建新的sse连接，当前用户：{}", clientId);
+
+        try {
+            // 主线程不能阻塞
+            sseEmitter.send(SseEmitter.event().id(SseEmitterConstant.CLIENT_ID).data(clientId));
+            cachedThreadPool.execute(() -> {
+                try {
+                    for (int i = 0; i < 10; i++) {
+                        String now = DateUtil.now();
+                        sseEmitter.send(now+": "+IdUtil.simpleUUID());
+                        TimeUnit.SECONDS.sleep(1);
+                    }
+                    sseEmitter.complete();
+                } catch (Exception e) {
+                    sseEmitter.completeWithError(e);
+                    log.error("SseEmitterServiceImpl->createSseConnect error", e);
+                }
+            });
+//            while (cachedThreadPool.awaitTermination(10,TimeUnit.SECONDS));
+//            for (int i = 0; i < 10; i++) {
+//                String now = DateUtil.now();
+//                sseEmitter.send(now+": "+IdUtil.simpleUUID());
+//                TimeUnit.SECONDS.sleep(1);
+//            }
+//            sseEmitter.complete();
+            log.info("main thread");
+        } catch (Exception e) {
+            log.error("SseEmitterServiceImpl[createSseConnect]: 创建长链接异常，客户端ID:{}", clientId, e);
+            throw new BusinessException("创建连接异常！", e);
+        }
+        return sseEmitter;
     }
 
     /**
