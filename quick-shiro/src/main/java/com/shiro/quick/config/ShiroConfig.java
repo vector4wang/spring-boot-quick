@@ -1,4 +1,4 @@
-package com.shiro.quick.shiro;
+package com.shiro.quick.config;
 
 import com.shiro.quick.shiro.realm.MyRealm;
 import com.shiro.quick.shiro.realm.OtherRealm;
@@ -98,6 +98,7 @@ public class ShiroConfig {
          */
         map.put("/doLogin", "anon");
         map.put("/getLogin/**", "anon");
+        map.put("/anno/hello1", "anon");
         map.put("/vip", "roles[admin]");
         map.put("/common", "roles[user]");
         map.put("/**", "authc");
