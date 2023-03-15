@@ -1,25 +1,36 @@
 package com.shiro.quick.config;
 
+import com.shiro.quick.filter.AuthFilter;
+import com.shiro.quick.shiro.realm.HeaderRealm;
 import com.shiro.quick.shiro.realm.MyRealm;
 import com.shiro.quick.shiro.realm.OtherRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AllSuccessfulStrategy;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.AnonymousFilter;
+import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+
+/**
+ * SessionManager 暂未集成
+ */
 @Configuration
 public class ShiroConfig {
 
@@ -56,6 +67,7 @@ public class ShiroConfig {
         LinkedList<Realm> realmLinkedList = new LinkedList<>();
         realmLinkedList.add(myRealm());
         realmLinkedList.add(otherRealm());
+        realmLinkedList.add(new HeaderRealm());
 
         modularRealmAuthenticator.setRealms(realmLinkedList);
         /**
@@ -64,7 +76,7 @@ public class ShiroConfig {
          * 所有领域、仅 1 个或多个领域、没有领域等都成功
          */
 //        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
-        modularRealmAuthenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
+        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
 
 
         return modularRealmAuthenticator;
@@ -77,7 +89,8 @@ public class ShiroConfig {
          * 多领域认证
          * defaultSecurityManager.setAuthenticator(authenticator());
          */
-        defaultSecurityManager.setRealm(myRealm());// 单领域认证
+        defaultSecurityManager.setAuthenticator(authenticator());
+//        defaultSecurityManager.setRealm(myRealm());// 单领域认证
 
 
 
@@ -87,6 +100,23 @@ public class ShiroConfig {
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+
+        /**
+         * 添加jwt过滤器，并在下面注册
+         * 也就是将jwtFilter注册到shiro的Filter中
+         * 指定除了login和logout之外的请求都先经过jwtFilter
+         */
+        Map<String, Filter> filterMap = new HashMap<>();
+        //这个地方其实另外两个filter可以不设置，默认就是
+//        filterMap.put("anon", new AnonymousFilter());
+        filterMap.put("jwt", new AuthFilter());
+//        filterMap.put("logout", new LogoutFilter());
+        factoryBean.setFilters(filterMap);
+
+
+        factoryBean.setFilters(filterMap);
+
+
         factoryBean.setSecurityManager(securityManager());
         factoryBean.setLoginUrl("/login");
         factoryBean.setSuccessUrl("/index");
@@ -101,7 +131,8 @@ public class ShiroConfig {
         map.put("/anno/hello1", "anon");
         map.put("/vip", "roles[admin]");
         map.put("/common", "roles[user]");
-        map.put("/**", "authc");
+//        map.put("/**", "authc");
+        map.put("/**", "jwt");
         factoryBean.setFilterChainDefinitionMap(map);
         return factoryBean;
     }
