@@ -1,20 +1,18 @@
 package com.shiro.quick.config;
 
-import com.shiro.quick.filter.AuthFilter;
+import com.shiro.quick.filter.HeaderFilter;
 import com.shiro.quick.shiro.realm.HeaderRealm;
 import com.shiro.quick.shiro.realm.MyRealm;
 import com.shiro.quick.shiro.realm.OtherRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.authc.pam.AllSuccessfulStrategy;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
+import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.AnonymousFilter;
-import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
@@ -76,7 +74,7 @@ public class ShiroConfig {
          * 所有领域、仅 1 个或多个领域、没有领域等都成功
          */
 //        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
-        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        modularRealmAuthenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
 
 
         return modularRealmAuthenticator;
@@ -108,14 +106,8 @@ public class ShiroConfig {
          */
         Map<String, Filter> filterMap = new HashMap<>();
         //这个地方其实另外两个filter可以不设置，默认就是
-//        filterMap.put("anon", new AnonymousFilter());
-        filterMap.put("multi", new AuthFilter());
-//        filterMap.put("logout", new LogoutFilter());
+        filterMap.put("hf", new HeaderFilter());
         factoryBean.setFilters(filterMap);
-
-
-        factoryBean.setFilters(filterMap);
-
 
         factoryBean.setSecurityManager(securityManager());
         factoryBean.setLoginUrl("/login");
@@ -132,8 +124,9 @@ public class ShiroConfig {
         map.put("/vip", "roles[admin]");
         map.put("/common", "roles[user]");
         // 登陆鉴权
-        map.put("/**", "authc");
-        map.put("/**", "jwt");
+//        map.put("/**", "authc");
+//        map.put("/**", "jwt");
+        map.put("/**", "hf,authc");
         // header 鉴权
         factoryBean.setFilterChainDefinitionMap(map);
         return factoryBean;
