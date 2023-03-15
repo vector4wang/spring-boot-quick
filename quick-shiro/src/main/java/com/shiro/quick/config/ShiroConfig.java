@@ -109,7 +109,7 @@ public class ShiroConfig {
         Map<String, Filter> filterMap = new HashMap<>();
         //这个地方其实另外两个filter可以不设置，默认就是
 //        filterMap.put("anon", new AnonymousFilter());
-        filterMap.put("jwt", new AuthFilter());
+        filterMap.put("multi", new AuthFilter());
 //        filterMap.put("logout", new LogoutFilter());
         factoryBean.setFilters(filterMap);
 
@@ -131,8 +131,10 @@ public class ShiroConfig {
         map.put("/anno/hello1", "anon");
         map.put("/vip", "roles[admin]");
         map.put("/common", "roles[user]");
-//        map.put("/**", "authc");
+        // 登陆鉴权
+        map.put("/**", "authc");
         map.put("/**", "jwt");
+        // header 鉴权
         factoryBean.setFilterChainDefinitionMap(map);
         return factoryBean;
     }
