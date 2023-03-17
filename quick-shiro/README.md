@@ -1,4 +1,6 @@
-当前完成
+初步完成支持登陆认证和header中的key认证(JWT)
+- 实现一个filter、realm和token  HeaderFilter、HeaderRealm和HeaderToken
+- 通过对请求进行判断，如果header头包含key，则进行key的校验，不包含则进行登陆认证
 
 
 
