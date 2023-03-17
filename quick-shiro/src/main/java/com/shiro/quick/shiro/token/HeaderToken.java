@@ -1,4 +1,4 @@
-package com.shiro.quick.shiro.realm;
+package com.shiro.quick.shiro.token;
 
 import org.apache.shiro.authc.AuthenticationToken;
 

@@ -1,13 +1,13 @@
 package com.shiro.quick.config;
 
-import com.shiro.quick.filter.HeaderFilter;
+import com.shiro.quick.shiro.CustomWebSessionManager;
+import com.shiro.quick.shiro.filter.HeaderFilter;
+import com.shiro.quick.shiro.realm.CustomModularRealmAuthenticator;
 import com.shiro.quick.shiro.realm.HeaderRealm;
 import com.shiro.quick.shiro.realm.MyRealm;
 import com.shiro.quick.shiro.realm.OtherRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
-import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
-import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -15,6 +15,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +50,11 @@ public class ShiroConfig {
     }
 
     @Bean
+    public HeaderRealm headerRealm() {
+        return new HeaderRealm();
+    }
+
+    @Bean
     public OtherRealm otherRealm() {
         OtherRealm otherRealm = new OtherRealm();
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
@@ -59,37 +65,56 @@ public class ShiroConfig {
     }
 
 
-    @Bean
-    public ModularRealmAuthenticator authenticator() {
-        ModularRealmAuthenticator modularRealmAuthenticator = new ModularRealmAuthenticator();
-        LinkedList<Realm> realmLinkedList = new LinkedList<>();
-        realmLinkedList.add(myRealm());
-        realmLinkedList.add(otherRealm());
-        realmLinkedList.add(new HeaderRealm());
+//    //    @Bean
+//    public ModularRealmAuthenticator authenticator() {
+//        ModularRealmAuthenticator modularRealmAuthenticator = new ModularRealmAuthenticator();
+//        LinkedList<Realm> realmLinkedList = new LinkedList<>();
+//        realmLinkedList.add(myRealm());
+////        realmLinkedList.add(otherRealm());
+//        realmLinkedList.add(new HeaderRealm());
+//
+//        modularRealmAuthenticator.setRealms(realmLinkedList);
+//        /**
+//         * 认证通过策略
+//         *
+//         * 所有领域、仅 1 个或多个领域、没有领域等都成功
+//         */
+////        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+//        modularRealmAuthenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
+//
+//
+//        return modularRealmAuthenticator;
+//    }
 
-        modularRealmAuthenticator.setRealms(realmLinkedList);
-        /**
-         * 认证通过策略
-         *
-         * 所有领域、仅 1 个或多个领域、没有领域等都成功
-         */
-//        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
-        modularRealmAuthenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
-
-
-        return modularRealmAuthenticator;
+    /**
+     * 注册 sessionManager
+     * 防止重定向的url带有sessionid
+     */
+//    @Bean
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager defaultSessionManager = new CustomWebSessionManager();
+        //将sessionIdUrlRewritingEnabled属性设置成false，可以防止重定向携带 JSessionID
+        defaultSessionManager.setSessionIdUrlRewritingEnabled(false);
+        return defaultSessionManager;
     }
 
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
+        CustomModularRealmAuthenticator customModularRealmAuthenticator = new CustomModularRealmAuthenticator();
+        LinkedList<Realm> realmLinkedList = new LinkedList<>();
+        realmLinkedList.add(myRealm());
+        realmLinkedList.add(headerRealm());
+        customModularRealmAuthenticator.setRealms(realmLinkedList);
+
+        customModularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        defaultSecurityManager.setAuthenticator(customModularRealmAuthenticator);
         /**
          * 多领域认证
          * defaultSecurityManager.setAuthenticator(authenticator());
          */
-        defaultSecurityManager.setAuthenticator(authenticator());
+        defaultSecurityManager.setSessionManager(sessionManager());
 //        defaultSecurityManager.setRealm(myRealm());// 单领域认证
-
 
 
         return defaultSecurityManager;
@@ -136,6 +161,7 @@ public class ShiroConfig {
     /**
      * 一下三个bean是为了让@RequiresRoles({"admin"})  生效
      * 这两个是 Shiro 的注解，我们需要借助 SpringAOP 扫描到它们
+     *
      * @return
      */
     @Bean
@@ -144,14 +170,14 @@ public class ShiroConfig {
     }
 
     @Bean
-    public static DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+    public static DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(){
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
         return authorizationAttributeSourceAdvisor;

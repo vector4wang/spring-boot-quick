@@ -1,3 +1,7 @@
+当前完成
+
+
+
 
 11•授权需要维承 AuthorizingRealm 类，并实现其 doGetAuthorizationInfo方法
 22. AuthorizingRea lm 类继承自 AuthenticatingRealm， 但没有实现 AuthenticatingRea lm 中的

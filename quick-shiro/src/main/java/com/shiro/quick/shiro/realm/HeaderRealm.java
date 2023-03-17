@@ -1,5 +1,6 @@
 package com.shiro.quick.shiro.realm;
 
+import com.shiro.quick.shiro.token.HeaderToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -40,10 +41,9 @@ public class HeaderRealm extends AuthorizingRealm {
         // 校验逻辑
         //...
         //下面是验证这个user是否是真实存在的
-        log.info("在使用token登录" + headerKey);
-        SimpleAuthenticationInfo headerRealm = new SimpleAuthenticationInfo(headerKey, headerKey, "HeaderRealm");
+        log.info("使用header认证： " + headerKey);
 
-        return headerRealm;
+        return new SimpleAuthenticationInfo(headerKey, headerKey, "HeaderRealm");
         //这里返回的是类似账号密码的东西，但是jwtToken都是jwt字符串。还需要一个该Realm的类名
 
     }

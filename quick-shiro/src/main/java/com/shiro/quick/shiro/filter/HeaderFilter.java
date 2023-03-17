@@ -1,6 +1,6 @@
-package com.shiro.quick.filter;
+package com.shiro.quick.shiro.filter;
 
-import com.shiro.quick.shiro.realm.HeaderToken;
+import com.shiro.quick.shiro.token.HeaderToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.springframework.stereotype.Component;
@@ -16,11 +16,17 @@ import java.io.IOException;
 @Slf4j
 public class HeaderFilter extends AccessControlFilter {
 
+    public static final String HEADER_KEY = "Authorization";
+
+    String getHeaderKey(ServletRequest servletRequest) {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        return request.getHeader(HEADER_KEY);
+    }
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-        log.warn("isAccessAllowed 方法被调用");
-        if (this.isLoginRequest(request, response)) {
+        log.warn("HeaderFilter isAccessAllowed 方法被调用");
+        if (StringUtils.isEmpty(getHeaderKey(request))) {
             return true;
         }
 
@@ -38,14 +44,14 @@ public class HeaderFilter extends AccessControlFilter {
      */
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse response) throws Exception {
-        log.warn("onAccessDenied 方法被调用");
+        log.warn("HeaderFilter onAccessDenied 方法被调用");
 
         //这个地方和前端约定，要求前端将jwtToken放在请求的Header部分
 
         //所以以后发起请求的时候就需要在Header中放一个Authorization，值就是对应的Token
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String headerKey = request.getHeader("Authorization");
+        String headerKey = getHeaderKey(servletRequest);
         if (StringUtils.isEmpty(headerKey)) {
+            saveRequestAndRedirectToLogin(servletRequest, response);
             return false;
         }
         log.info("请求的 Header 中藏有 headerKey {}", headerKey);
