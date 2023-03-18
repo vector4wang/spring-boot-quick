@@ -2,7 +2,6 @@ package com.quick.log;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -16,10 +15,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Application {
     public static void main(String[] args) {
-<<<<<<< HEAD
-		ConfigurableApplicationContext run = SpringApplication.run(Application.class, args);
-=======
 		SpringApplication.run(Application.class, args);
->>>>>>> origin/master
 	}
 }

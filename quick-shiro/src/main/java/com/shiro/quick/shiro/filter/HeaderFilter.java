@@ -1,6 +1,7 @@
 package com.shiro.quick.shiro.filter;
 
 import com.shiro.quick.shiro.token.HeaderToken;
+import com.sun.xml.internal.bind.v2.TODO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -64,8 +66,14 @@ public class HeaderFilter extends AccessControlFilter {
             //所以这个地方最终还是调用JwtRealm进行的认证
             getSubject(servletRequest, response).login(token);
             //也就是subject.login(token)
+			/**
+			 * 去除session  但不知道是不是正规做法 TODO
+			 * 解决使用header认证之后返回的cookies进行非header认证
+ 			 */
+			HttpServletResponse servletResponse = (HttpServletResponse) response;
+			Cookie cookie = new Cookie("JSESSIONID", "");
+			servletResponse.addCookie(cookie);
 
-            // 去除session
 
         } catch (Exception e) {
             e.printStackTrace();

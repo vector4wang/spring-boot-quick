@@ -1,6 +1,7 @@
 package com.shiro.quick.config;
 
 import com.shiro.quick.shiro.CustomWebSessionManager;
+import com.shiro.quick.shiro.HeaderDefaultSubjectFactory;
 import com.shiro.quick.shiro.filter.HeaderFilter;
 import com.shiro.quick.shiro.realm.CustomModularRealmAuthenticator;
 import com.shiro.quick.shiro.realm.HeaderRealm;
@@ -10,6 +11,7 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
+import org.apache.shiro.mgt.DefaultSubjectFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -117,6 +119,7 @@ public class ShiroConfig {
          * defaultSecurityManager.setAuthenticator(authenticator());
          */
         defaultSecurityManager.setSessionManager(sessionManager());
+//		defaultSecurityManager.setSubjectFactory(new HeaderDefaultSubjectFactory());
 
 
 
