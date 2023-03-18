@@ -8,6 +8,8 @@ import com.shiro.quick.shiro.realm.MyRealm;
 import com.shiro.quick.shiro.realm.OtherRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -15,6 +17,8 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.Cookie;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -106,7 +110,6 @@ public class ShiroConfig {
         realmLinkedList.add(myRealm());
         realmLinkedList.add(headerRealm());
         customModularRealmAuthenticator.setRealms(realmLinkedList);
-
         customModularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
         defaultSecurityManager.setAuthenticator(customModularRealmAuthenticator);
         /**
@@ -114,10 +117,26 @@ public class ShiroConfig {
          * defaultSecurityManager.setAuthenticator(authenticator());
          */
         defaultSecurityManager.setSessionManager(sessionManager());
-//        defaultSecurityManager.setRealm(myRealm());// 单领域认证
+
 
 
         return defaultSecurityManager;
+    }
+
+    public SimpleCookie sessionIdCookie(){
+        //这个参数是cookie的名称
+        SimpleCookie simpleCookie = new SimpleCookie("JSESSIONID");
+        //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。
+        //它有以下特点：
+        //setcookie()的第七个参数
+        //设为true后，只能通过http访问，javascript无法访问
+        //防止xss读取cookie
+        simpleCookie.setHttpOnly(true);
+        simpleCookie.setSecure(true);
+        simpleCookie.setPath("/");
+        //maxAge=-1表示浏览器关闭时失效此Cookie
+        simpleCookie.setMaxAge(-1);
+        return simpleCookie;
     }
 
     @Bean
@@ -149,8 +168,6 @@ public class ShiroConfig {
         map.put("/vip", "roles[admin]");
         map.put("/common", "roles[user]");
         // 登陆鉴权
-//        map.put("/**", "authc");
-//        map.put("/**", "jwt");
         map.put("/**", "hf,authc");
         // header 鉴权
         factoryBean.setFilterChainDefinitionMap(map);

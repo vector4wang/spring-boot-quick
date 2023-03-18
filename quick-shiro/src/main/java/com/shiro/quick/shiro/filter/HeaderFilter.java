@@ -64,6 +64,9 @@ public class HeaderFilter extends AccessControlFilter {
             //所以这个地方最终还是调用JwtRealm进行的认证
             getSubject(servletRequest, response).login(token);
             //也就是subject.login(token)
+
+            // 去除session
+
         } catch (Exception e) {
             e.printStackTrace();
             onLoginFail(response);
