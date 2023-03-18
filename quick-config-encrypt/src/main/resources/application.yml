@@ -5,3 +5,4 @@ jasypt:
 
 app:
   key: ENC(EeLEEUGhQ+bXIoVs9bItmA==)
+  name:

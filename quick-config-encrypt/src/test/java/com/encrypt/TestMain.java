@@ -24,6 +24,8 @@ public class TestMain {
 
     @Test
     public void test() {
-        System.out.println(key);
+		String encrypt = stringEncryptor.decrypt("Er1K3WxM3M8o2Ynazkwkbg==");
+		System.out.println(encrypt);//Er1K3WxM3M8o2Ynazkwkbg==
+		System.out.println(key);
     }
 }

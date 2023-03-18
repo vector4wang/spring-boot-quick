@@ -1,0 +1,5 @@
+该模块只是quick-dubbo-nacos里的shareconfig依赖的bootstrap.yml
+
+抽取公共配置文件
+
+验证时，最好不要在当前idea里验证，放在单独的idea里，mvn install 到本地repo中再由其他模块引入

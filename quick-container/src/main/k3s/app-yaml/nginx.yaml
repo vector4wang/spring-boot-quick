@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx-demo
+  name: nginx-demo
+spec:
+  ports:
+    - name: nginx-demo
+      nodePort: 30901
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: nginx-demo
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-demo
+  name: nginx-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-demo
+  template:
+    metadata:
+      labels:
+        app: nginx-demo
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: IfNotPresent
+        name: nginx-demo
+        ports:
+          - containerPort: 80
+            name: tcp-8080
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: html
+            readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: html
+          hostPath:
+            path: /Users/wangxc/Code/Github/spring-boot-quick/quick-container/src/main/k3s
+            type: DirectoryOrCreate

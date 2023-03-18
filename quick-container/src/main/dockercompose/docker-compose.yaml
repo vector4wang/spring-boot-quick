@@ -1,0 +1,30 @@
+version: "2.0"
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+
+  quick-docker:
+    image: vector4wang/java:8
+    container_name: qd
+    hostname: qd
+    depends_on:
+      - redis
+    ports:
+      - "8083:8080"
+    volumes:
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/conf:/app/conf"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/lib:/app/lib"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/bin:/app/bin"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/src/main/dockercompose/entrypoint.sh:/app/scripts/entrypoint.sh"
+      - "/Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/logs:/app/logs"
+    environment:
+      - "JAVA_OPTS=-Xms2g -Xmx4g -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -Xss512k -XX:+PrintGCDateStamps"
+    restart: always
+    entrypoint: /app/scripts/entrypoint.sh -d redis:6379 -c 'sh /app/bin/start.sh';

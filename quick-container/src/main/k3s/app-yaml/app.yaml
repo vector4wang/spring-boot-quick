@@ -1,0 +1,97 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: quick-app
+  name: quick-app
+spec:
+  ports:
+    - name: tcp-8080
+      protocol: TCP
+      targetPort: 8080
+      nodePort: 30901
+      port: 8080
+  selector:
+    app: quick-app
+  sessionAffinity: None
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: quick-app
+  name: quick-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quick-app
+  template:
+    metadata:
+      labels:
+        app: quick-app
+    spec:
+      containers:
+      - image: vector4wang/java:8
+        imagePullPolicy: IfNotPresent
+        name: quick-app
+        command:
+          - 'sh'
+          - '-c'
+          - '/app/bin/start.sh'
+        ports:
+          - containerPort: 8080
+            name: tcp-8080
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /app/conf
+            name: conf
+          - mountPath: /app/lib
+            name: lib
+          - mountPath: /app/bin
+            name: bin
+          - mountPath: /app/logs
+            name: logfile
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 90
+          timeoutSeconds: 2
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 90
+          timeoutSeconds: 2
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: timefile
+        hostPath:
+          path: /etc/localtime
+          type: File
+      - name: conf
+        hostPath:
+          path: /Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/conf
+          type: DirectoryOrCreate
+      - name: lib
+        hostPath:
+          path: /Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/lib
+          type: DirectoryOrCreate
+      - name: bin
+        hostPath:
+          path: /Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/bin
+          type: DirectoryOrCreate
+      - name: logfile
+        hostPath:
+          path: /Users/wangxc/Code/Github/spring-boot-quick/quick-container/target/logs
+          type: DirectoryOrCreate

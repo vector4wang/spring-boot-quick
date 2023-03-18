@@ -17,7 +17,7 @@ public class RecordProcessor implements ItemProcessor<RecordSO, WriterSO> {
         writerSo.setId(item.getId());
         writerSo.setFullName(item.getFirstName() + " " + item.getLastName());
         String substring = String.valueOf(Math.random()).substring(3, 8);
-        if(substring.contains("0")){
+        if (substring.contains("0")) {
             return null; // 返回空，即词条不插入
         }
         writerSo.setRandomNum(substring);

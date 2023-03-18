@@ -1,0 +1,14 @@
+apiVersion: k3d.io/v1alpha2
+kind: Simple
+name: mycluster
+servers: 1
+agents: 2
+kubeAPI:
+  hostPort: "6443" # same as `--api-port '6443'`
+ports:
+  - port: 9001:80  # same as `--port '8080:80@loadbalancer'`
+    nodeFilters:
+      - loadbalancer
+  - port: 8443:443 # same as `--port '8443:443@loadbalancer'`
+    nodeFilters:
+      - loadbalancer

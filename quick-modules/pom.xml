@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <artifactId>quick-modules</artifactId>
-    <groupId>com.quick</groupId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
@@ -17,88 +16,15 @@
         <module>test</module>
     </modules>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <mybatis-spring-boot>1.3.1</mybatis-spring-boot>
-        <mysql-connector>5.1.39</mysql-connector>
-        <junit.version>junit</junit.version>
-        <commons-pool2.versoin>2.4.2</commons-pool2.versoin>
-        <commons-beanutils.version>1.9.2</commons-beanutils.version>
-        <commons-logging.version>1.2</commons-logging.version>
-        <commons-dbcp.version>1.4</commons-dbcp.version>
-        <fastjson.version>1.2.31</fastjson.version>
-    </properties>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <artifactId>quick-platform</artifactId>
+        <groupId>com.quick</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../quick-platform/pom.xml</relativePath>
     </parent>
 
-    <!-- dependencyManagement 可以把所有子模块用到的依赖都声明在此包括版本号，然后子模块需要显式的引用但不需要配置版本号！！！ -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- 子模块的依赖管理 -->
-            <dependency>
-                <groupId>com.quick</groupId>
-                <artifactId>quick-modules-dao</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
-            <dependency>
-                <groupId>com.quick</groupId>
-                <artifactId>quick-modules-service1</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.quick</groupId>
-                <artifactId>quick-modules-service2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring-boot}</version>
-            </dependency>
-
-            <!-- Junit -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${commons-pool2.versoin}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${commons-beanutils.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>${commons-logging.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-dbcp</groupId>
-                <artifactId>commons-dbcp</artifactId>
-                <version>commons-dbcp.version</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
 
     <!-- 参照官网：https://help.sonatype.com/repomanager3/maven-repositories -->

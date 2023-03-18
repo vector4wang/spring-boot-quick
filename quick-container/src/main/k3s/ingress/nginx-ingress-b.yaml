@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+   name: nginx-ingress-b
+spec:
+  rules:
+    - host: localhost.k3d.ingress
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: app-service-b # 链接的是上面svc的名字
+              port: 
+                number: 80

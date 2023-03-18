@@ -1,0 +1,16 @@
+on: push
+name: Mirror GitHub Auto Queried Repos to Gitee
+jobs:
+  run:
+    name: Sync-GitHub-to-Gitee
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror the Github repos to Gitee.
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: github/vector4wang
+          dst: gitee/backwxc
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          white_list: 'spring-boot-quick'
+          force_update: true

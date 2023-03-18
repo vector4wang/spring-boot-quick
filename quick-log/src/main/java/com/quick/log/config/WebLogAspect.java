@@ -19,8 +19,8 @@ import java.util.Arrays;
  * @BLOG: http://vector4wang.tk
  * @wxid: BMHJQS
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class WebLogAspect {
 
     private static final Logger loggger = LogManager.getLogger(WebLogAspect.class);

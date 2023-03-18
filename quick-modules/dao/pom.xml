@@ -18,7 +18,6 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis-spring-boot}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
