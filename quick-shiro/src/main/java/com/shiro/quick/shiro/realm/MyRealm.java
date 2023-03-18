@@ -1,5 +1,6 @@
 package com.shiro.quick.shiro.realm;
 
+import com.shiro.quick.config.ShiroConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -13,6 +14,8 @@ import java.util.Set;
 
 @Slf4j
 public class MyRealm extends AuthorizingRealm {
+
+
 
 
     // 授权
@@ -51,11 +54,9 @@ public class MyRealm extends AuthorizingRealm {
         String realmName = getName();
 
 
-
-
         log.info("doGetAuthenticationInfo username: {}", username);
         /**
-         * 见 {@link com.shiro.quick.shiro.ShiroConfig#myRealm} 的密码指定算法
+         * 见 {@link ShiroConfig#myRealm} 的密码指定算法
          */
         return new SimpleAuthenticationInfo(principal, credentials, realmName);
     }

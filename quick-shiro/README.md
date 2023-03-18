@@ -1,3 +1,9 @@
+初步完成支持登陆认证和header中的key认证(JWT)
+- 实现一个filter、realm和token  HeaderFilter、HeaderRealm和HeaderToken
+- 通过对请求进行判断，如果header头包含key，则进行key的校验，不包含则进行登陆认证
+
+
+
 
 11•授权需要维承 AuthorizingRealm 类，并实现其 doGetAuthorizationInfo方法
 22. AuthorizingRea lm 类继承自 AuthenticatingRealm， 但没有实现 AuthenticatingRea lm 中的
@@ -30,3 +36,10 @@
      执行沯录
      调田 cihiemtl 的lanin (znthentilrztinnnakenll
      方汁
+
+
+参考内容：
+https://www.w3cschool.cn/shiro/co4m1if2.html
+https://juejin.cn/post/6992391181330186270
+
+支持多种登录：https://blog.csdn.net/zhourenfei17/article/details/88826911

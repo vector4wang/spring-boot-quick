@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+proxy:
+  hostname: 127.0.0.1
+  port: 1080
+
+chatgpt:
+  key:

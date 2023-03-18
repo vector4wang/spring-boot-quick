@@ -55,9 +55,7 @@
         <module>quick-starter</module>
         <module>quick-starter-demo</module>
         <module>quick-mongodb</module>
-<<<<<<< HEAD
         <module>quick-disconfig</module>
-=======
         <module>quick-method-evaluate</module>
         <module>quick-spring-shiro</module>
         <module>quick-config-server</module>
@@ -81,7 +79,7 @@
         <module>quick-shiro-cas</module>
         <module>quick-maven-plugin</module>
         <module>quick-maven-plugin-test</module>
->>>>>>> origin/master
+        <module>quick-sse</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>

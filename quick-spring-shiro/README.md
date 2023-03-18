@@ -1,3 +1,7 @@
+### 参考链接
+- https://zhuanlan.zhihu.com/p/140454269
+
+
 1、身份认证和鉴权；
 
 认证成功后的信息保存
@@ -9,7 +13,7 @@
 4、支持 oauth2、session、jwt
 
 5、session 存在
- 
+  
 ### 问题
 1、 提示如下
 ```text
@@ -24,5 +28,3 @@ Consider defining a bean named 'authenticator' in your configuration.
 
 shiroFilterFactoryBean实例化是，设置的setLogin method为post，其他无权限访问的get接口会重定向到setlogin
 就会出现此错误；
-
-3、
