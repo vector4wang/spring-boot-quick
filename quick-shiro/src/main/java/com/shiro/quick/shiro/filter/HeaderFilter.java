@@ -88,9 +88,10 @@ public class HeaderFilter extends AccessControlFilter {
 
     //登录失败时默认返回 401 状态码
     private void onLoginFail(ServletResponse response) throws IOException {
+        response.setContentType("application/json; charset=utf-8");
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        httpResponse.getWriter().write("login error");
+        httpResponse.getWriter().write("auth error");
     }
 
 }

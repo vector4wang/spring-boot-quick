@@ -24,14 +24,13 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-<<<<<<< HEAD
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-=======
+        </dependency>
+        <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
->>>>>>> origin/master
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -47,22 +46,19 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-<<<<<<< HEAD
             <version>5.1.47</version>
-=======
->>>>>>> origin/master
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
         <dependency>
-<<<<<<< HEAD
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
             <version>3.8.6</version>
-=======
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
->>>>>>> origin/master
+
         </dependency>
 
 

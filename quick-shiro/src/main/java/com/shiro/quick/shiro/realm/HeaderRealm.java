@@ -38,6 +38,9 @@ public class HeaderRealm extends AuthorizingRealm {
         if (headerKey == null) {
             throw new NullPointerException("headerKey 不允许为空");
         }
+        if (!"123".equals(headerKey)) {
+            throw new AuthenticationException("认证失败");
+        }
         // 校验逻辑
         //...
         //下面是验证这个user是否是真实存在的
