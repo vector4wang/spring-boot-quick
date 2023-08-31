@@ -4,6 +4,7 @@ import com.quick.api.invoker.Main;
 import com.quick.api.invoker.enums.HttpMethod;
 import com.quick.api.invoker.executor.AbstractExecutorAdapter;
 import com.quick.api.invoker.executor.bo.ExecutorConfig;
+import com.quick.api.invoker.model.AdapterClassModel;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,7 +57,14 @@ public class TestMain {
     @Test
     public void postTest() throws ClassNotFoundException {
 
-        AbstractExecutorAdapter executorAdapter = (AbstractExecutorAdapter) AdapterContextFactor.getAdapter("HttpExecutorAdapter", Class.forName("com.quick.api.invoker.executor.HttpExecutorAdapter"));
+        AdapterClassModel adapterClassModel = new AdapterClassModel();
+        adapterClassModel.setClassFqn("com.quick.api.invoker.executor.HttpExecutorAdapter");
+        adapterClassModel.setClassName("HttpExecutorAdapter");
+        adapterClassModel.setLoadType(1);
+        adapterClassModel.setAdapterType(1);
+
+//        AbstractExecutorAdapter executorAdapter = (AbstractExecutorAdapter) AdapterContextFactor.getAdapter("HttpExecutorAdapter", Class.forName("com.quick.api.invoker.executor.HttpExecutorAdapter"));
+        AbstractExecutorAdapter executorAdapter = AdapterContextFactor.getAdapter(adapterClassModel);
 
 
         String host = "https://jisuhuilv.market.alicloudapi.com";
