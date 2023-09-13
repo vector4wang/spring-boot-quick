@@ -11,8 +11,6 @@
         <!--  基础依赖包 -->
         <module>quick-platform</module>
         <module>quick-framework</module>
-
-
         <module>quick-swagger</module>
         <module>quick-modules</module>
         <module>quick-package-assembly</module>
@@ -77,7 +75,6 @@
         <module>quick-sharding-jdbc</module>
         <module>quick-shiro-cas</module>
         <module>quick-maven-plugin</module>
-        <module>quick-maven-plugin-test</module>
         <module>quick-sse</module>
         <module>quick-multi-api-invoker</module>
         <module>quick-abstract-template</module>

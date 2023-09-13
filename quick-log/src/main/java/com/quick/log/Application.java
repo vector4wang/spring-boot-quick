@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @GitHub: https://github.com/vector4wang
  * @CSDN: http://blog.csdn.net/qqhjqs?viewmode=contents
  * @BLOG: http://vector4wang.tk
- * @wxid: BMHJQS
+ * @wxid: B  MHJQS
  */
 @SpringBootApplication
 @EnableScheduling
