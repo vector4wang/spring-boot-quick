@@ -78,6 +78,7 @@
         <module>quick-sse</module>
         <module>quick-multi-api-invoker</module>
         <module>quick-abstract-template</module>
+        <module>quick-platform-component</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>

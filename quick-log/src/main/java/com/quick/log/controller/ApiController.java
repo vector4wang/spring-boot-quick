@@ -1,10 +1,7 @@
 package com.quick.log.controller;
 
 import com.quick.log.service.LoggerService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -51,6 +48,12 @@ public class ApiController {
 	public String ss() {
 		return "123";
 	}
+
+    @GetMapping("/exception")
+    public String exce() {
+        System.out.println("异常");
+        throw new IllegalArgumentException("异常了");
+    }
 
 
 }
