@@ -20,14 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
+import static com.shiro.quick.shiro.filter.HeaderFilter.HEADER_KEY;
+
 /**
  * https://william-zzw.github.io/2018/07/13/Shiro%E6%98%AF%E5%A6%82%E4%BD%95%E6%8B%A6%E6%88%AA%E6%9C%AA%E7%99%BB%E5%BD%95%E8%AF%B7%E6%B1%82%E7%9A%84(%E4%BA%8C)/
  * 自定义的sessionManager
  */
 @Slf4j
 public class CustomSessionManager extends DefaultWebSessionManager {
-    private static final String AUTH_TOKEN = "Token";
-    private static final String DEVICE = "device";
+//    private static final String AUTH_TOKEN = "Token";
+//    private static final String DEVICE = "device";
     private static final String LOGIN_STATE_ID = "JSESSIONID";
     private static final String MOBILE = "mobile";
 
@@ -49,15 +51,15 @@ public class CustomSessionManager extends DefaultWebSessionManager {
             return null;
         }
         HttpServletRequest httpRequest = WebUtils.toHttp(request);
-        if (StringUtils.hasText(httpRequest.getHeader(AUTH_TOKEN))) {
-            String token = httpRequest.getHeader(AUTH_TOKEN);
-            if (!StringUtils.hasText(httpRequest.getHeader(DEVICE)) || !MOBILE.equals(httpRequest.getHeader(DEVICE))) {
+        if (StringUtils.hasText(httpRequest.getHeader(HEADER_KEY))) {
+            String token = httpRequest.getHeader(HEADER_KEY);
+//            if (!StringUtils.hasText(httpRequest.getHeader(DEVICE)) || !MOBILE.equals(httpRequest.getHeader(DEVICE))) {
 //                token = getLoginStateId(token);
-            }
+//            }
             // 每次读取之后都把当前的token放入response中
             HttpServletResponse httpResponse = WebUtils.toHttp(response);
             if (StringUtils.hasText(token)) {
-                httpResponse.setHeader(AUTH_TOKEN, token);
+                httpResponse.setHeader(HEADER_KEY, token);
                 request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, "header");
                 request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, token);
                 request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
@@ -197,8 +199,8 @@ public class CustomSessionManager extends DefaultWebSessionManager {
         }
         String idString = currentId.toString();
         //增加判断，如果请求头中包含DEVICE=MOBILE，则将sessionId放在header中返回
-        if (StringUtils.hasText(request.getHeader(DEVICE)) && MOBILE.equals(request.getHeader(DEVICE))) {
-            response.setHeader(AUTH_TOKEN, idString);
+        if (StringUtils.hasText(request.getHeader(HEADER_KEY))) {
+            response.setHeader(HEADER_KEY, idString);
         } else {
             Cookie template = getSessionIdCookie();
             Cookie cookie = new SimpleCookie(template);
@@ -215,8 +217,8 @@ public class CustomSessionManager extends DefaultWebSessionManager {
      * @param response HttpServletResponse
      */
     private void removeSessionIdCookie(HttpServletRequest request, HttpServletResponse response) {
-        if (StringUtils.hasText(request.getHeader(AUTH_TOKEN))) {
-            response.setHeader(AUTH_TOKEN, Cookie.DELETED_COOKIE_VALUE);
+        if (StringUtils.hasText(request.getHeader(HEADER_KEY))) {
+            response.setHeader(HEADER_KEY, Cookie.DELETED_COOKIE_VALUE);
         } else {
             getSessionIdCookie().removeFrom(request, response);
         }
