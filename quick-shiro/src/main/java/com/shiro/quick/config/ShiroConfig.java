@@ -1,25 +1,21 @@
 package com.shiro.quick.config;
 
-import com.shiro.quick.shiro.CustomWebSessionManager;
-import com.shiro.quick.shiro.HeaderDefaultSubjectFactory;
+import com.shiro.quick.shiro.CustomSessionManager;
 import com.shiro.quick.shiro.filter.HeaderFilter;
-import com.shiro.quick.shiro.realm.CustomModularRealmAuthenticator;
 import com.shiro.quick.shiro.realm.HeaderRealm;
 import com.shiro.quick.shiro.realm.MyRealm;
 import com.shiro.quick.shiro.realm.OtherRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
-import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
-import org.apache.shiro.mgt.DefaultSubjectDAO;
-import org.apache.shiro.mgt.DefaultSubjectFactory;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
@@ -55,11 +51,19 @@ public class ShiroConfig {
         return myRealm;
     }
 
+    /**
+     * 头部指定key认证
+     * @return
+     */
     @Bean
     public HeaderRealm headerRealm() {
         return new HeaderRealm();
     }
 
+    /**
+     * 其他认证
+     * @return
+     */
     @Bean
     public OtherRealm otherRealm() {
         OtherRealm otherRealm = new OtherRealm();
@@ -71,57 +75,46 @@ public class ShiroConfig {
     }
 
 
-//    //    @Bean
-//    public ModularRealmAuthenticator authenticator() {
-//        ModularRealmAuthenticator modularRealmAuthenticator = new ModularRealmAuthenticator();
-//        LinkedList<Realm> realmLinkedList = new LinkedList<>();
-//        realmLinkedList.add(myRealm());
-////        realmLinkedList.add(otherRealm());
-//        realmLinkedList.add(new HeaderRealm());
-//
-//        modularRealmAuthenticator.setRealms(realmLinkedList);
-//        /**
-//         * 认证通过策略
-//         *
-//         * 所有领域、仅 1 个或多个领域、没有领域等都成功
-//         */
-////        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
-//        modularRealmAuthenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
-//
-//
-//        return modularRealmAuthenticator;
-//    }
+    @Bean
+    public ModularRealmAuthenticator authenticator() {
+        ModularRealmAuthenticator modularRealmAuthenticator = new ModularRealmAuthenticator();
+        LinkedList<Realm> realmLinkedList = new LinkedList<>();
+        realmLinkedList.add(myRealm());
+        realmLinkedList.add(otherRealm());
+        realmLinkedList.add(new HeaderRealm());
 
-    /**
-     * 注册 sessionManager
-     * 防止重定向的url带有sessionid
-     */
-//    @Bean
-    public DefaultWebSessionManager sessionManager() {
-        DefaultWebSessionManager defaultSessionManager = new CustomWebSessionManager();
-        //将sessionIdUrlRewritingEnabled属性设置成false，可以防止重定向携带 JSessionID
-        defaultSessionManager.setSessionIdUrlRewritingEnabled(false);
-        return defaultSessionManager;
+        modularRealmAuthenticator.setRealms(realmLinkedList);
+        /**
+         * 认证通过策略
+         *
+         * 所有领域、仅 1 个或多个领域、没有领域等都成功
+         */
+//        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+
+
+        return modularRealmAuthenticator;
+    }
+
+
+    @Bean("sessionManager")
+    public SessionManager sessionManager() {
+        DefaultWebSessionManager sm = new CustomSessionManager();
+        sm.setSessionValidationInterval(10800000L);
+        sm.setGlobalSessionTimeout(10800000L);
+        sm.setSessionValidationSchedulerEnabled(Boolean.FALSE);
+        sm.setSessionIdUrlRewritingEnabled(Boolean.FALSE);
+        sm.setSessionIdCookieEnabled(true);
+        sm.setSessionIdCookie(sessionIdCookie());
+        return sm;
     }
 
     @Bean
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager(SessionManager sessionManager,ModularRealmAuthenticator authenticator) {
         DefaultWebSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
-        CustomModularRealmAuthenticator customModularRealmAuthenticator = new CustomModularRealmAuthenticator();
-        LinkedList<Realm> realmLinkedList = new LinkedList<>();
-        realmLinkedList.add(myRealm());
-        realmLinkedList.add(headerRealm());
-        customModularRealmAuthenticator.setRealms(realmLinkedList);
-        customModularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
-        defaultSecurityManager.setAuthenticator(customModularRealmAuthenticator);
-        /**
-         * 多领域认证
-         * defaultSecurityManager.setAuthenticator(authenticator());
-         */
-        defaultSecurityManager.setSessionManager(sessionManager());
+        defaultSecurityManager.setAuthenticator(authenticator);
+        defaultSecurityManager.setSessionManager(sessionManager);
 //		defaultSecurityManager.setSubjectFactory(new HeaderDefaultSubjectFactory());
-
-
 
         return defaultSecurityManager;
     }
@@ -129,21 +122,15 @@ public class ShiroConfig {
     public SimpleCookie sessionIdCookie(){
         //这个参数是cookie的名称
         SimpleCookie simpleCookie = new SimpleCookie("JSESSIONID");
-        //setcookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。
-        //它有以下特点：
-        //setcookie()的第七个参数
-        //设为true后，只能通过http访问，javascript无法访问
-        //防止xss读取cookie
         simpleCookie.setHttpOnly(true);
         simpleCookie.setSecure(true);
-        simpleCookie.setPath("/");
         //maxAge=-1表示浏览器关闭时失效此Cookie
-        simpleCookie.setMaxAge(-1);
+        simpleCookie.setMaxAge(10800000);
         return simpleCookie;
     }
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean() {
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
 
         /**
@@ -156,7 +143,7 @@ public class ShiroConfig {
         filterMap.put("hf", new HeaderFilter());
         factoryBean.setFilters(filterMap);
 
-        factoryBean.setSecurityManager(securityManager());
+        factoryBean.setSecurityManager(securityManager);
         factoryBean.setLoginUrl("/login");
         factoryBean.setSuccessUrl("/index");
         factoryBean.setUnauthorizedUrl("/unauthorized");
@@ -197,9 +184,9 @@ public class ShiroConfig {
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
 }
