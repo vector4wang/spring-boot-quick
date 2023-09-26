@@ -11,8 +11,6 @@
         <!--  基础依赖包 -->
         <module>quick-platform</module>
         <module>quick-framework</module>
-
-
         <module>quick-swagger</module>
         <module>quick-modules</module>
         <module>quick-package-assembly</module>
@@ -77,12 +75,12 @@
         <module>quick-sharding-jdbc</module>
         <module>quick-shiro-cas</module>
         <module>quick-maven-plugin</module>
-        <module>quick-maven-plugin-test</module>
         <module>quick-sse</module>
         <module>quick-multi-api-invoker</module>
         <module>quick-abstract-template</module>
         <module>quick-abstract-template2</module>
         <module>quick-api-invoker</module>
+        <module>quick-platform-component</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>
