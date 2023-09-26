@@ -1,4 +1,4 @@
-package com.quick.component.common;
+package com.quick.common.base.rest;
 
 import java.util.Date;
 
@@ -77,7 +77,6 @@ public class BaseResp<T> {
     public BaseResp(ResultStatus resultStatus) {
         this.code = resultStatus.getErrorCode();
         this.message = resultStatus.getErrorMsg();
-        this.data = data;
         this.currentTime = new Date().getTime();
     }
 

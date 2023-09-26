@@ -81,6 +81,7 @@
         <module>quick-abstract-template2</module>
         <module>quick-api-invoker</module>
         <module>quick-platform-component</module>
+        <module>quick-platform-common</module>
     </modules>
     <packaging>pom</packaging>
     <description>使用springboot框架做的一些例子，做个记录，以后方便即拿即用</description>

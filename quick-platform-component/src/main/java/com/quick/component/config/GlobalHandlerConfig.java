@@ -1,7 +1,7 @@
 package com.quick.component.config;
 
-import com.quick.component.common.BaseResp;
-import com.quick.component.common.ResultStatus;
+import com.quick.common.base.rest.BaseResp;
+import com.quick.common.base.rest.ResultStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

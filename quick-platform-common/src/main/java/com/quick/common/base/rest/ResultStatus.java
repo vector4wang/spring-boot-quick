@@ -1,13 +1,11 @@
-package com.quick.component.common;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.quick.common.base.rest;
 
 /**
  错误码
  * @author vector
  *
  */
+
 public enum ResultStatus {
 
 	// -1为通用失败（根据ApiResult.java中的构造方法注释而来）
@@ -85,14 +83,7 @@ public enum ResultStatus {
 	no_login(1000,"没有登录"),
 	config_error(1001,"参数配置表错误"),
 	user_exist(1002,"用户名已存在"),
-	userpwd_not_exist(1003,"用户名不存在或者密码错误"),
-
-
-
-
-	;
-	private static final Logger LOGGER = LoggerFactory.getLogger(ResultStatus.class);
-
+	userpwd_not_exist(1003,"用户名不存在或者密码错误");
 
 	private int code;
 	private String msg;
@@ -100,25 +91,6 @@ public enum ResultStatus {
 	ResultStatus(int code, String msg){
 		this.code = code;
 		this.msg = msg;
-	}
-
-	public static int getCode(String define){
-		try {
-			return ResultStatus.valueOf(define).code;
-		} catch (IllegalArgumentException e) {
-			LOGGER.error("undefined error code: {}", define);
-			return FAIL.getErrorCode();
-		}
-	}
-
-	public static String getMsg(String define){
-		try {
-			return ResultStatus.valueOf(define).msg;
-		} catch (IllegalArgumentException e) {
-			LOGGER.error("undefined error code: {}", define);
-			return FAIL.getErrorMsg();
-		}
-
 	}
 
 	public static String getMsg(int code){
