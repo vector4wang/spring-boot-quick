@@ -14,7 +14,7 @@ public class MyBatisPlusGenerator {
 
     public static final String OUT_DIR = "D:\\github\\spring-boot-quick\\quick-archetype\\src\\main\\java";
 
-
+      
     // 处理 all 情况
     protected static List<String> getTables(String tables) {
         return "all".equals(tables) ? Collections.emptyList() : Arrays.asList(tables.split(","));
