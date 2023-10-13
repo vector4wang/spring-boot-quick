@@ -1,7 +1,7 @@
 package com.quick.mapper;
 
-import com.quick.entity.CtKeyPoolEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.quick.entity.CtKeyPoolEntity;
 
 /**
  * <p>
