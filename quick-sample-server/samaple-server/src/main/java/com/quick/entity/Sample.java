@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("ct_key_pool")
-public class CtKeyPoolEntity implements Serializable {
+public class Sample implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
