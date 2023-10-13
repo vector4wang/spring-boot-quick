@@ -10,7 +10,8 @@
         <relativePath>../quick-platform/pom.xml</relativePath>
     </parent>
 
-    <artifactId>quick-archetype</artifactId>
+    <artifactId>quick-sample-server</artifactId>
+<!--    <packaging>maven-archetype</packaging>-->
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -62,7 +63,6 @@
 
 
     <build>
-        <finalName>czxy-SSM</finalName>
 
         <plugins>
             <!-- 加入maven-archetype-plugin插件 -->
