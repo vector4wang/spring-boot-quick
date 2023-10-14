@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>sample-api</module>
-        <module>samaple-server</module>
+        <module>sample-server</module>
     </modules>
     <!--    <packaging>maven-archetype</packaging>-->
 

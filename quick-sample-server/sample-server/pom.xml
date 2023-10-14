@@ -6,7 +6,7 @@
         <artifactId>quick-sample-server</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>samaple-server</artifactId>
-    <name>Archetype - samaple-server</name>
+    <artifactId>sample-server</artifactId>
+    <name>Archetype - sample-server</name>
     <url>http://maven.apache.org</url>
 </project>

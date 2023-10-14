@@ -2,7 +2,7 @@ package com.quick.service.impl;
 
 import com.quick.entity.Sample;
 import com.quick.mapper.SampleMapper;
-import com.quick.service.CtKeyPoolService;
+import com.quick.service.SampleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2023-09-27
  */
 @Service
-public class CtKeyPoolServiceImp extends ServiceImpl<SampleMapper, Sample> implements CtKeyPoolService {
+public class SampleServiceImp extends ServiceImpl<SampleMapper, Sample> implements SampleService {
 
 }

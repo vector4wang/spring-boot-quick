@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/ct-key-pool-entity")
-public class CtKeyPoolController {
+public class SampleController {
 
 }
 

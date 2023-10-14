@@ -1,6 +1,6 @@
 import com.quick.CustomApplication;
 import com.quick.entity.Sample;
-import com.quick.service.CtKeyPoolService;
+import com.quick.service.SampleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @SpringBootTest(classes = CustomApplication.class)
 public class TestMain {
     @Autowired
-    private CtKeyPoolService ctKeyPoolService;
+    private SampleService ctKeyPoolService;
     @Test
     public void testSelect() {
         List<Sample> list = ctKeyPoolService.list();
