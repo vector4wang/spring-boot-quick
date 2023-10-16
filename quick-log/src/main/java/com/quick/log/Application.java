@@ -1,6 +1,7 @@
 package com.quick.log;
 
-import com.quick.component.enables.EnableGlobalExceptionHandler;
+import com.quick.component.enables.QsEnableAroundLog;
+import com.quick.component.enables.QsEnableGlobalExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -14,7 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-@EnableGlobalExceptionHandler
+@QsEnableGlobalExceptionHandler
+@QsEnableAroundLog
 public class Application {
     public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

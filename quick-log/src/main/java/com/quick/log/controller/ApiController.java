@@ -27,10 +27,6 @@ public class ApiController {
         Map<String,Object> result = new HashMap<>();
         result.put("name",name);
         result.put("age",age);
-        for(int i=0;i<100000000;i++) {
-
-            loggerService.showLog();
-        }
         return result;
     }
 
