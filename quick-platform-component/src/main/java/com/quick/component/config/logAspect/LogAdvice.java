@@ -1,14 +1,11 @@
-package com.quick.component.config;
+package com.quick.component.config.logAspect;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,45 +21,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Aspect
 @Slf4j
-public class WebLogAspect {
+public class LogAdvice implements MethodInterceptor {
 
-//    @Pointcut("execution(public * com.quick.log..controller.*.*(..))")//两个..代表所有子目录，最后括号里的两个..代表所有参数
-//    @Pointcut("${pointcut.value}")//两个..代表所有子目录，最后括号里的两个..代表所有参数
-//    @Pointcut("#{@value}")//两个..代表所有子目录，最后括号里的两个..代表所有参数
-//    public void logPointCut() {
-//    }
-//
-//    @Before("logPointCut()")
-//    public void doBefore(JoinPoint joinPoint) throws Throwable {
-//    }
-//
-//    @AfterReturning(returning = "ret", pointcut = "logPointCut()")// returning的值和doAfterReturning的参数名一致
-//    public void doAfterReturning(Object ret) throws Throwable {
-//    }
+    @Override
+    public Object invoke(MethodInvocation methodInvocation) throws Throwable {
 
-//    @Around("logPointCut()")
-    @Around("execution(public * com..controller.*.*(..))")
-    public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-        //获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         //记录请求信息
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        Object result = pjp.proceed();
+        Object result = methodInvocation.proceed();
         stopWatch.stop();
-
-        Signature signature = pjp.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        Method method = methodSignature.getMethod();
+        Method method = methodInvocation.getMethod();
         String urlStr = request.getRequestURL().toString();
         log.info("===================================begin==================================================");
         log.info("req path: {}", StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
         log.info("req ip: {}", request.getRemoteUser());
         log.info("req method: {}", request.getMethod());
-        log.info("req params: {}", getParameter(method, pjp.getArgs()));
+        log.info("req params: {}", getParameter(method, methodInvocation.getArguments()));
         log.info("req result: {}", JSONUtil.toJsonStr(result));
         log.info("req uri: {}", request.getRequestURI());
         log.info("req url: {}", request.getRequestURL().toString());
@@ -71,10 +49,6 @@ public class WebLogAspect {
         return result;
     }
 
-
-    /**
-     * 根据方法和传入的参数获取请求参数
-     */
     private Object getParameter(Method method, Object[] args) {
         List<Object> argList = new ArrayList<>();
         Parameter[] parameters = method.getParameters();
@@ -104,4 +78,6 @@ public class WebLogAspect {
             return argList;
         }
     }
+
+
 }

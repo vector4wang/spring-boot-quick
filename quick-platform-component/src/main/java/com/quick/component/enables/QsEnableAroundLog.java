@@ -1,6 +1,6 @@
 package com.quick.component.enables;
 
-import com.quick.component.config.WebLogAspect;
+import com.quick.component.config.logAspect.WebLogAspectConfig;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(WebLogAspect.class)
+@Import(WebLogAspectConfig.class)
 public @interface QsEnableAroundLog {
 
     String value() default "execution(public * com.*..controller.*.*(..))";
