@@ -1,0 +1,37 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ * @version ${cfg.version}
+ */
+#set($entityName = ${entity.substring(0,1).toLowerCase()}+${entity.substring(1)})
+@Service
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+    @Override
+    public boolean saveEntity(${entity} $entityName) {
+            this.saveOrUpdate(sampleTable);
+            return true;
+            }
+
+    @Override
+    public void delete(String id) {
+            this.removeById(id);
+            }
+
+    @Override
+    public List<SampleTable> pageList(${entity} $entityName) {
+        return this.list();
+    }
+}

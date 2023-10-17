@@ -4,13 +4,15 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MyBatisPlusWithTemplateGenerator {
+public class MyBatisPlusWithTemplateGenerator extends BaseGenerator {
 
-    public static final String OUT_DIR = "D:\\github\\spring-boot-quick\\quick-archetype\\src\\main\\java";
+    // TODO
+    public static final String OUT_DIR = "D:\\develop\\code\\temp";
 
 
     // 处理 all 情况
@@ -18,12 +20,15 @@ public class MyBatisPlusWithTemplateGenerator {
         return "all".equals(tables) ? Collections.emptyList() : Arrays.asList(tables.split(","));
     }
 
-    public static void main(String[] args) {
-        FastAutoGenerator.create("", "", "")
+
+    public static void main(String[] args) throws IOException {
+        FastAutoGenerator.create(dataSourceGenerate())
                 // 全局配置
                 .globalConfig((scanner, builder) -> {
-                    builder.author(scanner.apply("请输入作者")).fileOverride();
-                    builder.outputDir(OUT_DIR);
+                    builder.author(scanner.apply("请输入作者"))
+                            .fileOverride()
+                            .outputDir(OUT_DIR);
+
                 })
                 // 包配置
                 .packageConfig((scanner, builder) -> {
@@ -37,6 +42,7 @@ public class MyBatisPlusWithTemplateGenerator {
                             .controllerBuilder()
                             .enableRestStyle()
                             .enableHyphenStyle()
+                            .superClass("com.quick.common.base.rest.BaseController")
                             .build();
 
                     builder.serviceBuilder()
@@ -48,15 +54,16 @@ public class MyBatisPlusWithTemplateGenerator {
                             .enableLombok()
                             .enableTableFieldAnnotation()
                             .versionColumnName("version")
-                            .logicDeleteColumnName("is_delete")
+//                            .logicDeleteColumnName("is_delete")
                             .columnNaming(NamingStrategy.underline_to_camel)
 //                            .idType(IdType.AUTO)
-                            .formatFileName("%sEntity")
+                            .formatFileName("%s")
                             .build();
 
                     // mapper xml配置
                     builder.mapperBuilder()
                             .formatMapperFileName("%sMapper")
+                            .superClass("com.baomidou.mybatisplus.core.mapper.BaseMapper")
                             .enableBaseColumnList()
                             .enableBaseResultMap()
                             .build();
@@ -69,13 +76,13 @@ public class MyBatisPlusWithTemplateGenerator {
                             .controller("/templates/controller.java.vm");
                 })
                 //注入配置————自定义模板
-                .injectionConfig(builder -> builder
-                        .beforeOutputFile((tableInfo, objectMap) -> {
-                            System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
-                        }) //输出文件之前消费者
-                        .customMap(Collections.singletonMap("my_field", "自定义配置 Map 对象")) //自定义配置 Map 对象
-                        .customFile(Collections.singletonMap("query.java", "/templates/query.java.vm")) //自定义配置模板文件
-                        .build())//加入构建队列
+//                .injectionConfig(builder -> builder
+//                        .beforeOutputFile((tableInfo, objectMap) -> {
+//                            System.out.println("tableInfo: " + tableInfo.getEntityName() + " objectMap: " + objectMap.size());
+//                        }) //输出文件之前消费者
+//                        .customMap(Collections.singletonMap("my_field", "自定义配置 Map 对象")) //自定义配置 Map 对象
+//                        .customFile(Collections.singletonMap("query.java", "/templates/query.java.vm")) //自定义配置模板文件
+//                        .build())//加入构建队列
                 .execute();
     }
 }

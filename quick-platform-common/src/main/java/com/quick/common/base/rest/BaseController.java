@@ -5,6 +5,14 @@ package com.quick.common.base.rest;
  */
 public interface BaseController {
 
+    default BaseResp<Boolean> success() {
+        return BaseResp.success();
+    }
+
+    default <T> BaseResp<T> success(T data) {
+        return success(data,"");
+    }
+
     default <T> BaseResp<T> success(T data, String msg) {
         return BaseResp.success(data, msg);
     }

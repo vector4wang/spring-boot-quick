@@ -95,6 +95,12 @@ public class BaseResp<T> {
         this.currentTime = new Date().getTime();
     }
 
+    public static BaseResp<Boolean> success() {
+        BaseResp<Boolean> response = new BaseResp<Boolean>();
+        response.setCode(ResultStatus.SUCCESS);
+        return response;
+    }
+
     public static <T> BaseResp<T> success(T data, String msg) {
         BaseResp<T> response = new BaseResp<T>();
         response.setCode(ResultStatus.SUCCESS);

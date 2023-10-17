@@ -1,27 +1,25 @@
 package com.quick.utils;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.config.OutputFile;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MyBatisPlusGenerator {
+public class MyBatisPlusGenerator extends BaseGenerator {
 
     public static final String OUT_DIR = "D:\\github\\spring-boot-quick\\quick-archetype\\src\\main\\java";
 
-      
+
     // 处理 all 情况
     protected static List<String> getTables(String tables) {
         return "all".equals(tables) ? Collections.emptyList() : Arrays.asList(tables.split(","));
     }
 
-    public static void main(String[] args) {
-        FastAutoGenerator.create("", "", "")
+    public static void main(String[] args) throws IOException {
+        FastAutoGenerator.create(dataSourceGenerate())
                 // 全局配置
                 .globalConfig((scanner, builder) -> {
                     builder.author(scanner.apply("请输入作者")).fileOverride();

@@ -1,0 +1,70 @@
+package ${package.Controller};
+
+import ${package.Entity}.${entity};
+import ${package.Service}.${table.serviceName};
+import cn.hutool.core.lang.Assert;
+import com.quick.common.base.rest.BaseResp;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+#if(${superControllerClassPackage})
+import $!{superControllerClassPackage};
+#end
+
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ * @version ${cfg.version}
+ */
+#set($entityName = ${entity.substring(0,1).toLowerCase()}+${entity.substring(1)})
+@RestController
+@RequestMapping(value = {"/${table.entityPath}" },
+        produces = MediaType.APPLICATION_JSON_VALUE)
+public class ${table.controllerName} implements ${superControllerClass} {
+
+    @Autowired
+    private ${table.serviceName} ${entityName}Service;
+
+    @ResponseBody
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public BaseResp list(@RequestBody ${entity} page){
+
+            return success(${entityName}Service.pageList(page));
+            }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public BaseResp<${entity}> detail(@PathVariable String id) {
+        return success(${entityName}Service.getById(id));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public BaseResp<Boolean> save(@RequestBody ${entity} $entityName){
+        ${entityName}Service.saveEntity($entityName);
+            return success();
+            }
+
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public BaseResp<Boolean> update(@PathVariable String id,@RequestBody ${entity} $entityName){
+            Assert.notEmpty(id,"ID不能为空");
+        ${entityName}Service.updateById($entityName);
+            return success();
+            }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public BaseResp<Boolean> delete(@PathVariable String id){
+        ${entityName}Service.delete(id);
+            return success();
+            }
+
+}

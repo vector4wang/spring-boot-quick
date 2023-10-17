@@ -1,0 +1,26 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ * @version ${cfg.version}
+ */
+#set($entityName = ${entity.substring(0,1).toLowerCase()}+${entity.substring(1)})
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+
+
+    List<${entity}> pageList(${entity} $entityName);
+
+    boolean saveEntity(${entity} $entityName);
+
+    void delete(String id);
+
+
+}

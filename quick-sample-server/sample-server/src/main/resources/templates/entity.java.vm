@@ -1,0 +1,154 @@
+package ${package.Entity};
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+
+#if(${entityLombokModel})
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+#end
+#if(${swagger2})
+import io.swagger.annotations.ApiModelProperty;
+#end
+
+
+/**
+ * <p>
+ * $!{table.comment}
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ * @version ${cfg.version}
+ */
+#if(${entityLombokModel})
+@Data
+@Accessors(chain = true)
+#end
+@TableName("${table.name}")
+#if(${superEntityClass})
+public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
+#elseif(${activeRecord})
+public class ${entity} extends Model<${entity}> {
+#else
+public class ${entity} implements Serializable {
+#end
+
+private static final long serialVersionUID = 1L;
+
+## ----------  BEGIN 字段循环遍历  ----------
+
+## ----------  START 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+    #end
+    #if("$!field.comment" != "")
+        #if(${swagger2})
+        /**
+         * ${field.comment}
+         */
+        @ApiModelProperty(value = "${field.comment}")
+        #else
+        /**
+         * ${field.comment}
+         */
+        #end
+    #end
+    ## 主键
+    #if(${field.keyFlag})
+        #if(${field.keyIdentityFlag})
+        @TableId(value = "${field.name}", type = IdType.AUTO)
+        #elseif(!$null.isNull(${idType}) && "$!idType" != "")
+        @TableId(value = "${field.name}", type = IdType.${idType})
+        #elseif(${field.convert})
+        @TableId("${field.name}")
+        #end
+        ## 普通字段
+        #if(${field.fill})
+            ## -----   存在字段填充设置   -----
+            #if(${field.convert})
+            @TableField(value = "${field.name}", fill = FieldFill.${field.fill})
+            #else
+            @TableField(fill = FieldFill.${field.fill})
+            #end
+        #elseif(${field.convert})
+        @TableField("${field.name}")
+        #end
+    #end
+    ## 时间类型
+    #if(${field.name} == ${cfg.createTime})
+    @TableField(fill = FieldFill.INSERT)
+    #elseif(${field.name} == ${cfg.updateTime})
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    #end
+    ## 逻辑删除注解
+    #if(${cfg.logicDeleteFieldName}==${field.name})
+    @TableLogic
+    #end
+private ${field.propertyType} ${field.propertyName};
+#end
+## ----------  END 字段循环遍历  ----------
+
+#if(!${entityLombokModel})
+    #foreach($field in ${table.fields})
+        #if(${field.propertyType.equals("boolean")})
+            #set($getprefix="is")
+        #else
+            #set($getprefix="get")
+        #end
+
+    public ${field.propertyType} ${getprefix}${field.capitalName}() {
+            return ${field.propertyName};
+            }
+
+        #if(${entityBuilderModel})
+        public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+        #else
+        public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+        #end
+            this.${field.propertyName} = ${field.propertyName};
+        #if(${entityBuilderModel})
+                return this;
+        #end
+            }
+    #end
+    ## --foreach end---
+#end
+## --end of
+
+#if(${entityColumnConstant})
+    #foreach($field in ${table.fields})
+    public static final String ${field.name.toUpperCase()} = "${field.name}";
+
+    #end
+#end
+#if(${activeRecord})
+@Override
+protected Serializable pkVal() {
+    #if(${keyPropertyName})
+            return this.${keyPropertyName};
+    #else
+            return this.id;
+    #end
+        }
+
+#end
+#if(!${entityLombokModel})
+@Override
+public String toString() {
+        return "${entity}{" +
+    #foreach($field in ${table.fields})
+        #if($!{velocityCount}==1)
+                "${field.propertyName}=" + ${field.propertyName} +
+        #else
+                ", ${field.propertyName}=" + ${field.propertyName} +
+        #end
+    #end
+        "}";
+        }
+#end
+        }
