@@ -21,7 +21,7 @@ public class MyBatisPlusGenerator {
     }
 
     public static void main(String[] args) {
-        FastAutoGenerator.create("jdbc:mysql://closnew-m.dbsit.sfcloud.local:3306/conversation?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai", "conversation", "Robotkn2022")
+        FastAutoGenerator.create("", "", "")
                 // 全局配置
                 .globalConfig((scanner, builder) -> {
                     builder.author(scanner.apply("请输入作者")).fileOverride();
