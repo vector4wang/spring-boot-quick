@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Import(GlobalHandlerConfig.class)
-public @interface EnableGlobalExceptionHandler {
+public @interface QsEnableGlobalExceptionHandler {
 }

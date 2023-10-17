@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication
 @MapperScan("com.quick.mapper")
+
 public class CustomApplication {
     public static void main(String[] args) {
         SpringApplication.run(CustomApplication.class);

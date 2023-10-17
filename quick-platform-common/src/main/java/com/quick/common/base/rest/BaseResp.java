@@ -9,7 +9,7 @@ public class BaseResp<T> {
     /**
      * 返回码
      */
-    private int code;
+    private ResultStatus code;
 
     /**
      * 返回信息描述
@@ -23,11 +23,12 @@ public class BaseResp<T> {
 
     private long currentTime;
 
-    public int getCode() {
+
+    public ResultStatus getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(ResultStatus code) {
         this.code = code;
     }
 
@@ -55,15 +56,15 @@ public class BaseResp<T> {
         this.currentTime = currentTime;
     }
 
-    public BaseResp(){}
+    public BaseResp() {
+    }
 
     /**
-     *
-     * @param code 错误码
+     * @param code    错误码
      * @param message 信息
-     * @param data 数据
+     * @param data    数据
      */
-    public BaseResp(int code, String message, T data) {
+    public BaseResp(ResultStatus code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -72,24 +73,48 @@ public class BaseResp<T> {
 
     /**
      * 不带数据的返回结果
+     *
      * @param resultStatus
      */
     public BaseResp(ResultStatus resultStatus) {
-        this.code = resultStatus.getErrorCode();
+        this.code = resultStatus;
         this.message = resultStatus.getErrorMsg();
         this.currentTime = new Date().getTime();
     }
 
     /**
      * 带数据的返回结果
+     *
      * @param resultStatus
      * @param data
      */
     public BaseResp(ResultStatus resultStatus, T data) {
-        this.code = resultStatus.getErrorCode();
+        this.code = resultStatus;
         this.message = resultStatus.getErrorMsg();
         this.data = data;
         this.currentTime = new Date().getTime();
+    }
+
+    public static <T> BaseResp<T> success(T data, String msg) {
+        BaseResp<T> response = new BaseResp<T>();
+        response.setCode(ResultStatus.SUCCESS);
+        response.setData(data);
+        response.setMessage(msg);
+        return response;
+    }
+
+    public static BaseResp<String> fail(String msg) {
+        BaseResp<String> response = new BaseResp<String>();
+        response.setCode(ResultStatus.FAIL);
+        response.setMessage(msg);
+        return response;
+    }
+
+    public static BaseResp<String> fail(ResultStatus code, String msg) {
+        BaseResp<String> response = new BaseResp<String>();
+        response.setCode(code);
+        response.setMessage(msg);
+        return response;
     }
 
 
