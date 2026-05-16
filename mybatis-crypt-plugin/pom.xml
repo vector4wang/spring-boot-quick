@@ -20,7 +20,6 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <tk.mybatis.version>3.4.2</tk.mybatis.version>
-<!--        <org.mybatis.version>3.3.0</org.mybatis.version>-->
         <org.mybatis.version>3.5.6</org.mybatis.version>
     </properties>
 
@@ -38,17 +37,8 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <!-- 跟着系统走 -->
             <version>${org.mybatis.version}</version>
-            <!--            <version>3.4.6</version>-->
-            <!--            <version>3.5.6</version>-->
-            <!--            <scope>provided</scope>-->
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis</groupId>-->
-<!--            <artifactId>mybatis-spring</artifactId>-->
-<!--            <version>1.2.2</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
