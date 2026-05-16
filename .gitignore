@@ -40,3 +40,6 @@ nbdist/
 
 log/
 logs/
+
+### Mac OS ###
+.DS_Store
